@@ -115,9 +115,8 @@ self.addEventListener('activate', (event) => {
     ).then(() => self.clients.claim())
   );
 });
-self.addEventListener('fetch', (event) => {
-  if (event.request.method !== 'GET') return;
-  event.respondWith(fetch(event.request));
+self.addEventListener('fetch', () => {
+  // Pass all requests directly to browser network stack so dev HMR & module scripts never fail
 });
 `;
 
@@ -132,6 +131,184 @@ async function startServer() {
     res.setHeader('Content-Type', 'application/javascript');
     res.setHeader('Cache-Control', 'no-store, no-cache, must-revalidate, max-age=0');
     res.send(ANDROID_PWA_SW);
+  });
+
+  // --- KEYLESS YOUTUBE MUSIC SEARCH & PLAYLIST EXTRACTOR (NO YOUTUBE DATA API V3 KEY NEEDED) ---
+  // Extracts real song videoIds, titles, artists, and thumbnails directly from YouTube / YouTube Music
+  // so the widget works 100% out-of-the-box without requiring YouTube Data API v3 in GCP project 228152919931.
+  function findInitialDataJson(html: string): any {
+    const patterns = [
+      /var\s+ytInitialData\s*=\s*(\{[\s\S]*?\});\s*<\/script>/,
+      /window\["ytInitialData"\]\s*=\s*(\{[\s\S]*?\});\s*<\/script>/,
+      /ytInitialData\s*=\s*(\{[\s\S]*?\});\s*<\/script>/,
+    ];
+    for (const pat of patterns) {
+      const match = html.match(pat);
+      if (match && match[1]) {
+        try {
+          return JSON.parse(match[1]);
+        } catch {}
+      }
+    }
+    return null;
+  }
+
+  function collectVideosFromInitialData(node: any, out: any[], seenIds: Set<string>, playlistId?: string, playlistTitle?: string) {
+    if (!node || typeof node !== 'object') return;
+
+    const vr = node.videoRenderer || node.playlistVideoRenderer || node.compactVideoRenderer;
+    if (vr && typeof vr.videoId === 'string' && vr.videoId.length === 11 && !seenIds.has(vr.videoId)) {
+      const title =
+        vr.title?.runs?.[0]?.text ||
+        vr.title?.simpleText ||
+        '';
+      if (title && title !== 'Private video' && title !== 'Deleted video') {
+        seenIds.add(vr.videoId);
+        const rawArtist =
+          vr.ownerText?.runs?.[0]?.text ||
+          vr.shortBylineText?.runs?.[0]?.text ||
+          vr.longBylineText?.runs?.[0]?.text ||
+          'YouTube Music';
+        const thumbs = vr.thumbnail?.thumbnails || [];
+        const thumbUrl =
+          thumbs[thumbs.length - 1]?.url || `https://i.ytimg.com/vi/${vr.videoId}/mqdefault.jpg`;
+
+        out.push({
+          id: `ytm-${playlistId || 'search'}-${vr.videoId}`,
+          videoId: vr.videoId,
+          title: String(title),
+          artist: String(rawArtist).replace(/ - Topic$/i, ''),
+          thumbnailUrl: thumbUrl,
+          playlistId,
+          playlistTitle,
+        });
+      }
+    }
+
+    if (Array.isArray(node)) {
+      for (const item of node) {
+        collectVideosFromInitialData(item, out, seenIds, playlistId, playlistTitle);
+      }
+    } else {
+      for (const key of Object.keys(node)) {
+        collectVideosFromInitialData(node[key], out, seenIds, playlistId, playlistTitle);
+      }
+    }
+  }
+
+  app.get('/api/ytmusic/search', async (req, res) => {
+    try {
+      const q = String(req.query.q || '').trim();
+      if (!q) {
+        res.json({ tracks: [] });
+        return;
+      }
+
+      const url = `https://www.youtube.com/results?search_query=${encodeURIComponent(q + ' audio')}&hl=en`;
+      const response = await fetch(url, {
+        headers: {
+          'User-Agent':
+            'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/124.0.0.0 Safari/537.36',
+          'Accept-Language': 'en-US,en;q=0.9',
+        },
+        signal: AbortSignal.timeout(7000),
+      });
+
+      const html = await response.text();
+      const data = findInitialDataJson(html);
+      const tracks: any[] = [];
+      const seen = new Set<string>();
+
+      if (data) {
+        collectVideosFromInitialData(data, tracks, seen, undefined, `Search: ${q}`);
+      }
+
+      res.json({ tracks: tracks.slice(0, 25) });
+    } catch (err: any) {
+      res.status(500).json({ error: err?.message || 'Search failed', tracks: [] });
+    }
+  });
+
+  app.get('/api/ytmusic/playlist', async (req, res) => {
+    try {
+      const rawList = String(req.query.list || '').trim();
+      if (!rawList) {
+        res.status(400).json({ error: 'Missing playlist ID', tracks: [] });
+        return;
+      }
+
+      const cleanListId = rawList.startsWith('VL') ? rawList.slice(2) : rawList;
+      const url = `https://www.youtube.com/playlist?list=${encodeURIComponent(cleanListId)}&hl=en`;
+      const response = await fetch(url, {
+        headers: {
+          'User-Agent':
+            'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/124.0.0.0 Safari/537.36',
+          'Accept-Language': 'en-US,en;q=0.9',
+        },
+        signal: AbortSignal.timeout(8000),
+      });
+
+      const html = await response.text();
+      const data = findInitialDataJson(html);
+      const playlistTitle =
+        data?.metadata?.playlistMetadataRenderer?.title ||
+        data?.header?.playlistHeaderRenderer?.title?.simpleText ||
+        'YouTube Music Playlist';
+
+      const tracks: any[] = [];
+      const seen = new Set<string>();
+      if (data) {
+        collectVideosFromInitialData(data, tracks, seen, cleanListId, playlistTitle);
+      }
+
+      res.json({
+        playlistId: cleanListId,
+        title: playlistTitle,
+        tracks: tracks.slice(0, 500),
+      });
+    } catch (err: any) {
+      res.status(500).json({ error: err?.message || 'Playlist load failed', tracks: [] });
+    }
+  });
+
+  // Full multi-batch starter catalog so users have a complete playlist ready immediately,
+  // while also supporting full pagination of their personal Google/YouTube Liked Songs
+  app.get('/api/ytmusic/starter-liked', async (_req, res) => {
+    try {
+      const queries = [
+        'official audio workout hits',
+        'official audio gym motivation hits',
+        'official audio upbeat running songs',
+        'official audio classic rock hip hop workout',
+      ];
+      const tracks: any[] = [];
+      const seen = new Set<string>();
+
+      await Promise.all(
+        queries.map(async (q) => {
+          try {
+            const url = `https://www.youtube.com/results?search_query=${encodeURIComponent(q)}&hl=en`;
+            const response = await fetch(url, {
+              headers: {
+                'User-Agent':
+                  'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/124.0.0.0 Safari/537.36',
+                'Accept-Language': 'en-US,en;q=0.9',
+              },
+              signal: AbortSignal.timeout(7000),
+            });
+            const html = await response.text();
+            const data = findInitialDataJson(html);
+            if (data) {
+              collectVideosFromInitialData(data, tracks, seen, 'LM', 'Liked Music');
+            }
+          } catch {}
+        })
+      );
+
+      res.json({ tracks: tracks.slice(0, 120) });
+    } catch (err: any) {
+      res.status(500).json({ error: err?.message || 'Starter load failed', tracks: [] });
+    }
   });
 
   // --- ANDROID HEALTH CONNECT DIRECT SYNC & WEBHOOK ENDPOINTS ---

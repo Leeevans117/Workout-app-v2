@@ -94,25 +94,6 @@ export const MainDashboard: React.FC<MainDashboardProps> = ({
     exerciseIndex: number;
   } | null>(null);
 
-  // Automatically show brief live-syncing indicator on initial app open & foreground focus
-  useEffect(() => {
-    const triggerVisualAutoSync = () => {
-      if (document.visibilityState === 'visible') {
-        setIsSyncingWatchNow(true);
-        const t = setTimeout(() => setIsSyncingWatchNow(false), 1800);
-        return () => clearTimeout(t);
-      }
-    };
-    const cleanup = triggerVisualAutoSync();
-    window.addEventListener('focus', triggerVisualAutoSync);
-    document.addEventListener('visibilitychange', triggerVisualAutoSync);
-    return () => {
-      if (cleanup) cleanup();
-      window.removeEventListener('focus', triggerVisualAutoSync);
-      document.removeEventListener('visibilitychange', triggerVisualAutoSync);
-    };
-  }, []);
-
   const today = new Date();
   const dayOfWeek = today.getDay(); // 0 is Sunday
 
@@ -158,6 +139,7 @@ export const MainDashboard: React.FC<MainDashboardProps> = ({
   }, []);
 
   // Apply live synced today steps from Fitbit/Watch every time it syncs
+  // LOCKED: Do not modify this live Fitbit step sync logic on other feature changes
   useEffect(() => {
     const currentDay = getLocalTodayStr();
     setTodayStr(currentDay);
@@ -166,12 +148,8 @@ export const MainDashboard: React.FC<MainDashboardProps> = ({
     setStepsByDate((prev) => {
       const existing = prev[currentDay];
       if (syncedTodaySteps !== null && syncedTodaySteps > 0) {
-        const bestSteps = Math.max(
-          typeof existing?.steps === 'number' ? existing.steps : 0,
-          syncedTodaySteps
-        );
         const nextEntry: DailyStepsEntry = {
-          steps: bestSteps,
+          steps: syncedTodaySteps,
           syncedAt:
             fitbitLastSync ||
             new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' }),
@@ -182,10 +160,7 @@ export const MainDashboard: React.FC<MainDashboardProps> = ({
           localStorage.setItem(STEPS_STORAGE_KEY, JSON.stringify(nextMap));
         } catch {}
         return nextMap;
-      } else if (
-        !existing?.manualOverride &&
-        !(existing?.hasData && typeof existing.steps === 'number' && existing.steps > 0)
-      ) {
+      } else if (!existing?.manualOverride) {
         const nextEntry: DailyStepsEntry = {
           steps: null,
           syncedAt:

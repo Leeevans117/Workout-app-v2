@@ -130,11 +130,11 @@ export const WorkoutAnatomyModal: React.FC<WorkoutAnatomyModalProps> = ({
               className={`px-3.5 py-2 rounded-xl text-xs font-bold flex items-center gap-1.5 transition-all ${
                 viewMode === 'animation'
                   ? 'bg-emerald-600 text-white shadow-lg shadow-emerald-600/25'
-                  : 'text-slate-400 hover:text-white'
+                  : 'text-slate-300 hover:text-white bg-slate-950/50'
               }`}
             >
-              <Activity className="w-3.5 h-3.5" />
-              <span>2D Joint Kinematics</span>
+              <Activity className="w-3.5 h-3.5 text-emerald-400" />
+              <span>3D Human Model</span>
             </button>
           </div>
 
@@ -267,6 +267,8 @@ export const WorkoutAnatomyModal: React.FC<WorkoutAnatomyModalProps> = ({
         ) : (
           <ExerciseAnimator
             type={exercise.animationType}
+            exerciseId={exercise.id}
+            exerciseName={exercise.name}
             isActive={true}
             phase="active"
           />

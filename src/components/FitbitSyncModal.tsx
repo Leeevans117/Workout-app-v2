@@ -67,24 +67,34 @@ function parseTimestampMs(raw: any): number | null {
 }
 
 function extractPointLocalDate(pt: any, fallbackDateStr: string): string {
-  // 1. Check civilStartTime / civilEndTime / date object { year, month, day } or string
+  // 1. Check civilEndTime / civilStartTime / date object ({ year, month, day } OR { date: { year, month, day } }) or string
   const civilCandidates = [
-    pt?.steps?.interval?.civilStartTime,
-    pt?.steps?.interval?.civilEndTime,
-    pt?.dailySteps?.interval?.civilStartTime,
-    pt?.dailySteps?.date,
-    pt?.exercise?.interval?.civilStartTime,
-    pt?.interval?.civilStartTime,
-    pt?.interval?.civilEndTime,
+    pt?.civilStartTime?.date,
     pt?.civilStartTime,
+    pt?.civilEndTime?.date,
+    pt?.civilEndTime,
+    pt?.steps?.interval?.civilStartTime?.date,
+    pt?.steps?.interval?.civilStartTime,
+    pt?.steps?.interval?.civilEndTime?.date,
+    pt?.steps?.interval?.civilEndTime,
+    pt?.dailySteps?.date,
+    pt?.dailySteps?.interval?.civilStartTime?.date,
+    pt?.dailySteps?.interval?.civilStartTime,
+    pt?.exercise?.interval?.civilStartTime?.date,
+    pt?.exercise?.interval?.civilStartTime,
+    pt?.interval?.civilStartTime?.date,
+    pt?.interval?.civilStartTime,
+    pt?.interval?.civilEndTime?.date,
+    pt?.interval?.civilEndTime,
     pt?.civilDate,
     pt?.date,
   ];
 
   for (const civil of civilCandidates) {
     if (!civil) continue;
-    if (typeof civil === 'object' && civil.year && civil.month && civil.day) {
-      return `${civil.year}-${String(civil.month).padStart(2, '0')}-${String(civil.day).padStart(
+    const obj = civil.date && typeof civil.date === 'object' ? civil.date : civil;
+    if (typeof obj === 'object' && obj.year && obj.month && obj.day) {
+      return `${obj.year}-${String(obj.month).padStart(2, '0')}-${String(obj.day).padStart(
         2,
         '0'
       )}`;
@@ -99,6 +109,7 @@ function extractPointLocalDate(pt: any, fallbackDateStr: string): string {
     pt?.steps?.interval?.startTime,
     pt?.steps?.interval?.endTime,
     pt?.dailySteps?.interval?.startTime,
+    pt?.dailySteps?.interval?.endTime,
     pt?.exercise?.interval?.startTime,
     pt?.interval?.startTime,
     pt?.interval?.endTime,
@@ -121,10 +132,15 @@ function extractPointLocalDate(pt: any, fallbackDateStr: string): string {
 
 function extractStepCountFromPoint(pt: any): number {
   const candidates = [
+    pt?.steps?.countSum,
     pt?.steps?.count,
     pt?.steps?.value,
     pt?.steps?.steps,
     pt?.steps?.totalSteps,
+    pt?.rollupValue?.steps?.countSum,
+    pt?.rollupValue?.countSum,
+    pt?.countSum,
+    pt?.dailySteps?.countSum,
     pt?.dailySteps?.count,
     pt?.dailySteps?.steps,
     pt?.dailySteps?.totalSteps,
@@ -295,64 +311,270 @@ export const FitbitSyncModal: React.FC<FitbitSyncModalProps> = ({
         const startTimeIso = new Date(startMs).toISOString();
 
         // =========================================================================
-        // 0A. LIVE READING OF TODAY'S FITBIT STEPS FROM GOOGLE HEALTH API v4
-        // Queries all v4 step dataTypes and takes the highest reading for TODAY
+        // 0A. LIVE READING OF TODAY'S STEPS FROM GOOGLE HEALTH API v4
+        // Root cause of discrepancy fixed:
+        // 1) Calls POST dataTypes/steps/dataPoints:dailyRollUp & :rollUp (returns StepsRollupValue.countSum)
+        // 2) Calls GET dataTypes/steps/dataPoints:reconcile with civil_start_time & pageSize=10000 (merges Watch + Phone Health app steps)
+        // 3) Calls GET dataTypes/steps/dataPoints with civil_start_time >= today & pageSize=10000 (sums all raw intervals)
         // =========================================================================
         try {
-          const stepUrls = [
-            `https://health.googleapis.com/v4/users/me/dataTypes/dailySteps/dataPoints?pageSize=100`,
-            `https://health.googleapis.com/v4/users/me/dataTypes/steps/dataPoints?filter=${encodeURIComponent(
-              `steps.interval.start_time >= "${startOfTodayIso}"`
-            )}&pageSize=1000`,
-            `https://health.googleapis.com/v4/users/me/dataTypes/steps/dataPoints?pageSize=1000`,
-          ];
+          const tomorrow = new Date(
+            now.getFullYear(),
+            now.getMonth(),
+            now.getDate() + 1,
+            0,
+            0,
+            0
+          );
+          const tomorrowDateStr = toLocalDateStr(tomorrow);
+          const endOfTodayIso = endOfToday.toISOString();
 
           let maxTodayStepsFound = 0;
           let anyTodayPointSeen = false;
 
-          for (const sUrl of stepUrls) {
-            const sRes = await fetch(sUrl, {
-              headers: {
-                Authorization: `Bearer ${accessToken}`,
-                Accept: 'application/json',
+          // 1. Try POST /v4/users/me/dataTypes/steps/dataPoints:dailyRollUp (Official Civil-Day Total)
+          const dailyRollupBodies = [
+            {
+              range: {
+                civilStartTime: {
+                  date: {
+                    year: now.getFullYear(),
+                    month: now.getMonth() + 1,
+                    day: now.getDate(),
+                  },
+                  time: { hours: 0, minutes: 0, seconds: 0 },
+                },
+                civilEndTime: {
+                  date: {
+                    year: tomorrow.getFullYear(),
+                    month: tomorrow.getMonth() + 1,
+                    day: tomorrow.getDate(),
+                  },
+                  time: { hours: 0, minutes: 0, seconds: 0 },
+                },
               },
-            });
+              windowSizeDays: 1,
+            },
+            {
+              range: {
+                civilStartTime: {
+                  year: now.getFullYear(),
+                  month: now.getMonth() + 1,
+                  day: now.getDate(),
+                },
+                civilEndTime: {
+                  year: tomorrow.getFullYear(),
+                  month: tomorrow.getMonth() + 1,
+                  day: tomorrow.getDate(),
+                },
+              },
+              windowSizeDays: 1,
+            },
+          ];
 
-            if (sRes.status === 401) {
-              tokenExpired401 = true;
-              break;
-            }
+          for (const bodyPayload of dailyRollupBodies) {
+            try {
+              const drRes = await fetch(
+                'https://health.googleapis.com/v4/users/me/dataTypes/steps/dataPoints:dailyRollUp',
+                {
+                  method: 'POST',
+                  headers: {
+                    Authorization: `Bearer ${accessToken}`,
+                    'Content-Type': 'application/json',
+                    Accept: 'application/json',
+                  },
+                  body: JSON.stringify(bodyPayload),
+                }
+              );
 
-            if (sRes.ok) {
+              if (drRes.status === 401) {
+                tokenExpired401 = true;
+                break;
+              }
+
+              if (drRes.ok) {
+                const drData: any = await drRes.json().catch(() => ({}));
+                const rPts: any[] =
+                  drData?.rollupDataPoints ||
+                  drData?.dailyRollupDataPoints ||
+                  drData?.dataPoints ||
+                  [];
+                let rollupSum = 0;
+                for (const rp of rPts) {
+                  const c = extractStepCountFromPoint(rp);
+                  if (c > 0) rollupSum += c;
+                }
+                if (rollupSum > maxTodayStepsFound) {
+                  maxTodayStepsFound = Math.round(rollupSum);
+                  anyTodayPointSeen = true;
+                  diagLog.push(
+                    `Google Health v4 dailyRollUp (${todayDateStr}): ${maxTodayStepsFound.toLocaleString()} steps`
+                  );
+                }
+                break;
+              }
+            } catch {}
+          }
+
+          // 2. Try POST /v4/users/me/dataTypes/steps/dataPoints:rollUp (Physical Window Total for Today)
+          if (!tokenExpired401) {
+            try {
+              const windowSec = Math.max(
+                60,
+                Math.floor((endOfToday.getTime() - startOfToday.getTime()) / 1000)
+              );
+              const ruRes = await fetch(
+                'https://health.googleapis.com/v4/users/me/dataTypes/steps/dataPoints:rollUp',
+                {
+                  method: 'POST',
+                  headers: {
+                    Authorization: `Bearer ${accessToken}`,
+                    'Content-Type': 'application/json',
+                    Accept: 'application/json',
+                  },
+                  body: JSON.stringify({
+                    range: {
+                      startTime: startOfTodayIso,
+                      endTime: endOfTodayIso,
+                    },
+                    windowSize: `${windowSec}s`,
+                  }),
+                }
+              );
+
+              if (ruRes.status === 401) {
+                tokenExpired401 = true;
+              } else if (ruRes.ok) {
+                const ruData: any = await ruRes.json().catch(() => ({}));
+                const rPts: any[] = ruData?.rollupDataPoints || ruData?.dataPoints || [];
+                let ruSum = 0;
+                for (const rp of rPts) {
+                  const c = extractStepCountFromPoint(rp);
+                  if (c > 0) ruSum += c;
+                }
+                if (ruSum > maxTodayStepsFound) {
+                  maxTodayStepsFound = Math.round(ruSum);
+                  anyTodayPointSeen = true;
+                  diagLog.push(
+                    `Google Health v4 rollUp (${todayDateStr}): ${maxTodayStepsFound.toLocaleString()} steps`
+                  );
+                }
+              }
+            } catch {}
+          }
+
+          // 3. Query :reconcile AND raw dataPoints with civil_start_time & physical start_time filters (pageSize=10000)
+          const civilFilter = `steps.interval.civil_start_time >= "${todayDateStr}T00:00:00" AND steps.interval.civil_start_time < "${tomorrowDateStr}T00:00:00"`;
+          const physicalFilter = `steps.interval.start_time >= "${startOfTodayIso}"`;
+
+          const stepUrls = [
+            `https://health.googleapis.com/v4/users/me/dataTypes/steps/dataPoints:reconcile?filter=${encodeURIComponent(
+              civilFilter
+            )}&pageSize=10000`,
+            `https://health.googleapis.com/v4/users/me/dataTypes/steps/dataPoints:reconcile?filter=${encodeURIComponent(
+              physicalFilter
+            )}&pageSize=10000`,
+            `https://health.googleapis.com/v4/users/me/dataTypes/steps/dataPoints?filter=${encodeURIComponent(
+              civilFilter
+            )}&pageSize=10000`,
+            `https://health.googleapis.com/v4/users/me/dataTypes/steps/dataPoints?filter=${encodeURIComponent(
+              physicalFilter
+            )}&pageSize=10000`,
+          ];
+
+          for (const baseUrl of stepUrls) {
+            if (tokenExpired401) break;
+            let pageToken = '';
+            let pageCount = 0;
+            let endpointSumToday = 0;
+            let endpointMaxSinglePointToday = 0;
+            let endpointSawToday = false;
+            // Track step sum per data source in case raw dataPoints contains multiple sources
+            const sumBySource: Record<string, number> = {};
+            const isFilteredToTodayOnly =
+              baseUrl.includes('civil_start_time') || baseUrl.includes('start_time');
+
+            while (pageCount < 10) {
+              pageCount++;
+              const sUrl = pageToken
+                ? `${baseUrl}${baseUrl.includes('?') ? '&' : '?'}pageToken=${encodeURIComponent(
+                    pageToken
+                  )}`
+                : baseUrl;
+
+              const sRes = await fetch(sUrl, {
+                headers: {
+                  Authorization: `Bearer ${accessToken}`,
+                  Accept: 'application/json',
+                },
+              });
+
+              if (sRes.status === 401) {
+                tokenExpired401 = true;
+                break;
+              }
+
+              if (!sRes.ok) break;
+
               const sData: any = await sRes.json().catch(() => ({}));
               const pts: any[] =
                 sData?.dataPoints ||
+                sData?.reconciledDataPoints ||
                 sData?.stepsDataPoints ||
                 sData?.dailyStepsDataPoints ||
                 sData?.steps ||
-                sData?.dailySteps ||
                 sData?.data ||
                 [];
 
-              let endpointSumToday = 0;
-              let endpointSawToday = false;
-
               for (const pt of pts) {
-                const dStr = extractPointLocalDate(pt, '');
+                const dStr = extractPointLocalDate(
+                  pt,
+                  isFilteredToTodayOnly ? todayDateStr : ''
+                );
                 const count = extractStepCountFromPoint(pt);
                 if (dStr === todayDateStr) {
                   endpointSawToday = true;
                   if (count > 0) {
                     endpointSumToday += count;
+                    if (count > endpointMaxSinglePointToday) {
+                      endpointMaxSinglePointToday = count;
+                    }
+                    const srcKey = String(
+                      pt?.dataSourceId ||
+                        pt?.originDataSourceId ||
+                        pt?.source?.deviceModel ||
+                        pt?.source?.appId ||
+                        'default'
+                    );
+                    sumBySource[srcKey] = (sumBySource[srcKey] || 0) + count;
                   }
                 }
               }
 
-              if (endpointSawToday) {
-                anyTodayPointSeen = true;
-                if (endpointSumToday > maxTodayStepsFound) {
-                  maxTodayStepsFound = Math.round(endpointSumToday);
-                }
+              const nextToken = sData?.nextPageToken || '';
+              if (!nextToken) break;
+              pageToken = String(nextToken);
+            }
+
+            if (endpointSawToday) {
+              anyTodayPointSeen = true;
+              const isReconciledEndpoint = baseUrl.includes(':reconcile');
+              const sourceTotals = Object.values(sumBySource);
+              const maxSingleSourceTotal =
+                sourceTotals.length > 0 ? Math.max(...sourceTotals) : 0;
+
+              // For :reconcile, all points are already deduplicated across watch + phone.
+              // For raw dataPoints, if only 1 source or if sources are complementary, take the higher of reconciled or source sum.
+              const bestFromEndpoint = isReconciledEndpoint
+                ? Math.max(endpointSumToday, endpointMaxSinglePointToday)
+                : Math.max(
+                    maxSingleSourceTotal,
+                    sourceTotals.length <= 1 ? endpointSumToday : maxSingleSourceTotal,
+                    endpointMaxSinglePointToday
+                  );
+
+              if (bestFromEndpoint > maxTodayStepsFound) {
+                maxTodayStepsFound = Math.round(bestFromEndpoint);
               }
             }
           }
@@ -363,7 +585,6 @@ export const FitbitSyncModal: React.FC<FitbitSyncModalProps> = ({
               `Google Health API v4 Live Steps (${todayDateStr}): ${syncedTodaySteps.toLocaleString()} steps synced`
             );
           } else if (anyTodayPointSeen) {
-            // Keep null for now so we also check Fitness v1 aggregate & today's exercise sessions
             diagLog.push(
               `Google Health API v4 Steps (${todayDateStr}): 0 steps in v4 endpoint, checking Fitness API & workouts...`
             );
@@ -373,9 +594,10 @@ export const FitbitSyncModal: React.FC<FitbitSyncModalProps> = ({
         }
 
         // =========================================================================
-        // 0B. ALSO CHECK GOOGLE FITNESS API v1 AGGREGATE STEPS FOR TODAY (FALLBACK)
+        // 0B. ALWAYS CHECK GOOGLE FITNESS API v1 AGGREGATE & MERGED STEPS FOR TODAY
+        // Runs even if 0A returned a partial batch (e.g. 524 steps) and takes the MAXIMUM
         // =========================================================================
-        if (!tokenExpired401 && (!syncedTodaySteps || syncedTodaySteps === 0)) {
+        if (!tokenExpired401) {
           try {
             const fitAggRes = await fetch(
               'https://www.googleapis.com/fitness/v1/users/me/dataset:aggregate',
@@ -386,7 +608,13 @@ export const FitbitSyncModal: React.FC<FitbitSyncModalProps> = ({
                   'Content-Type': 'application/json',
                 },
                 body: JSON.stringify({
-                  aggregateBy: [{ dataTypeName: 'com.google.step_count.delta' }],
+                  aggregateBy: [
+                    {
+                      dataTypeName: 'com.google.step_count.delta',
+                      dataSourceId:
+                        'derived:com.google.step_count.delta:com.google.android.gms:estimated_steps',
+                    },
+                  ],
                   bucketByTime: { durationMillis: 86400000 },
                   startTimeMillis: startOfToday.getTime(),
                   endTimeMillis: endOfToday.getTime(),
@@ -406,10 +634,10 @@ export const FitbitSyncModal: React.FC<FitbitSyncModalProps> = ({
                   }
                 }
               }
-              if (fitTodayTotal > 0) {
-                syncedTodaySteps = Math.max(syncedTodaySteps ?? 0, fitTodayTotal);
+              if (fitTodayTotal > (syncedTodaySteps ?? 0)) {
+                syncedTodaySteps = fitTodayTotal;
                 diagLog.push(
-                  `Google Fit Steps (${todayDateStr}): ${fitTodayTotal.toLocaleString()} steps synced`
+                  `Google Fit Full-Day Aggregate Steps (${todayDateStr}): ${fitTodayTotal.toLocaleString()} steps synced`
                 );
               }
             }
@@ -703,31 +931,19 @@ export const FitbitSyncModal: React.FC<FitbitSyncModalProps> = ({
           const rawSaved = localStorage.getItem(STEPS_STORAGE_KEY);
           const map = rawSaved ? JSON.parse(rawSaved) : {};
           const existingToday = map[todayDateStr];
+          const existingStepsNum =
+            typeof existingToday?.steps === 'number' ? existingToday.steps : 0;
 
           if (finalTodaySteps !== null && finalTodaySteps > 0) {
-            const bestForToday = Math.max(
-              typeof existingToday?.steps === 'number' ? existingToday.steps : 0,
-              finalTodaySteps
-            );
-            finalTodaySteps = bestForToday;
+            const highestTodaySteps = Math.max(finalTodaySteps, existingStepsNum);
+            finalTodaySteps = highestTodaySteps;
             map[todayDateStr] = {
-              steps: bestForToday,
+              steps: highestTodaySteps,
               syncedAt: nowLabel,
               hasData: true,
-              manualOverride: existingToday?.manualOverride,
+              manualOverride: Boolean(existingToday?.manualOverride && existingStepsNum > finalTodaySteps),
             };
-          } else if (
-            existingToday?.hasData &&
-            typeof existingToday.steps === 'number' &&
-            existingToday.steps > 0
-          ) {
-            // Preserve today's already-synced step count when reopening the app
-            finalTodaySteps = existingToday.steps;
-            map[todayDateStr] = {
-              ...existingToday,
-              syncedAt: nowLabel,
-            };
-          } else if (!existingToday?.manualOverride) {
+          } else if (!existingToday?.hasData && !existingToday?.manualOverride) {
             map[todayDateStr] = {
               steps: null,
               syncedAt: nowLabel,
@@ -842,13 +1058,11 @@ export const FitbitSyncModal: React.FC<FitbitSyncModalProps> = ({
     };
   }, [autoSyncEnabled, lastSyncTime, onStatusChange, syncGoogleHealthWorkouts]);
 
-  const lastHandledTriggerRef = React.useRef<number>(0);
-
   // Triggered on app open, foreground return, or when user clicks "1-Click Sync Watch" on the Dashboard
+  // LOCKED: Do not modify this Fitbit step sync handler on other feature changes
   useEffect(() => {
-    if (!syncTrigger || syncTrigger === lastHandledTriggerRef.current) return;
-    lastHandledTriggerRef.current = syncTrigger;
-    handleOneClickSync(true);
+    if (!syncTrigger) return;
+    handleOneClickSync(false);
   }, [syncTrigger, handleOneClickSync]);
 
   const handleGoogleSignIn = async (forceConsent = false) => {

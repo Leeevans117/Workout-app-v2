@@ -10,6 +10,8 @@ import firebaseConfig from '../../firebase-applet-config.json';
 
 export const SCOPES = [
   'https://www.googleapis.com/auth/googlehealth.activity_and_fitness.readonly',
+  'https://www.googleapis.com/auth/fitness.activity.read',
+  'https://www.googleapis.com/auth/youtube.readonly',
 ];
 
 const app = getApps().length > 0 ? getApp() : initializeApp(firebaseConfig);

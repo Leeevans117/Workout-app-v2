@@ -51,18 +51,18 @@ export const McGillBig3Module: React.FC<McGillBig3ModuleProps> = ({
               The McGill Big 3
             </h1>
             <p className="text-sm text-slate-300 mt-2.5 leading-relaxed">
-              Clinically engineered to spare the lumbar spine from harmful compressive forces while maximizing circumferential torso stiffness. Includes the mandatory 10-second preparation countdown before each movement.
+              Clinically engineered by Dr. Stuart McGill to spare the lumbar spine from compressive loads while building 360° core endurance: <strong>6-4-2 Russian Descending Pyramid</strong> on Curl-Ups, <strong>6 reps on each side</strong> for Side Plank &amp; Bird Dog, <strong>10-second isometric holds</strong>, and a <strong>3-second countdown</strong> at the end of each 10s micro-cooldown before the next rep begins.
             </p>
 
             <div className="flex flex-wrap items-center gap-3 mt-5 text-xs font-mono text-slate-400">
               <span className="flex items-center gap-1.5 bg-slate-900/60 px-3 py-1 rounded-full border border-slate-800">
-                <Clock className="w-3.5 h-3.5 text-purple-400" /> 10s Prep Countdown
+                <Layers className="w-3.5 h-3.5 text-purple-400" /> 6 Reps Each Side (12 Holds)
               </span>
               <span className="flex items-center gap-1.5 bg-slate-900/60 px-3 py-1 rounded-full border border-slate-800">
-                <Layers className="w-3.5 h-3.5 text-blue-400" /> 10s Isometric Holds
+                <Clock className="w-3.5 h-3.5 text-blue-400" /> 10s Hold • 10s Cooldown
               </span>
               <span className="flex items-center gap-1.5 bg-slate-900/60 px-3 py-1 rounded-full border border-slate-800">
-                <HeartPulse className="w-3.5 h-3.5 text-emerald-400" /> True Spine Neutrality
+                <HeartPulse className="w-3.5 h-3.5 text-emerald-400" /> 3s Countdown in Cooldown
               </span>
             </div>
           </div>
@@ -76,7 +76,7 @@ export const McGillBig3Module: React.FC<McGillBig3ModuleProps> = ({
               <span>Start All 3 Exercises</span>
             </button>
             <span className="text-[11px] text-center text-purple-300/70">
-              Includes 10s prep timer before each exercise
+              10s holds • 3s countdown in cooldown before next rep
             </span>
           </div>
         </div>
@@ -109,7 +109,7 @@ export const McGillBig3Module: React.FC<McGillBig3ModuleProps> = ({
                       Exercise 0{idx + 1}
                     </span>
                     <span className="text-[10px] font-mono text-slate-400">
-                      10s Prep • 10s Holds
+                      {idx === 0 ? '6-4-2 Reps • 10s Hold' : '6 Reps/Side • 10s Hold'}
                     </span>
                   </div>
 
@@ -167,7 +167,7 @@ export const McGillBig3Module: React.FC<McGillBig3ModuleProps> = ({
               className="py-2.5 px-5 rounded-full bg-purple-600 hover:bg-purple-500 text-white font-bold text-xs sm:text-sm flex items-center gap-2 shadow-lg shadow-purple-600/30 transition-transform active:scale-[0.98]"
             >
               <Play className="w-4 h-4 fill-current" />
-              <span>Start with 10s Prep</span>
+              <span>Start Exercise Now</span>
             </button>
           </div>
         </div>

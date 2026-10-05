@@ -1,13 +1,13 @@
 import { WorkoutRoutine } from '../types/workout';
 
-// 1. PURE McGILL BIG 3 (Strictly the 3 core stability exercises)
+// 1. PURE McGILL BIG 3 (Strictly the 3 core stability exercises — Dr. Stuart McGill Protocol)
 export const MCGILL_BIG_3_ROUTINE: WorkoutRoutine = {
   id: 'mcgill-big-3',
   title: 'McGill Big 3',
-  subtitle: 'Dr. Stuart McGill Spine Stability Protocol',
+  subtitle: 'Dr. Stuart McGill Spine Stability Protocol (10s Holds • 6 Reps Per Side)',
   tag: 'Spine Hygiene',
   category: 'mcgill',
-  durationMinutes: 15,
+  durationMinutes: 12,
   estimatedCalories: 95,
   accentColor: 'purple',
   isMcGillSpecial: true,
@@ -15,114 +15,125 @@ export const MCGILL_BIG_3_ROUTINE: WorkoutRoutine = {
   exercises: [
     {
       id: 'mcgill-curl-up',
-      name: 'McGill Modified Curl-Up',
+      name: 'McGill Modified Curl-Up (6-4-2 Pyramid)',
       category: 'mcgill',
       animationType: 'mcgill-curlup',
-      defaultSets: 4,
-      defaultReps: 5,
+      defaultSets: 12,
+      defaultReps: 1,
+      repLabel: '10s Isometric Hold (6-4-2 Pyramid = 12 Total Reps)',
       defaultHoldSeconds: 10,
-      defaultRestSeconds: 25,
-      prepCountdownSeconds: 10,
-      description: 'Activates the rectus abdominis while strictly maintaining lumbar lordosis. Hands stay under lower back.',
+      defaultRestSeconds: 10,
+      prepCountdownSeconds: 0,
+      description:
+        'Dr. McGill Russian Descending Pyramid (6 reps, 4 reps, 2 reps = 12 total 10-second isometric holds) with 10s micro-rest and a 3s countdown before each rep.',
       formCues: [
         'Hands palms-down under lumbar spine to ensure spine does NOT flatten',
-        'One knee bent at 90°, other leg extended flat on floor',
-        'Lift only head and upper shoulders as a solid block; pivot around thoracic spine',
-        'Hold each repetition for 10 seconds while breathing normally',
-        'No chin poking; maintain tongue on roof of mouth'
+        'One knee bent at 90°, other leg extended flat on floor (switch bent knee halfway at rep 6)',
+        'Lift only head and upper shoulders 1 inch as a solid block; hold 10s',
+        'Relax back down for 10s micro-rest; listen for the 3-2-1 countdown into the next rep',
+        'No chin poking; maintain tongue on roof of mouth',
       ],
       targetedMuscles: ['Rectus Abdominis', 'External Obliques', 'Deep Cervical Flexors'],
       videoReference: {
         youtubeId: 'C89EKtI8a3o',
         title: 'The McGill Big 3: How to Do the McGill Curl-Up Correctly (Spoken Breakdown)',
         channelName: 'Squat University (Dr. Aaron Horschig)',
-        durationLabel: 'Spoken Coaching Guide',
+        durationLabel: '6-4-2 Pyramid • 10s Holds',
         stepByStepBreakdown: [
           'Lie on your back on a firm floor. Bend one knee to 90° with foot flat, and leave the opposite leg completely straight.',
           'Slide both hands palms-down underneath the natural arch of your lower back to support lumbar lordosis.',
           'Brace your abdominal wall 360° and press your tongue to the roof of your mouth behind your front teeth.',
-          'Hover your head and upper shoulders just 1–2 inches off the floor as one solid unit. Hold for 10 seconds while breathing smoothly, then lower.'
+          'Hover your head and upper shoulders just 1–2 inches off the floor as one solid unit. Hold 10 seconds, rest 10 seconds (with a 3s countdown into the next rep) across 6-4-2 reps.',
         ],
         commonMistakes: [
           'Flattening the lower back into your hands (causes lumbar disc flexion)',
           'Crunching high like a traditional sit-up',
-          'Jutting the chin forward and straining the neck'
-        ]
-      }
+          'Jutting the chin forward and straining the neck',
+        ],
+      },
     },
     {
       id: 'mcgill-side-bridge',
-      name: 'McGill Side Bridge',
+      name: 'McGill Side Plank / Side Bridge (6 Reps Each Side)',
       category: 'mcgill',
       animationType: 'mcgill-sidebridge',
-      defaultSets: 4,
-      defaultReps: 5,
+      defaultSets: 12,
+      defaultReps: 1,
+      repLabel: '6 Reps Left Side + 6 Reps Right Side (10s Hold Each)',
       defaultHoldSeconds: 10,
-      defaultRestSeconds: 25,
-      prepCountdownSeconds: 10,
-      description: 'Strengthens quadratus lumborum and lateral obliques with minimal spinal compression.',
+      defaultRestSeconds: 10,
+      prepCountdownSeconds: 0,
+      description:
+        '6 isometric 10-second holds on your Left Side followed by 6 isometric 10-second holds on your Right Side (12 total reps) with 10s micro-rest & 3s countdown between reps.',
       formCues: [
+        'Reps 1–6 on Left Side, then switch to Right Side for Reps 7–12 (6 reps each side)',
         'Prop on elbow directly under shoulder; knees bent at 90° or stacked feet',
-        'Bridge hips upward until body forms an unbroken straight diagonal line',
-        'Brace abdominal wall firmly before lifting; avoid any pelvic rotation',
-        'Hold for 10 seconds with calm controlled breathing'
+        'Bridge hips upward until body forms an unbroken straight diagonal line for 10s',
+        'Lower hips for 10s micro-rest; brace on the 3-2-1 countdown before the next rep',
       ],
       targetedMuscles: ['Quadratus Lumborum', 'Internal & External Obliques', 'Gluteus Medius'],
       videoReference: {
         youtubeId: '2_e4I-brfqs',
         title: 'McGill Side Bridge / Side Plank Spoken Coaching Breakdown',
         channelName: 'Squat University (Dr. Aaron Horschig)',
-        durationLabel: 'Spoken Lateral Core Guide',
+        durationLabel: '6 Reps Each Side • 10s Holds',
         stepByStepBreakdown: [
           'Lie on your side with your supporting elbow placed directly underneath your shoulder and forearm flat.',
           'Place your top hand on your opposite shoulder (or hip) to pack the upper shoulder blade.',
           'Brace your core cylinder and drive your hips forward and upward off the floor in a hinge motion.',
-          'Hold a straight line from shoulders through hips to knees/feet for 10 seconds while breathing shallowly, then hinge back down.'
+          'Hold a straight line for 10 seconds, then rest 10 seconds. Perform 6 reps on your Left Side and 6 reps on your Right Side.',
         ],
         commonMistakes: [
           'Letting the supporting shoulder shrug up toward the ear',
           'Twisting the pelvis forward or backward during the lift',
-          'Letting the bottom hip sag toward the floor'
-        ]
-      }
+          'Letting the bottom hip sag toward the floor',
+        ],
+      },
     },
     {
       id: 'mcgill-bird-dog',
-      name: 'McGill Bird Dog',
+      name: 'McGill Bird Dog (6 Reps Each Side)',
       category: 'mcgill',
       animationType: 'mcgill-birddog',
-      defaultSets: 4,
-      defaultReps: 5,
+      defaultSets: 12,
+      defaultReps: 1,
+      repLabel: '6 Reps Per Side Alternating (10s Hold Each)',
       defaultHoldSeconds: 10,
-      defaultRestSeconds: 25,
-      prepCountdownSeconds: 10,
-      description: 'Strengthens posterior chain (erectors, glutes, lats) while maintaining anti-rotational stiffness.',
+      defaultRestSeconds: 10,
+      prepCountdownSeconds: 0,
+      description:
+        '6 isometric 10-second holds per side (12 total reps) strengthening the posterior chain with 10s micro-rest and a 3s countdown before each rep.',
       formCues: [
         'Start in quadruped: hands under shoulders, knees under hips with neutral spine',
-        'Clench opposite fist and kick opposite heel straight back without arching lower back',
-        'Raise arm and leg parallel to floor; hold solid for 10 seconds',
-        'Sweep back to touch hand and knee gently before extending or alternating'
+        'Clench opposite fist and push opposite heel straight back parallel to floor for 10s',
+        'Sweep hand to knee between reps during the 10s micro-rest; 6 reps on each side',
+        'Brace on the 3-2-1 countdown at the end of the cooldown before extending',
       ],
-      targetedMuscles: ['Erector Spinae', 'Gluteus Maximus', 'Latissimus Dorsi', 'Posterior Deltoid'],
+      targetedMuscles: [
+        'Erector Spinae',
+        'Gluteus Maximus',
+        'Latissimus Dorsi',
+        'Posterior Deltoid',
+      ],
       videoReference: {
         youtubeId: 'pS-SfFoc8uk',
         title: 'How to Master the McGill Bird Dog',
         channelName: 'Squat University / Posterior Chain',
-        durationLabel: 'Anti-Rotation Control',
+        durationLabel: '6 Reps Each Side • 10s Holds',
         stepByStepBreakdown: [
           'Start on all fours with hands directly under shoulders and knees directly under hips.',
           'Find neutral spine and brace your abs before moving any limbs.',
           'Simultaneously reach one arm straight forward (making a tight fist) and push the opposite heel straight back.',
-          'Stop when your leg is parallel to the floor (never higher). Hold 10 seconds, then sweep hand to knee underneath you without touching the floor.'
+          'Hold parallel to the floor for 10 seconds, then rest 10 seconds with a 3-second countdown into the next rep (6 reps per side).',
         ],
         commonMistakes: [
           'Lifting the back leg above hip level and overarching the lower back',
           'Rotating the pelvis open as the leg extends',
-          'Looking up instead of keeping the neck packed and gaze down'
-        ]
-      }
-    }
-  ]
+          'Looking up instead of keeping the neck packed and gaze down',
+        ],
+      },
+    },
+  ],
 };
 
 // 2. STRENGTH (Exact user training plan exercises)

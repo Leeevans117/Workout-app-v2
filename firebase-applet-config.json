@@ -3,6 +3,7 @@
   "appId": "1:228152919931:web:34954a0c1b8c4d12431fde",
   "apiKey": "AIzaSyD6HtQrTU4x5Cq7hTppNQ86q8y-ZrPHIio",
   "authDomain": "gen-lang-client-0999957009.firebaseapp.com",
+  "firestoreDatabaseId": "ai-studio-fittrackpro-44e791ee-6c26-4780-98fc-9c757ec8a494",
   "storageBucket": "gen-lang-client-0999957009.firebasestorage.app",
   "messagingSenderId": "228152919931",
   "measurementId": "",

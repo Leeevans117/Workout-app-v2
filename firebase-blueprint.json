@@ -1,0 +1,188 @@
+{
+  "entities": {
+    "UserProfile": {
+      "title": "UserProfile",
+      "description": "User fitness profile, personal targets, strength levels, weight progress, and objective preferences.",
+      "type": "object",
+      "properties": {
+        "uid": {
+          "type": "string",
+          "description": "Owner Firebase Auth UID.",
+          "maxLength": 128,
+          "pattern": "^[a-zA-Z0-9_\\-]+$"
+        },
+        "displayName": {
+          "type": "string",
+          "description": "User display name.",
+          "minLength": 1,
+          "maxLength": 80
+        },
+        "primaryObjective": {
+          "type": "string",
+          "description": "Primary fitness objective used to align workout recommendations.",
+          "enum": ["strength", "weight_loss", "spine_hygiene", "endurance", "athletic_hybrid"]
+        },
+        "currentWeightKg": {
+          "type": "number",
+          "description": "Current body weight in kilograms."
+        },
+        "startWeightKg": {
+          "type": "number",
+          "description": "Starting body weight in kilograms when goal was set."
+        },
+        "targetWeightKg": {
+          "type": "number",
+          "description": "Target body weight in kilograms."
+        },
+        "currentStrengthLevel": {
+          "type": "string",
+          "description": "Current strength tier.",
+          "enum": ["beginner", "intermediate", "advanced", "elite"]
+        },
+        "targetStrengthLevel": {
+          "type": "string",
+          "description": "Target strength tier.",
+          "enum": ["beginner", "intermediate", "advanced", "elite"]
+        },
+        "currentMaxPullUps": {
+          "type": "number",
+          "description": "Current max pull-ups in a single session or set."
+        },
+        "targetMaxPullUps": {
+          "type": "number",
+          "description": "Target max pull-ups."
+        },
+        "currentMaxPushUps": {
+          "type": "number",
+          "description": "Current max strict push-ups."
+        },
+        "targetMaxPushUps": {
+          "type": "number",
+          "description": "Target max strict push-ups."
+        },
+        "dailyStepGoal": {
+          "type": "number",
+          "description": "Daily step goal (default 8000)."
+        },
+        "weeklyWorkoutGoal": {
+          "type": "number",
+          "description": "Target workouts completed per week."
+        },
+        "createdAt": {
+          "type": "string",
+          "format": "date-time",
+          "description": "Profile creation server timestamp."
+        },
+        "updatedAt": {
+          "type": "string",
+          "format": "date-time",
+          "description": "Last profile update server timestamp."
+        }
+      },
+      "required": [
+        "uid",
+        "displayName",
+        "primaryObjective",
+        "currentWeightKg",
+        "startWeightKg",
+        "targetWeightKg",
+        "currentStrengthLevel",
+        "targetStrengthLevel",
+        "currentMaxPullUps",
+        "targetMaxPullUps",
+        "currentMaxPushUps",
+        "targetMaxPushUps",
+        "dailyStepGoal",
+        "weeklyWorkoutGoal",
+        "createdAt",
+        "updatedAt"
+      ]
+    },
+    "UserPrivateInfo": {
+      "title": "UserPrivateInfo",
+      "description": "Isolated PII document storing the user's private email address.",
+      "type": "object",
+      "properties": {
+        "uid": {
+          "type": "string",
+          "description": "Owner Firebase Auth UID.",
+          "maxLength": 128,
+          "pattern": "^[a-zA-Z0-9_\\-]+$"
+        },
+        "email": {
+          "type": "string",
+          "format": "email",
+          "description": "User email address.",
+          "maxLength": 254
+        },
+        "createdAt": {
+          "type": "string",
+          "format": "date-time",
+          "description": "Creation server timestamp."
+        },
+        "updatedAt": {
+          "type": "string",
+          "format": "date-time",
+          "description": "Update server timestamp."
+        }
+      },
+      "required": ["uid", "email", "createdAt", "updatedAt"]
+    },
+    "ProgressSnapshot": {
+      "title": "ProgressSnapshot",
+      "description": "Historical body weight and strength benchmark check-in entry.",
+      "type": "object",
+      "properties": {
+        "uid": {
+          "type": "string",
+          "description": "Owner Firebase Auth UID.",
+          "maxLength": 128,
+          "pattern": "^[a-zA-Z0-9_\\-]+$"
+        },
+        "dateStr": {
+          "type": "string",
+          "description": "Local date string YYYY-MM-DD.",
+          "minLength": 10,
+          "maxLength": 10
+        },
+        "weightKg": {
+          "type": "number",
+          "description": "Logged body weight in kg."
+        },
+        "maxPullUps": {
+          "type": "number",
+          "description": "Logged pull-up benchmark."
+        },
+        "maxPushUps": {
+          "type": "number",
+          "description": "Logged push-up benchmark."
+        },
+        "note": {
+          "type": "string",
+          "description": "Short progress note.",
+          "maxLength": 240
+        },
+        "createdAt": {
+          "type": "string",
+          "format": "date-time",
+          "description": "Creation server timestamp."
+        }
+      },
+      "required": ["uid", "dateStr", "weightKg", "maxPullUps", "maxPushUps", "note", "createdAt"]
+    }
+  },
+  "firestore": {
+    "/users/{userId}": {
+      "schema": { "$ref": "#/entities/UserProfile" },
+      "description": "Stores a user's fitness profile, personal targets, and strength/weight objectives."
+    },
+    "/users/{userId}/private/{docId}": {
+      "schema": { "$ref": "#/entities/UserPrivateInfo" },
+      "description": "Isolated PII storage for the user's private email."
+    },
+    "/users/{userId}/progressSnapshots/{snapshotId}": {
+      "schema": { "$ref": "#/entities/ProgressSnapshot" },
+      "description": "Historical check-in snapshots tracking weight and strength progress toward goals."
+    }
+  }
+}

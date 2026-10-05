@@ -1,0 +1,214 @@
+rules_version = '2';
+service cloud.firestore {
+  match /databases/{database}/documents {
+    // 0. Global Safety Net
+    match /{document=**} {
+      allow read, write: if false;
+    }
+
+    // Reusable Hardened Primitives
+    function isSignedIn() {
+      return request.auth != null;
+    }
+
+    function isVerifiedUser() {
+      return isSignedIn() && request.auth.token.email_verified == true;
+    }
+
+    function isOwner(userId) {
+      return isVerifiedUser() && request.auth.uid == userId;
+    }
+
+    function isValidId(id) {
+      return id is string && id.size() >= 1 && id.size() <= 128 && id.matches('^[a-zA-Z0-9_\\-]+$');
+    }
+
+    function incoming() {
+      return request.resource.data;
+    }
+
+    function existing() {
+      return resource.data;
+    }
+
+    function isValidObjective(val) {
+      return val is string && val in ['strength', 'weight_loss', 'spine_hygiene', 'endurance', 'athletic_hybrid'];
+    }
+
+    function isValidStrengthTier(val) {
+      return val is string && val in ['beginner', 'intermediate', 'advanced', 'elite'];
+    }
+
+    // Blueprint Validator: UserProfile
+    function isValidUserProfile(data, userId) {
+      return data.keys().hasAll([
+        'uid',
+        'displayName',
+        'primaryObjective',
+        'currentWeightKg',
+        'startWeightKg',
+        'targetWeightKg',
+        'currentStrengthLevel',
+        'targetStrengthLevel',
+        'currentMaxPullUps',
+        'targetMaxPullUps',
+        'currentMaxPushUps',
+        'targetMaxPushUps',
+        'dailyStepGoal',
+        'weeklyWorkoutGoal',
+        'createdAt',
+        'updatedAt'
+      ]) &&
+      data.keys().hasOnly([
+        'uid',
+        'displayName',
+        'primaryObjective',
+        'currentWeightKg',
+        'startWeightKg',
+        'targetWeightKg',
+        'currentStrengthLevel',
+        'targetStrengthLevel',
+        'currentMaxPullUps',
+        'targetMaxPullUps',
+        'currentMaxPushUps',
+        'targetMaxPushUps',
+        'dailyStepGoal',
+        'weeklyWorkoutGoal',
+        'createdAt',
+        'updatedAt'
+      ]) &&
+      data.uid is string && data.uid.size() >= 1 && data.uid.size() <= 128 &&
+      data.uid == userId && data.uid == request.auth.uid &&
+      data.displayName is string && data.displayName.size() >= 1 && data.displayName.size() <= 80 &&
+      isValidObjective(data.primaryObjective) &&
+      data.currentWeightKg is number && data.currentWeightKg >= 20 && data.currentWeightKg <= 400 &&
+      data.startWeightKg is number && data.startWeightKg >= 20 && data.startWeightKg <= 400 &&
+      data.targetWeightKg is number && data.targetWeightKg >= 20 && data.targetWeightKg <= 400 &&
+      isValidStrengthTier(data.currentStrengthLevel) &&
+      isValidStrengthTier(data.targetStrengthLevel) &&
+      data.currentMaxPullUps is number && data.currentMaxPullUps >= 0 && data.currentMaxPullUps <= 200 &&
+      data.targetMaxPullUps is number && data.targetMaxPullUps >= 0 && data.targetMaxPullUps <= 200 &&
+      data.currentMaxPushUps is number && data.currentMaxPushUps >= 0 && data.currentMaxPushUps <= 500 &&
+      data.targetMaxPushUps is number && data.targetMaxPushUps >= 0 && data.targetMaxPushUps <= 500 &&
+      data.dailyStepGoal is number && data.dailyStepGoal >= 1000 && data.dailyStepGoal <= 100000 &&
+      data.weeklyWorkoutGoal is number && data.weeklyWorkoutGoal >= 1 && data.weeklyWorkoutGoal <= 14 &&
+      data.createdAt is timestamp &&
+      data.updatedAt is timestamp;
+    }
+
+    // Blueprint Validator: UserPrivateInfo
+    function isValidUserPrivateInfo(data, userId) {
+      return data.keys().hasAll(['uid', 'email', 'createdAt', 'updatedAt']) &&
+        data.keys().hasOnly(['uid', 'email', 'createdAt', 'updatedAt']) &&
+        data.uid is string && data.uid.size() >= 1 && data.uid.size() <= 128 &&
+        data.uid == userId && data.uid == request.auth.uid &&
+        data.email is string && data.email.size() >= 3 && data.email.size() <= 254 &&
+        data.createdAt is timestamp &&
+        data.updatedAt is timestamp;
+    }
+
+    // Blueprint Validator: ProgressSnapshot
+    function isValidProgressSnapshot(data, userId) {
+      return data.keys().hasAll([
+        'uid',
+        'dateStr',
+        'weightKg',
+        'maxPullUps',
+        'maxPushUps',
+        'note',
+        'createdAt'
+      ]) &&
+      data.keys().hasOnly([
+        'uid',
+        'dateStr',
+        'weightKg',
+        'maxPullUps',
+        'maxPushUps',
+        'note',
+        'createdAt'
+      ]) &&
+      data.uid is string && data.uid.size() >= 1 && data.uid.size() <= 128 &&
+      data.uid == userId && data.uid == request.auth.uid &&
+      data.dateStr is string && data.dateStr.size() == 10 &&
+      data.weightKg is number && data.weightKg >= 20 && data.weightKg <= 400 &&
+      data.maxPullUps is number && data.maxPullUps >= 0 && data.maxPullUps <= 200 &&
+      data.maxPushUps is number && data.maxPushUps >= 0 && data.maxPushUps <= 500 &&
+      data.note is string && data.note.size() <= 240 &&
+      data.createdAt is timestamp;
+    }
+
+    // 1. User Profile Collection
+    match /users/{userId} {
+      allow get: if isOwner(userId) && isValidId(userId);
+      allow create: if isOwner(userId) &&
+        isValidId(userId) &&
+        isValidUserProfile(incoming(), userId) &&
+        incoming().createdAt == request.time &&
+        incoming().updatedAt == request.time;
+      allow update: if isOwner(userId) &&
+        isValidId(userId) &&
+        isValidUserProfile(incoming(), userId) &&
+        incoming().uid == existing().uid &&
+        incoming().createdAt == existing().createdAt &&
+        incoming().updatedAt == request.time &&
+        incoming().diff(existing()).affectedKeys().hasOnly([
+          'displayName',
+          'primaryObjective',
+          'currentWeightKg',
+          'startWeightKg',
+          'targetWeightKg',
+          'currentStrengthLevel',
+          'targetStrengthLevel',
+          'currentMaxPullUps',
+          'targetMaxPullUps',
+          'currentMaxPushUps',
+          'targetMaxPushUps',
+          'dailyStepGoal',
+          'weeklyWorkoutGoal',
+          'updatedAt'
+        ]);
+      allow delete: if isOwner(userId) && isValidId(userId);
+
+      // 2. Isolated Private PII Subcollection
+      match /private/{docId} {
+        allow get: if isOwner(userId) && isValidId(userId) && isValidId(docId) &&
+          exists(/databases/$(database)/documents/users/$(userId));
+        allow create: if isOwner(userId) &&
+          isValidId(userId) &&
+          isValidId(docId) &&
+          docId == 'info' &&
+          isValidUserPrivateInfo(incoming(), userId) &&
+          incoming().createdAt == request.time &&
+          incoming().updatedAt == request.time &&
+          (exists(/databases/$(database)/documents/users/$(userId)) ||
+           existsAfter(/databases/$(database)/documents/users/$(userId)));
+        allow update: if isOwner(userId) &&
+          isValidId(userId) &&
+          isValidId(docId) &&
+          docId == 'info' &&
+          isValidUserPrivateInfo(incoming(), userId) &&
+          incoming().uid == existing().uid &&
+          incoming().createdAt == existing().createdAt &&
+          incoming().updatedAt == request.time &&
+          incoming().diff(existing()).affectedKeys().hasOnly(['email', 'updatedAt']) &&
+          exists(/databases/$(database)/documents/users/$(userId));
+        allow delete: if isOwner(userId) && isValidId(userId) && isValidId(docId);
+      }
+
+      // 3. Progress Snapshots Subcollection (Weight & Strength Goal Check-ins)
+      match /progressSnapshots/{snapshotId} {
+        allow get: if isOwner(userId) && isValidId(userId) && isValidId(snapshotId) &&
+          exists(/databases/$(database)/documents/users/$(userId));
+        allow list: if isOwner(userId) && resource.data.uid == request.auth.uid;
+        allow create: if isOwner(userId) &&
+          isValidId(userId) &&
+          isValidId(snapshotId) &&
+          isValidProgressSnapshot(incoming(), userId) &&
+          incoming().createdAt == request.time &&
+          exists(/databases/$(database)/documents/users/$(userId));
+        allow delete: if isOwner(userId) && isValidId(userId) && isValidId(snapshotId) &&
+          exists(/databases/$(database)/documents/users/$(userId));
+      }
+    }
+  }
+}

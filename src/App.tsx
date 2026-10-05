@@ -13,6 +13,8 @@ import { FitbitSyncModal } from './components/FitbitSyncModal';
 import { DailyNotificationModal } from './components/DailyNotificationModal';
 import { GeminiCoachWidget } from './components/GeminiCoachWidget';
 import { WorkoutAnatomyModal } from './components/WorkoutAnatomyModal';
+import { UserProfileView } from './components/UserProfileView';
+import { UserFitnessProfile, DEFAULT_USER_PROFILE } from './types/profile';
 import { soundEngine } from './utils/audioNotification';
 import { notificationService, InAppNotificationPayload } from './utils/notificationService';
 import { usePWAInstall } from './hooks/usePWAInstall';
@@ -33,15 +35,17 @@ import {
   RotateCcw,
   ChevronRight,
   CheckCircle2,
+  User as UserIcon,
 } from 'lucide-react';
 
 const STORAGE_KEY = 'apex_pulse_workout_logs';
-const ROUTINES_STORAGE_KEY = 'apex_routines_v4';
+const ROUTINES_STORAGE_KEY = 'apex_routines_v6';
 const CUSTOM_ROUTINES_STORAGE_KEY = 'apex_custom_routines_v1';
+const USER_PROFILE_STORAGE_KEY = 'apex_user_fitness_profile_v1';
 
 export default function App() {
   const [activeTab, setActiveTab] = useState<
-    'dashboard' | 'builder' | 'mcgill' | 'calendar' | 'settings'
+    'dashboard' | 'builder' | 'mcgill' | 'calendar' | 'profile' | 'settings'
   >(() => {
     if (typeof window !== 'undefined') {
       const params = new URLSearchParams(window.location.search);
@@ -49,54 +53,30 @@ export default function App() {
     }
     return 'dashboard';
   });
+
+  const [userProfile, setUserProfile] = useState<UserFitnessProfile>(() => {
+    try {
+      const saved = localStorage.getItem(USER_PROFILE_STORAGE_KEY);
+      if (saved) {
+        const parsed = JSON.parse(saved);
+        if (parsed && typeof parsed === 'object') {
+          return { ...DEFAULT_USER_PROFILE, ...parsed };
+        }
+      }
+    } catch {}
+    return DEFAULT_USER_PROFILE;
+  });
   const [activeWorkoutRoutine, setActiveWorkoutRoutine] = useState<WorkoutRoutine | null>(null);
   const [initialExerciseIndex, setInitialExerciseIndex] = useState(0);
   const [isCardioModalOpen, setIsCardioModalOpen] = useState(false);
   const [isInstallModalOpen, setIsInstallModalOpen] = useState(false);
   const [isFitbitModalOpen, setIsFitbitModalOpen] = useState(false);
   const [isNotifModalOpen, setIsNotifModalOpen] = useState(false);
+  // LOCKED: Do not modify Fitbit step sync state on other feature changes
   const [fitbitConnected, setFitbitConnected] = useState(false);
-  const [fitbitLastSync, setFitbitLastSync] = useState<string | null>(() => {
-    try {
-      return localStorage.getItem('apex_fitbit_last_sync');
-    } catch {
-      return null;
-    }
-  });
-  const [syncedTodaySteps, setSyncedTodaySteps] = useState<number | null | undefined>(() => {
-    try {
-      const now = new Date();
-      const todayKey = `${now.getFullYear()}-${String(now.getMonth() + 1).padStart(
-        2,
-        '0'
-      )}-${String(now.getDate()).padStart(2, '0')}`;
-      const raw = localStorage.getItem('apex_fitbit_daily_steps_v2');
-      if (raw) {
-        const parsed = JSON.parse(raw);
-        if (parsed && parsed[todayKey] && typeof parsed[todayKey].steps === 'number') {
-          return parsed[todayKey].steps;
-        }
-      }
-    } catch {}
-    return undefined;
-  });
-  const [watchSyncTrigger, setWatchSyncTrigger] = useState(1);
-
-  // Automatically trigger the Watch Sync button press every time the app opens or returns to foreground
-  useEffect(() => {
-    const triggerAutoWatchSync = () => {
-      if (document.visibilityState === 'visible') {
-        setWatchSyncTrigger((prev) => prev + 1);
-      }
-    };
-
-    window.addEventListener('focus', triggerAutoWatchSync);
-    document.addEventListener('visibilitychange', triggerAutoWatchSync);
-    return () => {
-      window.removeEventListener('focus', triggerAutoWatchSync);
-      document.removeEventListener('visibilitychange', triggerAutoWatchSync);
-    };
-  }, []);
+  const [fitbitLastSync, setFitbitLastSync] = useState<string | null>(null);
+  const [syncedTodaySteps, setSyncedTodaySteps] = useState<number | null | undefined>(undefined);
+  const [watchSyncTrigger, setWatchSyncTrigger] = useState(0);
   const [isCoachOpen, setIsCoachOpen] = useState(false);
   const [coachExercise, setCoachExercise] = useState<Exercise | null>(null);
   const [videoGuideState, setVideoGuideState] = useState<{
@@ -177,6 +157,9 @@ export default function App() {
         const parsed = JSON.parse(saved);
         if (Array.isArray(parsed) && parsed.length > 0) {
           return WORKOUT_ROUTINES.map((defaultRoutine) => {
+            if (defaultRoutine.isMcGillSpecial) {
+              return defaultRoutine;
+            }
             const custom = parsed.find((r: any) => r && r.id === defaultRoutine.id);
             if (!custom || !Array.isArray(custom.exercises)) return defaultRoutine;
             return {
@@ -516,6 +499,15 @@ export default function App() {
               Calendar
             </button>
             <button
+              onClick={() => setActiveTab('profile')}
+              className={`hover:text-white transition-colors flex items-center gap-1.5 ${
+                activeTab === 'profile' ? 'text-cyan-400' : ''
+              }`}
+            >
+              <UserIcon className="w-3.5 h-3.5 text-cyan-400" />
+              <span>Profile &amp; Goals</span>
+            </button>
+            <button
               onClick={() => setActiveTab('settings')}
               className={`hover:text-white transition-colors flex items-center gap-1.5 ${
                 activeTab === 'settings' ? 'text-amber-400' : ''
@@ -602,6 +594,17 @@ export default function App() {
             onDeleteLog={handleDeleteLog}
             onOpenFitbitModal={() => setIsFitbitModalOpen(true)}
             fitbitConnected={fitbitConnected}
+          />
+        )}
+
+        {activeTab === 'profile' && (
+          <UserProfileView
+            profile={userProfile}
+            onUpdateProfile={setUserProfile}
+            routines={[...routines, ...customRoutines]}
+            logs={logs}
+            todaySteps={syncedTodaySteps}
+            onStartRoutine={(r) => handleStartRoutine(r, 0)}
           />
         )}
 
@@ -766,9 +769,9 @@ export default function App() {
         )}
       </main>
 
-      {/* Bottom Navigation Bar (Dashboard, Build Your Own, McGill Big 3, Calendar, Settings) */}
+      {/* Bottom Navigation Bar (Dashboard, Build Your Own, McGill Big 3, Calendar, Profile, Settings) */}
       <nav className="fixed bottom-0 left-0 right-0 z-40 bg-[#0B0E14]/95 backdrop-blur-md border-t border-slate-800/80 px-2 py-2">
-        <div className="max-w-lg mx-auto grid grid-cols-5 items-center">
+        <div className="max-w-xl mx-auto grid grid-cols-6 items-center">
           <button
             onClick={() => setActiveTab('dashboard')}
             className={`flex flex-col items-center justify-center py-1 transition-colors min-h-[44px] ${
@@ -790,7 +793,7 @@ export default function App() {
             }`}
           >
             <Layers className="w-5 h-5" />
-            <span className="text-[10px] tracking-tight mt-1">Build Your Own</span>
+            <span className="text-[10px] tracking-tight mt-1">Build</span>
           </button>
 
           <button
@@ -802,7 +805,7 @@ export default function App() {
             }`}
           >
             <ShieldCheck className="w-5 h-5" />
-            <span className="text-[10px] tracking-tight mt-1">McGill Big 3</span>
+            <span className="text-[10px] tracking-tight mt-1">McGill 3</span>
           </button>
 
           <button
@@ -815,6 +818,18 @@ export default function App() {
           >
             <CalendarIcon className="w-5 h-5" />
             <span className="text-[10px] tracking-tight mt-1">Calendar</span>
+          </button>
+
+          <button
+            onClick={() => setActiveTab('profile')}
+            className={`flex flex-col items-center justify-center py-1 transition-colors min-h-[44px] ${
+              activeTab === 'profile'
+                ? 'text-cyan-400 font-bold'
+                : 'text-slate-500 hover:text-slate-300'
+            }`}
+          >
+            <UserIcon className="w-5 h-5" />
+            <span className="text-[10px] tracking-tight mt-1">Profile</span>
           </button>
 
           <button

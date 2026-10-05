@@ -32,6 +32,27 @@ interface WorkoutTimerScreenProps {
   onUpdateRoutine?: (updatedRoutine: WorkoutRoutine) => void;
 }
 
+const POSITION_PREP_SECONDS = 10;
+
+/**
+ * Determines whether transitioning from `currentSet` to `nextSet` within `exercise`
+ * requires the user to change their body position on the floor/equipment.
+ * - Between different exercises: Always a new position (handled on exercise transition).
+ * - McGill Side Plank (`mcgill-side-bridge`): Reps 1–6 are on the Left Side, Reps 7–12 are on the Right Side -> Position changes going from Set 6 to Set 7!
+ * - McGill Modified Curl-Up (`mcgill-curl-up`): Switch which knee is bent halfway (after Rep 6 going into Rep 7) -> Position changes going from Set 6 to Set 7!
+ * - McGill Bird Dog (`mcgill-bird-dog`): Stays in quadruped position while alternating limbs during the 10s rest; same floor position.
+ * - Standard single-position sets (Pull-Ups, Push-Ups, Squats, etc.): Same position across sets of the same exercise.
+ */
+function doesRepTransitionChangeBodyPosition(exercise: Exercise, completedSet: number): boolean {
+  if (exercise.id === 'mcgill-side-bridge' && completedSet === 6) {
+    return true; // Switching from Left Side Plank (Reps 1-6) to Right Side Plank (Reps 7-12)
+  }
+  if (exercise.id === 'mcgill-curl-up' && completedSet === 6) {
+    return true; // Switching bent leg after the first 6 reps
+  }
+  return false;
+}
+
 export const WorkoutTimerScreen: React.FC<WorkoutTimerScreenProps> = ({
   routine,
   initialExerciseIndex = 0,
@@ -44,6 +65,7 @@ export const WorkoutTimerScreen: React.FC<WorkoutTimerScreenProps> = ({
   const [sessionExercises, setSessionExercises] = useState<Exercise[]>(routine.exercises);
   const [currentExerciseIndex, setCurrentExerciseIndex] = useState(initialExerciseIndex);
   const [currentSet, setCurrentSet] = useState(1);
+  // Start every session and every new exercise position with a 10-second position prep countdown
   const [phase, setPhase] = useState<TimerPhase>('prep');
   const [isPaused, setIsPaused] = useState(false);
   const [isMuted, setIsMuted] = useState(soundEngine.getMuted());
@@ -51,11 +73,10 @@ export const WorkoutTimerScreen: React.FC<WorkoutTimerScreenProps> = ({
   const [isSkipModalOpen, setIsSkipModalOpen] = useState(false);
 
   const currentExercise = sessionExercises[currentExerciseIndex] || sessionExercises[0];
-  const prepDuration = currentExercise.prepCountdownSeconds ?? 10;
   const holdDuration = currentExercise.defaultHoldSeconds ?? 35;
   const restDuration = currentExercise.defaultRestSeconds ?? 60;
 
-  const [timeRemaining, setTimeRemaining] = useState(prepDuration);
+  const [timeRemaining, setTimeRemaining] = useState(POSITION_PREP_SECONDS);
   const [totalElapsedTime, setTotalElapsedTime] = useState(0);
 
   const phaseRef = useRef(phase);
@@ -64,12 +85,6 @@ export const WorkoutTimerScreen: React.FC<WorkoutTimerScreenProps> = ({
   timeRef.current = timeRemaining;
   const isPausedRef = useRef(isPaused);
   isPausedRef.current = isPaused;
-
-  useEffect(() => {
-    const prep = currentExercise.prepCountdownSeconds ?? 10;
-    setPhase('prep');
-    setTimeRemaining(prep);
-  }, [currentExerciseIndex, currentExercise.prepCountdownSeconds]);
 
   useEffect(() => {
     const timer = setInterval(() => {
@@ -83,7 +98,8 @@ export const WorkoutTimerScreen: React.FC<WorkoutTimerScreenProps> = ({
           return 0;
         }
 
-        if (phaseRef.current === 'prep' && prev <= 4 && prev > 1) {
+        // Play countdown beeps during the final 3 seconds of either 10s Position Prep OR Cooldown
+        if ((phaseRef.current === 'prep' || phaseRef.current === 'rest') && prev <= 4 && prev > 1) {
           soundEngine.playPrepCountdownBeep(prev === 2);
         }
 
@@ -92,12 +108,13 @@ export const WorkoutTimerScreen: React.FC<WorkoutTimerScreenProps> = ({
     }, 1000);
 
     return () => clearInterval(timer);
-  }, [currentExerciseIndex, currentSet, holdDuration, restDuration, prepDuration]);
+  }, [currentExerciseIndex, currentSet, holdDuration, restDuration]);
 
   const handlePhaseExpiration = () => {
     const currentPhase = phaseRef.current;
 
     if (currentPhase === 'prep') {
+      // 10-second position setup countdown finished -> start active work!
       soundEngine.playStartWorkBeep();
       setPhase('active');
       setTimeRemaining(holdDuration);
@@ -105,16 +122,26 @@ export const WorkoutTimerScreen: React.FC<WorkoutTimerScreenProps> = ({
       soundEngine.playExerciseEndSound();
 
       if (currentSet < currentExercise.defaultSets) {
-        soundEngine.playRestStartSound();
-        setPhase('rest');
-        setTimeRemaining(restDuration);
+        // Check if the next rep/set requires changing body position (e.g. Left Side Plank -> Right Side Plank)
+        if (doesRepTransitionChangeBodyPosition(currentExercise, currentSet)) {
+          soundEngine.playRestStartSound();
+          setCurrentSet((prev) => prev + 1);
+          setPhase('prep');
+          setTimeRemaining(POSITION_PREP_SECONDS);
+        } else {
+          // Same body position -> standard cooldown with 3s countdown at the end
+          soundEngine.playRestStartSound();
+          setPhase('rest');
+          setTimeRemaining(restDuration);
+        }
       } else {
+        // Exercise finished -> moving to the NEXT exercise always changes body position, so trigger 10s Position Prep!
         if (currentExerciseIndex < sessionExercises.length - 1) {
-          const nextEx = sessionExercises[currentExerciseIndex + 1];
+          soundEngine.playRestStartSound();
           setCurrentExerciseIndex((prev) => prev + 1);
           setCurrentSet(1);
           setPhase('prep');
-          setTimeRemaining(nextEx?.prepCountdownSeconds ?? 10);
+          setTimeRemaining(POSITION_PREP_SECONDS);
         } else {
           soundEngine.playWorkoutCompleteFanfare();
           setPhase('finished');
@@ -127,10 +154,11 @@ export const WorkoutTimerScreen: React.FC<WorkoutTimerScreenProps> = ({
         }
       }
     } else if (currentPhase === 'rest') {
-      soundEngine.playRestEndSound();
+      // Same-position cooldown finished (including the 3-2-1 countdown) -> go straight into the next rep/set!
+      soundEngine.playStartWorkBeep();
       setCurrentSet((prev) => prev + 1);
-      setPhase('prep');
-      setTimeRemaining(prepDuration);
+      setPhase('active');
+      setTimeRemaining(holdDuration);
     }
   };
 
@@ -151,7 +179,7 @@ export const WorkoutTimerScreen: React.FC<WorkoutTimerScreenProps> = ({
     }
     setCurrentSet(1);
     setPhase('prep');
-    setTimeRemaining(replacement.prepCountdownSeconds ?? 10);
+    setTimeRemaining(POSITION_PREP_SECONDS);
     setIsSkipModalOpen(false);
     setIsPaused(false);
   };
@@ -160,11 +188,10 @@ export const WorkoutTimerScreen: React.FC<WorkoutTimerScreenProps> = ({
     setIsSkipModalOpen(false);
     setIsPaused(false);
     if (currentExerciseIndex < sessionExercises.length - 1) {
-      const nextEx = sessionExercises[currentExerciseIndex + 1];
       setCurrentExerciseIndex((prev) => prev + 1);
       setCurrentSet(1);
       setPhase('prep');
-      setTimeRemaining(nextEx?.prepCountdownSeconds ?? 10);
+      setTimeRemaining(POSITION_PREP_SECONDS);
     } else {
       soundEngine.playWorkoutCompleteFanfare();
       setPhase('finished');
@@ -178,7 +205,7 @@ export const WorkoutTimerScreen: React.FC<WorkoutTimerScreenProps> = ({
   };
 
   const handleResetCurrent = () => {
-    if (phase === 'prep') setTimeRemaining(prepDuration);
+    if (phase === 'prep') setTimeRemaining(POSITION_PREP_SECONDS);
     else if (phase === 'active') setTimeRemaining(holdDuration);
     else if (phase === 'rest') setTimeRemaining(restDuration);
   };
@@ -188,21 +215,67 @@ export const WorkoutTimerScreen: React.FC<WorkoutTimerScreenProps> = ({
     setIsMuted(nextMuted);
   };
 
+  const getMcGillRepContext = (): string => {
+    if (currentExercise.id === 'mcgill-side-bridge') {
+      const side = currentSet <= 6 ? 'LEFT SIDE' : 'RIGHT SIDE';
+      const sideRep = currentSet <= 6 ? currentSet : currentSet - 6;
+      return `${side} • REP ${sideRep}/6 (${currentSet}/${currentExercise.defaultSets} TOTAL)`;
+    }
+    if (currentExercise.id === 'mcgill-bird-dog') {
+      const side = currentSet % 2 === 1 ? 'LEFT ARM / RIGHT LEG' : 'RIGHT ARM / LEFT LEG';
+      const sideRep = Math.ceil(currentSet / 2);
+      return `${side} • REP ${sideRep}/6 (${currentSet}/${currentExercise.defaultSets} TOTAL)`;
+    }
+    if (currentExercise.id === 'mcgill-curl-up') {
+      const pyramidStage =
+        currentSet <= 6
+          ? `SET 1 (REP ${currentSet}/6)`
+          : currentSet <= 10
+          ? `SET 2 (REP ${currentSet - 6}/4)`
+          : `SET 3 (REP ${currentSet - 10}/2)`;
+      return `6-4-2 PYRAMID • ${pyramidStage} (${currentSet}/12)`;
+    }
+    return `${
+      currentExercise.repLabel || `${currentExercise.defaultReps || 10} REPS`
+    } • REP/SET ${currentSet}/${currentExercise.defaultSets}`;
+  };
+
   const getPhaseDetails = () => {
     switch (phase) {
-      case 'prep':
+      case 'prep': {
+        const isStartingSession = currentExerciseIndex === 0 && currentSet === 1;
+        const isSideSwitch =
+          currentExercise.id === 'mcgill-side-bridge' && currentSet === 7;
+        const isLegSwitch =
+          currentExercise.id === 'mcgill-curl-up' && currentSet === 7;
+
+        const prepTitle = isStartingSession
+          ? `SESSION START PREP • ${timeRemaining}s`
+          : isSideSwitch
+          ? `CHANGE POSITION (SWITCH TO RIGHT SIDE) • ${timeRemaining}s`
+          : isLegSwitch
+          ? `CHANGE POSITION (SWITCH BENT KNEE) • ${timeRemaining}s`
+          : `NEW POSITION SETUP • ${timeRemaining}s`;
+
+        const prepSubtitle = isSideSwitch
+          ? '10s to flip onto your Right Elbow & stack hips before Rep 1/6 on Right Side'
+          : isLegSwitch
+          ? '10s to switch which knee is bent at 90° and reset hands under lower back'
+          : `10s to get into position for ${currentExercise.name} — ${
+              currentExercise.formCues[0] || 'Brace 360° core & stabilize joints'
+            }`;
+
         return {
-          title: `GET INTO POSITION • ${prepDuration}s PREP`,
-          subtitle: currentExercise.formCues[0] || 'Brace 360° core & stabilize joints',
+          title: prepTitle,
+          subtitle: prepSubtitle,
           badgeColor: 'bg-amber-500/20 text-amber-300 border-amber-500/40',
           strokeColor: '#F59E0B',
-          maxTime: prepDuration,
+          maxTime: POSITION_PREP_SECONDS,
         };
+      }
       case 'active':
         return {
-          title: `${
-            currentExercise.repLabel || `${currentExercise.defaultReps || 10} REPS`
-          } • SET ${currentSet}/${currentExercise.defaultSets}`,
+          title: getMcGillRepContext(),
           subtitle:
             currentExercise.formCues[1] ||
             'Maintain neutral spine & smooth continuous breathing',
@@ -210,18 +283,24 @@ export const WorkoutTimerScreen: React.FC<WorkoutTimerScreenProps> = ({
           strokeColor: '#10B981',
           maxTime: holdDuration,
         };
-      case 'rest':
+      case 'rest': {
+        const isFinal3SecCountdown = timeRemaining <= 3;
+        const nextRepLabel = `Rep/Set ${currentSet + 1} of ${currentExercise.defaultSets}`;
+
         return {
-          title: `COOLDOWN & RECOVERY (${restDuration}s)`,
-          subtitle: `Next: ${
-            currentSet < currentExercise.defaultSets
-              ? `Set ${currentSet + 1} of ${currentExercise.defaultSets}`
-              : sessionExercises[currentExerciseIndex + 1]?.name || 'Finish'
-          }`,
-          badgeColor: 'bg-blue-500/20 text-blue-300 border-blue-500/40',
-          strokeColor: '#3B82F6',
+          title: isFinal3SecCountdown
+            ? `GET READY — NEXT REP IN ${timeRemaining}s!`
+            : `COOLDOWN & RECOVERY (${restDuration}s)`,
+          subtitle: isFinal3SecCountdown
+            ? `Same Position → Starting ${nextRepLabel} in ${timeRemaining}...`
+            : `Next: ${nextRepLabel} (3s countdown at end of cooldown)`,
+          badgeColor: isFinal3SecCountdown
+            ? 'bg-amber-500/25 text-amber-200 border-amber-400 animate-pulse'
+            : 'bg-blue-500/20 text-blue-300 border-blue-500/40',
+          strokeColor: isFinal3SecCountdown ? '#F59E0B' : '#3B82F6',
           maxTime: restDuration,
         };
+      }
       case 'finished':
         return {
           title: 'ROUTINE COMPLETE',
@@ -306,7 +385,7 @@ export const WorkoutTimerScreen: React.FC<WorkoutTimerScreenProps> = ({
           </span>
           <span className="text-[11px] text-blue-300 font-mono flex items-center justify-center gap-1">
             <Clock className="w-3 h-3" />
-            Work: {holdDuration}s • Cooldown: {restDuration}s
+            10s Pos Prep • Work: {holdDuration}s • Cooldown: {restDuration}s
           </span>
         </div>
 
@@ -370,6 +449,8 @@ export const WorkoutTimerScreen: React.FC<WorkoutTimerScreenProps> = ({
         <div className="w-full shrink-0">
           <ExerciseAnimator
             type={currentExercise.animationType}
+            exerciseId={currentExercise.id}
+            exerciseName={currentExercise.name}
             cardioMode={cardioMode}
             isActive={!isPaused && phase === 'active'}
             phase={phase}
@@ -377,7 +458,7 @@ export const WorkoutTimerScreen: React.FC<WorkoutTimerScreenProps> = ({
           />
         </div>
 
-        {/* Compact Side-by-Side Timer Ring + Active Muscle & Cue Readout (Zero Vertical Overlap!) */}
+        {/* Compact Side-by-Side Timer Ring + Active Muscle & Cue Readout */}
         <div className="w-full bg-[#0E1320] border border-slate-800/90 rounded-2xl p-2.5 sm:p-3 flex items-center justify-between gap-3 shrink-0">
           {/* Circular Timer Gauge */}
           <div className="relative flex items-center justify-center shrink-0">
@@ -408,7 +489,7 @@ export const WorkoutTimerScreen: React.FC<WorkoutTimerScreenProps> = ({
                 {timeRemaining}s
               </span>
               <span className="text-[9px] uppercase tracking-widest text-slate-400 font-bold">
-                {phase === 'prep' ? 'Prep' : phase === 'active' ? 'Work' : 'Cooldown'}
+                {phase === 'prep' ? 'Pos Prep' : phase === 'active' ? 'Work' : 'Cooldown'}
               </span>
             </div>
           </div>
@@ -441,7 +522,7 @@ export const WorkoutTimerScreen: React.FC<WorkoutTimerScreenProps> = ({
         </div>
       </div>
 
-      {/* 3. Bottom Control Deck + YouTube Music Bar (Fits in 1 Window, No Overlap) */}
+      {/* 3. Bottom Control Deck + YouTube Music Bar */}
       <footer className="w-full max-w-lg mx-auto space-y-2 shrink-0 pt-1">
         <div className="flex items-center gap-2">
           {/* Timer Transport Controls */}
@@ -484,7 +565,7 @@ export const WorkoutTimerScreen: React.FC<WorkoutTimerScreenProps> = ({
             </button>
           </div>
 
-          {/* Replace Exercise Button (20+ Muscle-Group Options) */}
+          {/* Replace Exercise Button */}
           <button
             onClick={() => {
               setIsPaused(true);
@@ -511,6 +592,8 @@ export const WorkoutTimerScreen: React.FC<WorkoutTimerScreenProps> = ({
         onStartExercise={(_, exIdx) => {
           setCurrentExerciseIndex(exIdx);
           setCurrentSet(1);
+          setPhase('prep');
+          setTimeRemaining(POSITION_PREP_SECONDS);
           setIsVideoGuideOpen(false);
           setIsPaused(false);
         }}
@@ -524,7 +607,7 @@ export const WorkoutTimerScreen: React.FC<WorkoutTimerScreenProps> = ({
         }
       />
 
-      {/* Replace / Swap Exercise Modal (20+ Matching Muscle Group Exercises) */}
+      {/* Replace / Swap Exercise Modal */}
       <SkipExerciseModal
         isOpen={isSkipModalOpen}
         exerciseToSkip={currentExercise}
