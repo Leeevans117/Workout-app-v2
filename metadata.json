@@ -1,0 +1,6 @@
+{
+  "name": "IronSync Workout & GitHub Studio",
+  "description": "Modern dark-mode fitness companion featuring the McGill Big 3 routine with 10s prep timers, cardio E-bike/spinning selector, animated exercise visualizers, and interactive calendar progress tracking.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
