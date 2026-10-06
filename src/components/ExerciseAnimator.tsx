@@ -23,6 +23,86 @@ interface ExerciseAnimatorProps {
 type CameraPreset = 'orbit' | 'side' | 'front';
 
 /**
+ * Reusable Parametric Anatomical Profile & Muscle Bulge Geometry Builders
+ * Eliminates stick-figure CylinderGeometry in favor of organic THREE.LatheGeometry
+ * with smooth Gaussian/sinusoidal muscle belly contours and natural joint tapers.
+ */
+interface MuscleBulgeZone {
+  centerT: number; // 0 = distal (elbow/knee/wrist/ankle), 1 = proximal (shoulder/hip)
+  widthT: number;
+  amplitude: number; // radial bulge in meters
+}
+
+function createTaperedLatheGeometry(
+  length: number,
+  radiusDistal: number,
+  radiusProximal: number,
+  bulgeZones: MuscleBulgeZone[],
+  axialSteps = 18,
+  radialSegments = 24
+): THREE.LatheGeometry {
+  const points: THREE.Vector2[] = [];
+  const halfLen = length * 0.5;
+
+  for (let i = 0; i <= axialSteps; i++) {
+    const t = i / axialSteps; // 0 = bottom (-halfLen), 1 = top (+halfLen)
+    const y = -halfLen + t * length;
+
+    // Base conical taper from distal joint (t=0) to proximal joint (t=1)
+    let r = THREE.MathUtils.lerp(radiusDistal, radiusProximal, Math.pow(t, 0.88));
+
+    // Add smooth organic parametric muscle belly bulges
+    for (const zone of bulgeZones) {
+      const normalizedDist = (t - zone.centerT) / Math.max(0.05, zone.widthT);
+      if (Math.abs(normalizedDist) < 1.0) {
+        const bell = Math.cos(normalizedDist * Math.PI * 0.5);
+        r += zone.amplitude * bell * bell;
+      }
+    }
+
+    // Smoothly round the very ends so segments blend seamlessly into joint sockets
+    const endFade = Math.sin(t * Math.PI);
+    r *= 0.92 + 0.08 * Math.pow(endFade, 0.35);
+
+    points.push(new THREE.Vector2(Math.max(0.008, r), y));
+  }
+
+  const geo = new THREE.LatheGeometry(points, radialSegments);
+  geo.computeVertexNormals();
+  return geo;
+}
+
+/**
+ * Creates a sculpted 3D parametric muscle belly mesh (used for Biceps, Triceps,
+ * Quadriceps vastus medialis/lateralis, Gastrocnemius, and Deltoid heads)
+ * with an asymmetric organic teardrop contour along its longitudinal axis.
+ */
+function createParametricMuscleBulgeGeometry(
+  length: number,
+  maxRadius: number,
+  peakT = 0.55,
+  radialSegments = 20
+): THREE.LatheGeometry {
+  const points: THREE.Vector2[] = [];
+  const steps = 14;
+  const halfLen = length * 0.5;
+
+  for (let i = 0; i <= steps; i++) {
+    const t = i / steps;
+    const y = -halfLen + t * length;
+    // Skewed teardrop profile peaking at `peakT`
+    const skew = t < peakT ? t / peakT : (1 - t) / (1 - peakT);
+    const profile = Math.sin(Math.max(0, Math.min(1, skew)) * Math.PI * 0.5);
+    const r = Math.max(0.002, maxRadius * Math.pow(profile, 1.15));
+    points.push(new THREE.Vector2(r, y));
+  }
+
+  const geo = new THREE.LatheGeometry(points, radialSegments);
+  geo.computeVertexNormals();
+  return geo;
+}
+
+/**
  * Exact 3D Two-Bone Analytic Inverse Kinematics Solver
  */
 function solveTwoBoneIK(
@@ -384,31 +464,45 @@ export const ExerciseAnimator: React.FC<ExerciseAnimatorProps> = ({
     headGroup.add(hairCrown);
     humanGroup.add(headGroup);
 
-    // Neck & Sternocleidomastoid Column
+    // Neck & Sternocleidomastoid Column (Gradual conical taper from head base to broad shoulders)
+    // orientSegmentWithAnterior(neckGroup, thoraxPos, headPos):
+    // local -Y (t=0) is at shoulder/thorax base (wider = 0.068), local +Y (t=1) is at skull base (narrower = 0.049)
     const neckGroup = new THREE.Group();
-    const neckCyl = new THREE.Mesh(
-      new THREE.CylinderGeometry(0.054, 0.064, 0.125, 20),
-      skinMat
+    const neckLatheGeo = createTaperedLatheGeometry(
+      0.13,
+      0.068, // wider shoulder base (t=0)
+      0.049, // narrower cranial base (t=1)
+      [{ centerT: 0.35, widthT: 0.45, amplitude: 0.005 }],
+      14,
+      22
     );
+    const neckCyl = new THREE.Mesh(neckLatheGeo, skinMat);
+    neckCyl.scale.set(1.04, 1, 0.94);
     neckCyl.castShadow = true;
     neckGroup.add(neckCyl);
     humanGroup.add(neckGroup);
 
     // =========================================================================
-    // 2. ANATOMICAL THORAX (Ribcage, Pectorals, Lats, Traps, Scapulae)
+    // 2. ANATOMICAL THORAX (Lathe-Tapered Ribcage, Pectorals, Lats, Traps, Scapulae)
     // =========================================================================
     const thoraxGroup = new THREE.Group();
-    const ribcageMesh = new THREE.Mesh(
-      new THREE.CylinderGeometry(0.168, 0.136, 0.30, 28),
-      skinMat
+    // Subtle waist-to-chest Lathe taper (narrower at lower ribs t=0, flaring up to broad chest t=0.72)
+    const ribcageLatheGeo = createTaperedLatheGeometry(
+      0.30,
+      0.132, // lower rib/waist transition (t=0)
+      0.168, // upper chest breadth (t=1)
+      [{ centerT: 0.68, widthT: 0.42, amplitude: 0.012 }],
+      18,
+      28
     );
+    const ribcageMesh = new THREE.Mesh(ribcageLatheGeo, skinMat);
     ribcageMesh.scale.set(1.18, 1, 0.72);
     ribcageMesh.castShadow = true;
     thoraxGroup.add(ribcageMesh);
 
-    // Upper Trapezius Slope
+    // Upper Trapezius Slope (Conical shoulder-neck bridge)
     const trapsMesh = new THREE.Mesh(new THREE.SphereGeometry(0.13, 20, 16), backMat);
-    trapsMesh.scale.set(1.45, 0.52, 0.72);
+    trapsMesh.scale.set(1.48, 0.54, 0.74);
     trapsMesh.position.set(0, 0.135, -0.015);
     thoraxGroup.add(trapsMesh);
 
@@ -425,7 +519,14 @@ export const ExerciseAnimator: React.FC<ExerciseAnimatorProps> = ({
     thoraxGroup.add(pecR);
 
     // Latissimus Dorsi V-Taper & Scapular Rhomboids (-Z posterior back)
-    const latGeo = new THREE.CylinderGeometry(0.178, 0.124, 0.28, 24);
+    const latGeo = createTaperedLatheGeometry(
+      0.28,
+      0.118, // narrow waist insertion
+      0.182, // wide armpit/terres flare
+      [{ centerT: 0.65, widthT: 0.45, amplitude: 0.014 }],
+      16,
+      24
+    );
     const latsMesh = new THREE.Mesh(latGeo, backMat);
     latsMesh.scale.set(1.24, 1, 0.58);
     latsMesh.position.set(0, 0.01, -0.048);
@@ -444,13 +545,19 @@ export const ExerciseAnimator: React.FC<ExerciseAnimatorProps> = ({
     humanGroup.add(thoraxGroup);
 
     // =========================================================================
-    // 3. ABDOMINAL WALL, RECTUS ABDOMINIS, OBLIQUES & ERECTOR SPINAE
+    // 3. ABDOMINAL WALL WITH NATURAL WAIST TAPER, RECTUS ABDOMINIS & ERECTORS
     // =========================================================================
     const abdomenGroup = new THREE.Group();
-    const abdomenMesh = new THREE.Mesh(
-      new THREE.CylinderGeometry(0.136, 0.142, 0.21, 24),
-      coreMat
+    // Subtle athletic waist taper (concave inward curve at mid-waist t=0.45, flaring to hips & ribs)
+    const abdomenLatheGeo = createTaperedLatheGeometry(
+      0.22,
+      0.144, // lower iliac crest / hip top
+      0.138, // upper costal arch
+      [{ centerT: 0.45, widthT: 0.45, amplitude: -0.012 }],
+      16,
+      24
     );
+    const abdomenMesh = new THREE.Mesh(abdomenLatheGeo, coreMat);
     abdomenMesh.scale.set(1.12, 1, 0.72);
     abdomenMesh.castShadow = true;
     abdomenGroup.add(abdomenMesh);
@@ -470,7 +577,7 @@ export const ExerciseAnimator: React.FC<ExerciseAnimatorProps> = ({
       abdomenGroup.add(abR);
     }
 
-    const erectorGeo = new THREE.CylinderGeometry(0.036, 0.036, 0.20, 14);
+    const erectorGeo = createParametricMuscleBulgeGeometry(0.20, 0.038, 0.5, 14);
     const erectorL = new THREE.Mesh(erectorGeo, backMat);
     erectorL.position.set(0.042, 0, -0.082);
     abdomenGroup.add(erectorL);
@@ -484,10 +591,15 @@ export const ExerciseAnimator: React.FC<ExerciseAnimatorProps> = ({
     // 4. PELVIS, COMPRESSION SHORTS & GLUTEUS MAXIMUS
     // =========================================================================
     const pelvisGroup = new THREE.Group();
-    const pelvisMesh = new THREE.Mesh(
-      new THREE.CylinderGeometry(0.144, 0.152, 0.16, 24),
-      shortsMat
+    const pelvisLatheGeo = createTaperedLatheGeometry(
+      0.16,
+      0.152,
+      0.142,
+      [{ centerT: 0.45, widthT: 0.5, amplitude: 0.008 }],
+      14,
+      24
     );
+    const pelvisMesh = new THREE.Mesh(pelvisLatheGeo, shortsMat);
     pelvisMesh.scale.set(1.18, 1, 0.78);
     pelvisMesh.castShadow = true;
     pelvisGroup.add(pelvisMesh);
@@ -505,8 +617,18 @@ export const ExerciseAnimator: React.FC<ExerciseAnimatorProps> = ({
     humanGroup.add(pelvisGroup);
 
     // =========================================================================
-    // 5. SCULPTED HUMAN ARMS, HANDS, THIGHS, CALVES & ATHLETIC SHOES
+    // 5. ANATOMICALLY TAPERED LIMBS & PARAMETRIC MUSCLE BULGES
+    // Proportions:
+    // - Upper Arm Length = 0.34m (thicker at shoulder, thinner at elbow + Biceps/Triceps bulges)
+    // - Forearm Length   = 0.24m (visual exposed forearm ~40% of upper arm + extended hand/index finger)
+    // - Thigh Length     = 0.42m (thicker at hip, thinner at knee + Quadriceps/Hamstring bulges)
+    // - Calf Length      = 0.40m (~95% of thigh length, thicker at gastrocnemius, tapering to ankle)
     // =========================================================================
+    const UPPER_ARM_LEN = 0.34;
+    const FOREARM_LEN = 0.24;
+    const THIGH_LEN = 0.42;
+    const CALF_LEN = 0.40; // 0.40 / 0.42 = 95.2% of thigh length
+
     const createJointSphere = (radius: number, mat: THREE.Material) => {
       const m = new THREE.Mesh(new THREE.SphereGeometry(radius, 18, 18), mat);
       m.castShadow = true;
@@ -514,103 +636,246 @@ export const ExerciseAnimator: React.FC<ExerciseAnimatorProps> = ({
       return m;
     };
 
-    const createUpperArm = () => {
+    // Sculpted 3-Head Deltoid Cap (Shoulder top lateral/anterior/posterior bulge)
+    const createDeltoidCap = (isLeft: boolean) => {
       const g = new THREE.Group();
-      const base = new THREE.Mesh(
-        new THREE.CylinderGeometry(0.052, 0.042, 0.30, 20),
-        armMat
+      const coreCap = new THREE.Mesh(
+        createParametricMuscleBulgeGeometry(0.145, 0.072, 0.62, 20),
+        shoulderMat
       );
+      coreCap.scale.set(1.05, 1.0, 0.96);
+      coreCap.castShadow = true;
+      g.add(coreCap);
+
+      // Lateral & Anterior Deltoid Head Bulge
+      const lateralHead = new THREE.Mesh(
+        createParametricMuscleBulgeGeometry(0.12, 0.054, 0.58, 16),
+        shoulderMat
+      );
+      lateralHead.position.set(isLeft ? 0.022 : -0.022, -0.012, 0.012);
+      lateralHead.rotation.z = isLeft ? 0.28 : -0.28;
+      g.add(lateralHead);
+
+      humanGroup.add(g);
+      return g;
+    };
+
+    // Tapered Upper Arm (Thicker at shoulder t=1, thinner at elbow t=0 + Parametric Biceps & Triceps Bulges)
+    const createUpperArm = (isLeft: boolean) => {
+      const g = new THREE.Group();
+      const baseGeo = createTaperedLatheGeometry(
+        UPPER_ARM_LEN,
+        0.038, // thinner distal elbow end (t=0)
+        0.058, // thicker proximal shoulder end (t=1)
+        [{ centerT: 0.52, widthT: 0.38, amplitude: 0.008 }],
+        18,
+        22
+      );
+      const base = new THREE.Mesh(baseGeo, armMat);
       base.castShadow = true;
       g.add(base);
-      // Biceps Brachii (+Z anterior belly) & Triceps Brachii (-Z posterior belly)
-      const bicep = new THREE.Mesh(new THREE.SphereGeometry(0.046, 16, 14), armMat);
-      bicep.scale.set(0.85, 1.85, 0.95);
-      bicep.position.set(0, -0.01, 0.018);
+
+      // Parametric Biceps Brachii Peak Bulge (+Z anterior belly)
+      const bicepGeo = createParametricMuscleBulgeGeometry(
+        UPPER_ARM_LEN * 0.74,
+        0.044,
+        0.48,
+        18
+      );
+      const bicep = new THREE.Mesh(bicepGeo, armMat);
+      bicep.scale.set(0.88, 1.0, 1.08);
+      bicep.position.set(isLeft ? -0.004 : 0.004, -0.012, 0.024);
+      bicep.castShadow = true;
       g.add(bicep);
 
-      const tricep = new THREE.Mesh(new THREE.SphereGeometry(0.046, 16, 14), armMat);
-      tricep.scale.set(0.88, 1.75, 0.92);
-      tricep.position.set(0, 0.015, -0.018);
+      // Parametric Triceps Brachii Horseshoe Bulge (-Z posterior/lateral belly)
+      const tricepGeo = createParametricMuscleBulgeGeometry(
+        UPPER_ARM_LEN * 0.72,
+        0.045,
+        0.58,
+        18
+      );
+      const tricep = new THREE.Mesh(tricepGeo, armMat);
+      tricep.scale.set(0.94, 1.0, 1.02);
+      tricep.position.set(isLeft ? 0.006 : -0.006, 0.022, -0.022);
       g.add(tricep);
+
       humanGroup.add(g);
       return g;
     };
 
+    // Tapered Forearm (~40% visual upper-arm belly + sleek conical wrist taper)
     const createForearm = () => {
       const g = new THREE.Group();
-      const base = new THREE.Mesh(
-        new THREE.CylinderGeometry(0.043, 0.030, 0.28, 20),
-        armMat
+      const baseGeo = createTaperedLatheGeometry(
+        FOREARM_LEN,
+        0.026, // slender wrist (t=0)
+        0.044, // thicker proximal elbow/brachioradialis (t=1)
+        [{ centerT: 0.68, widthT: 0.32, amplitude: 0.009 }],
+        16,
+        20
       );
+      const base = new THREE.Mesh(baseGeo, armMat);
       base.castShadow = true;
       g.add(base);
-      const brachio = new THREE.Mesh(new THREE.SphereGeometry(0.042, 14, 12), armMat);
-      brachio.scale.set(0.88, 1.65, 0.95);
-      brachio.position.set(0, 0.055, 0.008);
+
+      // Brachioradialis Upper Forearm Bulge (top 40% near elbow)
+      const brachioGeo = createParametricMuscleBulgeGeometry(
+        UPPER_ARM_LEN * 0.40,
+        0.038,
+        0.60,
+        16
+      );
+      const brachio = new THREE.Mesh(brachioGeo, armMat);
+      brachio.position.set(0, FOREARM_LEN * 0.22, 0.010);
       g.add(brachio);
+
       humanGroup.add(g);
       return g;
     };
 
+    // Anatomically Proportioned Hand (Wrist Carpal Bridge + Palm + Articulated Index & Finger Rays)
+    // Positioned so the wrist seamlessly meets the distal forearm and index finger extends naturally
     const createHand = (isLeft: boolean) => {
       const g = new THREE.Group();
-      const palm = new THREE.Mesh(new THREE.BoxGeometry(0.068, 0.075, 0.026), skinMat);
-      palm.position.set(0, -0.02, 0);
+      // Wrist carpal bridge connecting hand target to distal forearm
+      const wristBridge = new THREE.Mesh(
+        createTaperedLatheGeometry(0.045, 0.025, 0.028, [], 8, 14),
+        skinMat
+      );
+      wristBridge.position.set(0, 0.018, 0);
+      g.add(wristBridge);
+
+      // Tapered Metacarpal Palm
+      const palm = new THREE.Mesh(new THREE.BoxGeometry(0.064, 0.072, 0.024), skinMat);
+      palm.position.set(0, -0.022, 0);
       palm.castShadow = true;
       g.add(palm);
-      const fingers = new THREE.Mesh(new THREE.BoxGeometry(0.064, 0.045, 0.022), skinMat);
-      fingers.position.set(0, -0.065, 0.006);
-      g.add(fingers);
-      const thumb = new THREE.Mesh(new THREE.BoxGeometry(0.022, 0.042, 0.022), skinMat);
-      thumb.position.set(isLeft ? -0.038 : 0.038, -0.032, 0.012);
-      thumb.rotation.z = isLeft ? 0.45 : -0.45;
+
+      // Articulated Index Finger & 4 Finger Rays extending straight from palm to wrist line in neutral pose
+      const fingerRadii = [0.0075, 0.008, 0.0075, 0.0068];
+      const fingerLengths = [0.068, 0.074, 0.069, 0.056]; // Index, Middle, Ring, Pinky
+      const xOffsets = isLeft
+        ? [-0.022, -0.007, 0.008, 0.022]
+        : [0.022, 0.007, -0.008, -0.022];
+
+      for (let f = 0; f < 4; f++) {
+        const fGeo = createTaperedLatheGeometry(
+          fingerLengths[f],
+          fingerRadii[f] * 0.72,
+          fingerRadii[f],
+          [],
+          8,
+          10
+        );
+        const fingerMesh = new THREE.Mesh(fGeo, skinMat);
+        fingerMesh.position.set(
+          xOffsets[f],
+          -0.056 - fingerLengths[f] * 0.45,
+          0.003
+        );
+        g.add(fingerMesh);
+      }
+
+      // Opposable Thumb
+      const thumbGeo = createTaperedLatheGeometry(0.052, 0.0075, 0.011, [], 8, 10);
+      const thumb = new THREE.Mesh(thumbGeo, skinMat);
+      thumb.position.set(isLeft ? -0.038 : 0.038, -0.032, 0.010);
+      thumb.rotation.z = isLeft ? 0.48 : -0.48;
       g.add(thumb);
+
       humanGroup.add(g);
       return g;
     };
 
-    const createThigh = () => {
+    // Tapered Thigh (Thicker at Hip t=1, Thinner at Knee t=0 + Parametric Quadriceps & Hamstring Bulges)
+    const createThigh = (isLeft: boolean) => {
       const g = new THREE.Group();
-      const base = new THREE.Mesh(
-        new THREE.CylinderGeometry(0.088, 0.062, 0.42, 22),
-        legMat
+      const baseGeo = createTaperedLatheGeometry(
+        THIGH_LEN,
+        0.056, // thinner knee end (t=0)
+        0.094, // thicker upper hip/groin end (t=1)
+        [{ centerT: 0.55, widthT: 0.42, amplitude: 0.011 }],
+        20,
+        24
       );
+      const base = new THREE.Mesh(baseGeo, legMat);
       base.castShadow = true;
       g.add(base);
-      // Upper Compression Shorts Leg Cuff
-      const shortLeg = new THREE.Mesh(
-        new THREE.CylinderGeometry(0.092, 0.082, 0.17, 22),
-        shortsMat
-      );
+
+      // Upper Compression Shorts Leg Cuff (Tapered cone matching upper thigh)
+      const shortLegGeo = createTaperedLatheGeometry(0.17, 0.082, 0.096, [], 10, 22);
+      const shortLeg = new THREE.Mesh(shortLegGeo, shortsMat);
       shortLeg.position.set(0, 0.125, 0);
       g.add(shortLeg);
-      // Quadriceps Teardrop (+Z) & Hamstring Belly (-Z)
-      const quad = new THREE.Mesh(new THREE.SphereGeometry(0.072, 18, 16), legMat);
-      quad.scale.set(0.95, 2.1, 0.92);
-      quad.position.set(0, -0.02, 0.022);
-      g.add(quad);
 
-      const hamstring = new THREE.Mesh(new THREE.SphereGeometry(0.068, 16, 14), legMat);
-      hamstring.scale.set(0.92, 1.95, 0.88);
-      hamstring.position.set(0, 0.01, -0.022);
+      // Parametric Rectus Femoris & Vastus Lateralis Sweep (+Z anterior/lateral thigh)
+      const quadOuterGeo = createParametricMuscleBulgeGeometry(
+        THIGH_LEN * 0.80,
+        0.064,
+        0.56,
+        18
+      );
+      const quadOuter = new THREE.Mesh(quadOuterGeo, legMat);
+      quadOuter.scale.set(0.96, 1.0, 1.05);
+      quadOuter.position.set(isLeft ? 0.012 : -0.012, -0.005, 0.028);
+      quadOuter.castShadow = true;
+      g.add(quadOuter);
+
+      // Parametric Vastus Medialis Oblique "VMO Teardrop" above inner knee
+      const vmoGeo = createParametricMuscleBulgeGeometry(
+        THIGH_LEN * 0.48,
+        0.048,
+        0.38,
+        16
+      );
+      const vmo = new THREE.Mesh(vmoGeo, legMat);
+      vmo.position.set(isLeft ? -0.022 : 0.022, -0.075, 0.026);
+      g.add(vmo);
+
+      // Parametric Biceps Femoris / Hamstring Belly (-Z posterior thigh)
+      const hamstringGeo = createParametricMuscleBulgeGeometry(
+        THIGH_LEN * 0.76,
+        0.060,
+        0.52,
+        18
+      );
+      const hamstring = new THREE.Mesh(hamstringGeo, legMat);
+      hamstring.position.set(0, 0.01, -0.026);
       g.add(hamstring);
+
       humanGroup.add(g);
       return g;
     };
 
-    const createCalf = () => {
+    // Tapered Calf (~95% of Thigh Length = 0.40m, High Gastrocnemius Bulge Tapering to Slender Achilles/Ankle)
+    const createCalf = (isLeft: boolean) => {
       const g = new THREE.Group();
-      const base = new THREE.Mesh(
-        new THREE.CylinderGeometry(0.056, 0.036, 0.40, 20),
-        legMat
+      const baseGeo = createTaperedLatheGeometry(
+        CALF_LEN,
+        0.032, // slender distal ankle (t=0)
+        0.056, // proximal tibial plateau below knee (t=1)
+        [{ centerT: 0.66, widthT: 0.30, amplitude: 0.012 }],
+        18,
+        22
       );
+      const base = new THREE.Mesh(baseGeo, legMat);
       base.castShadow = true;
       g.add(base);
-      // Gastrocnemius Calf Belly (-Z upper calf)
-      const gastroc = new THREE.Mesh(new THREE.SphereGeometry(0.056, 18, 16), legMat);
-      gastroc.scale.set(0.94, 1.75, 1.05);
-      gastroc.position.set(0, 0.065, -0.018);
+
+      // Medial & Lateral Gastrocnemius Diamond Heads (-Z posterior upper calf)
+      const gastrocGeo = createParametricMuscleBulgeGeometry(
+        CALF_LEN * 0.62,
+        0.052,
+        0.62,
+        18
+      );
+      const gastroc = new THREE.Mesh(gastrocGeo, legMat);
+      gastroc.scale.set(1.04, 1.0, 1.08);
+      gastroc.position.set(isLeft ? -0.004 : 0.004, 0.058, -0.022);
+      gastroc.castShadow = true;
       g.add(gastroc);
+
       humanGroup.add(g);
       return g;
     };
@@ -635,12 +900,12 @@ export const ExerciseAnimator: React.FC<ExerciseAnimatorProps> = ({
       return fg;
     };
 
-    const deltoidL = createJointSphere(0.068, shoulderMat);
-    const deltoidR = createJointSphere(0.068, shoulderMat);
-    const upperArmL = createUpperArm();
-    const upperArmR = createUpperArm();
-    const elbowJointL = createJointSphere(0.042, skinMat);
-    const elbowJointR = createJointSphere(0.042, skinMat);
+    const deltoidL = createDeltoidCap(true);
+    const deltoidR = createDeltoidCap(false);
+    const upperArmL = createUpperArm(true);
+    const upperArmR = createUpperArm(false);
+    const elbowJointL = createJointSphere(0.039, skinMat);
+    const elbowJointR = createJointSphere(0.039, skinMat);
     const forearmL = createForearm();
     const forearmR = createForearm();
     const handL = createHand(true);
@@ -648,12 +913,12 @@ export const ExerciseAnimator: React.FC<ExerciseAnimatorProps> = ({
 
     const hipJointL = createJointSphere(0.072, shortsMat);
     const hipJointR = createJointSphere(0.072, shortsMat);
-    const thighL = createThigh();
-    const thighR = createThigh();
-    const kneeJointL = createJointSphere(0.054, skinMat);
-    const kneeJointR = createJointSphere(0.054, skinMat);
-    const calfL = createCalf();
-    const calfR = createCalf();
+    const thighL = createThigh(true);
+    const thighR = createThigh(false);
+    const kneeJointL = createJointSphere(0.052, skinMat);
+    const kneeJointR = createJointSphere(0.052, skinMat);
+    const calfL = createCalf(true);
+    const calfR = createCalf(false);
     const footMeshL = createShoe();
     const footMeshR = createShoe();
 

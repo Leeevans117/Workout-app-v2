@@ -210,8 +210,8 @@ class YouTubeMusicEngine {
 
     if (!this.hasBootstrappedCatalog) {
       this.hasBootstrappedCatalog = true;
-      // Automatically sync the full Liked Songs playlist if empty or still on the old 20-song cache
-      if (this.likedSongs.length < 30 || this.queue.length === 0) {
+      // Automatically sync the full Liked Songs playlist if empty or if cached at <= 50 songs (single page)
+      if (this.likedSongs.length <= 50 || this.queue.length === 0) {
         this.syncPersonalLibrary(true);
       }
     }
@@ -710,8 +710,12 @@ class YouTubeMusicEngine {
       let oauthSucceeded = false;
 
       // 1. Fetch ENTIRE Liked Songs playlist across all pages via OAuth YouTube Data API v3
+      // NOTE: The 1,000-song limit (20 pages × 50 maxResults) is an upstream YouTube Data API v3
+      // pagination constraint on the `videos?myRating=like` and `LL` Likes playlist resources,
+      // not an artificial cap in our application code. We combine both endpoints and deduplicate.
       if (token) {
         try {
+          console.log('[YouTubeMusicSync] Starting OAuth Liked Songs & Playlist sync...');
           const testRes = await fetch(
             'https://www.googleapis.com/youtube/v3/channels?part=contentDetails,snippet&mine=true',
             {
@@ -723,89 +727,179 @@ class YouTubeMusicEngine {
             const channelData: any = await testRes.json().catch(() => ({}));
             const likesPlaylistId =
               channelData?.items?.[0]?.contentDetails?.relatedPlaylists?.likes || 'LL';
+            console.log(
+              `[YouTubeMusicSync] Authenticated channel resolved. Likes Playlist ID: "${likesPlaylistId}"`
+            );
 
             const loadedLikedSongs: YouTubeMusicSong[] = [];
             const seenVideoIds = new Set<string>();
+            let rawItemsEncountered = 0;
+            let ratingPagesAttempted = 0;
+            let playlistPagesAttempted = 0;
 
-            // 1A. Paginate through ALL pages of videos?myRating=like (50 per page, up to 1,000 songs)
+            // 1A. Paginate through ALL pages of videos?myRating=like (50 per page, up to 1,000 songs per YouTube API limit)
             let likePageToken = '';
             for (let page = 0; page < 20; page++) {
-              const pageUrl = `https://www.googleapis.com/youtube/v3/videos?part=snippet,contentDetails&myRating=like&maxResults=50${
-                likePageToken ? `&pageToken=${encodeURIComponent(likePageToken)}` : ''
-              }`;
-              const likedRes = await fetch(pageUrl, {
-                headers: { Authorization: `Bearer ${token}` },
-              });
-              if (!likedRes.ok) break;
-              const likedData: any = await likedRes.json().catch(() => ({}));
-              for (const item of likedData?.items || []) {
-                const vid = String(item?.id || '');
-                if (!vid || seenVideoIds.has(vid)) continue;
-                seenVideoIds.add(vid);
-                const rawArtist = String(item?.snippet?.channelTitle || 'YouTube Music');
-                loadedLikedSongs.push({
-                  id: `liked-${vid}`,
-                  videoId: vid,
-                  title: String(item?.snippet?.title || 'Liked Song'),
-                  artist: rawArtist.replace(/ - Topic$/i, ''),
-                  thumbnailUrl:
-                    item?.snippet?.thumbnails?.medium?.url ||
-                    item?.snippet?.thumbnails?.default?.url,
-                  playlistId: likesPlaylistId,
-                  playlistTitle: 'Liked Music',
+              ratingPagesAttempted++;
+              try {
+                const pageUrl = `https://www.googleapis.com/youtube/v3/videos?part=snippet,contentDetails&myRating=like&maxResults=50${
+                  likePageToken ? `&pageToken=${encodeURIComponent(likePageToken)}` : ''
+                }`;
+                const likedRes = await fetch(pageUrl, {
+                  headers: { Authorization: `Bearer ${token}` },
                 });
+
+                if (!likedRes.ok) {
+                  const errBody = await likedRes.text().catch(() => '');
+                  console.warn(
+                    `[YouTubeMusicSync] videos?myRating=like page ${
+                      page + 1
+                    } failed with status ${likedRes.status}:`,
+                    errBody.slice(0, 200)
+                  );
+                  // If there is no nextPageToken to advance to, exit this loop and continue to 1B (Likes Playlist)
+                  if (!likePageToken) break;
+                  continue;
+                }
+
+                const likedData: any = await likedRes.json().catch(() => ({}));
+                const pageItems = Array.isArray(likedData?.items) ? likedData.items : [];
+                rawItemsEncountered += pageItems.length;
+                let addedOnPage = 0;
+
+                for (const item of pageItems) {
+                  const vid = String(item?.id || '');
+                  if (!vid || seenVideoIds.has(vid)) continue;
+                  seenVideoIds.add(vid);
+                  addedOnPage++;
+                  const rawArtist = String(item?.snippet?.channelTitle || 'YouTube Music');
+                  loadedLikedSongs.push({
+                    id: `liked-${vid}`,
+                    videoId: vid,
+                    title: String(item?.snippet?.title || 'Liked Song'),
+                    artist: rawArtist.replace(/ - Topic$/i, ''),
+                    thumbnailUrl:
+                      item?.snippet?.thumbnails?.medium?.url ||
+                      item?.snippet?.thumbnails?.default?.url,
+                    playlistId: likesPlaylistId,
+                    playlistTitle: 'Liked Music',
+                  });
+                }
+
+                console.log(
+                  `[YouTubeMusicSync] [myRating=like] Page ${page + 1}: fetched ${
+                    pageItems.length
+                  } items, added ${addedOnPage} unique songs (running total: ${
+                    loadedLikedSongs.length
+                  })`
+                );
+
+                if (!likedData?.nextPageToken) break;
+                likePageToken = String(likedData.nextPageToken);
+              } catch (pageErr) {
+                console.warn(
+                  `[YouTubeMusicSync] Error on videos?myRating=like page ${
+                    page + 1
+                  }, continuing to remaining pages/sources:`,
+                  pageErr
+                );
+                if (!likePageToken) break;
               }
-              if (!likedData?.nextPageToken) break;
-              likePageToken = String(likedData.nextPageToken);
             }
 
             // 1B. Also paginate through ALL pages of the user's Likes Playlist (LL / likesPlaylistId)
+            // Combined with 1A so no liked tracks are missed even if one endpoint caps or fails.
             let llPageToken = '';
             for (let page = 0; page < 20; page++) {
-              const llUrl = `https://www.googleapis.com/youtube/v3/playlistItems?part=snippet,contentDetails&playlistId=${encodeURIComponent(
-                likesPlaylistId
-              )}&maxResults=50${
-                llPageToken ? `&pageToken=${encodeURIComponent(llPageToken)}` : ''
-              }`;
-              const llRes = await fetch(llUrl, {
-                headers: { Authorization: `Bearer ${token}` },
-              });
-              if (!llRes.ok) break;
-              const llData: any = await llRes.json().catch(() => ({}));
-              for (const item of llData?.items || []) {
-                const vid = String(
-                  item?.contentDetails?.videoId || item?.snippet?.resourceId?.videoId || ''
-                );
-                const title = String(item?.snippet?.title || '');
-                if (
-                  !vid ||
-                  seenVideoIds.has(vid) ||
-                  title === 'Private video' ||
-                  title === 'Deleted video'
-                ) {
+              playlistPagesAttempted++;
+              try {
+                const llUrl = `https://www.googleapis.com/youtube/v3/playlistItems?part=snippet,contentDetails&playlistId=${encodeURIComponent(
+                  likesPlaylistId
+                )}&maxResults=50${
+                  llPageToken ? `&pageToken=${encodeURIComponent(llPageToken)}` : ''
+                }`;
+                const llRes = await fetch(llUrl, {
+                  headers: { Authorization: `Bearer ${token}` },
+                });
+
+                if (!llRes.ok) {
+                  const errBody = await llRes.text().catch(() => '');
+                  console.warn(
+                    `[YouTubeMusicSync] playlistItems(${likesPlaylistId}) page ${
+                      page + 1
+                    } failed with status ${llRes.status}:`,
+                    errBody.slice(0, 200)
+                  );
+                  if (!llPageToken) break;
                   continue;
                 }
-                seenVideoIds.add(vid);
-                const rawOwner = String(
-                  item?.snippet?.videoOwnerChannelTitle ||
-                    item?.snippet?.channelTitle ||
-                    'YouTube Music'
+
+                const llData: any = await llRes.json().catch(() => ({}));
+                const pageItems = Array.isArray(llData?.items) ? llData.items : [];
+                rawItemsEncountered += pageItems.length;
+                let addedOnPage = 0;
+
+                for (const item of pageItems) {
+                  const vid = String(
+                    item?.contentDetails?.videoId || item?.snippet?.resourceId?.videoId || ''
+                  );
+                  const title = String(item?.snippet?.title || '');
+                  if (
+                    !vid ||
+                    seenVideoIds.has(vid) ||
+                    title === 'Private video' ||
+                    title === 'Deleted video'
+                  ) {
+                    continue;
+                  }
+                  seenVideoIds.add(vid);
+                  addedOnPage++;
+                  const rawOwner = String(
+                    item?.snippet?.videoOwnerChannelTitle ||
+                      item?.snippet?.channelTitle ||
+                      'YouTube Music'
+                  );
+                  loadedLikedSongs.push({
+                    id: `liked-${vid}`,
+                    videoId: vid,
+                    title,
+                    artist: rawOwner.replace(/ - Topic$/i, ''),
+                    thumbnailUrl:
+                      item?.snippet?.thumbnails?.medium?.url ||
+                      item?.snippet?.thumbnails?.default?.url,
+                    playlistId: likesPlaylistId,
+                    playlistTitle: 'Liked Music',
+                  });
+                }
+
+                console.log(
+                  `[YouTubeMusicSync] [Likes Playlist ${likesPlaylistId}] Page ${
+                    page + 1
+                  }: fetched ${pageItems.length} items, added ${addedOnPage} new unique songs (running total: ${
+                    loadedLikedSongs.length
+                  })`
                 );
-                loadedLikedSongs.push({
-                  id: `liked-${vid}`,
-                  videoId: vid,
-                  title,
-                  artist: rawOwner.replace(/ - Topic$/i, ''),
-                  thumbnailUrl:
-                    item?.snippet?.thumbnails?.medium?.url ||
-                    item?.snippet?.thumbnails?.default?.url,
-                  playlistId: likesPlaylistId,
-                  playlistTitle: 'Liked Music',
-                });
+
+                if (!llData?.nextPageToken) break;
+                llPageToken = String(llData.nextPageToken);
+              } catch (llPageErr) {
+                console.warn(
+                  `[YouTubeMusicSync] Error on playlistItems(${likesPlaylistId}) page ${
+                    page + 1
+                  }, continuing:`,
+                  llPageErr
+                );
+                if (!llPageToken) break;
               }
-              if (!llData?.nextPageToken) break;
-              llPageToken = String(llData.nextPageToken);
             }
+
+            console.log(
+              `[YouTubeMusicSync] Pagination complete — Pages attempted: ${
+                ratingPagesAttempted + playlistPagesAttempted
+              } (myRating=${ratingPagesAttempted}, playlistItems=${playlistPagesAttempted}) | Raw items before deduplication: ${rawItemsEncountered} | Final unique Liked Songs after deduplication: ${
+                loadedLikedSongs.length
+              }`
+            );
 
             if (loadedLikedSongs.length > 0) {
               // Preserve any custom songs liked locally inside the app
@@ -815,40 +909,59 @@ class YouTubeMusicEngine {
               this.likedSongs = [...customLiked, ...loadedLikedSongs];
               this.playlistTracksMap[likesPlaylistId] = this.likedSongs;
               this.playlistTracksMap['LM'] = this.likedSongs;
-              if (this.currentQueueTitle === 'My Liked Songs' || this.currentQueueTitle === 'Liked Music') {
+              if (
+                this.currentQueueTitle === 'My Liked Songs' ||
+                this.currentQueueTitle === 'Liked Music'
+              ) {
                 this.queue = [...this.likedSongs];
               }
             }
 
-            // 1C. Paginate through all user playlists
+            // 1C. Paginate through all user playlists with per-page error resilience
             const loadedPlaylists: YouTubeMusicPlaylistSummary[] = [];
             let plPageToken = '';
-            for (let page = 0; page < 5; page++) {
-              const plRes = await fetch(
-                `https://www.googleapis.com/youtube/v3/playlists?part=snippet,contentDetails&mine=true&maxResults=50${
-                  plPageToken ? `&pageToken=${encodeURIComponent(plPageToken)}` : ''
-                }`,
-                {
-                  headers: { Authorization: `Bearer ${token}` },
+            for (let page = 0; page < 10; page++) {
+              try {
+                const plRes = await fetch(
+                  `https://www.googleapis.com/youtube/v3/playlists?part=snippet,contentDetails&mine=true&maxResults=50${
+                    plPageToken ? `&pageToken=${encodeURIComponent(plPageToken)}` : ''
+                  }`,
+                  {
+                    headers: { Authorization: `Bearer ${token}` },
+                  }
+                );
+                if (!plRes.ok) {
+                  console.warn(
+                    `[YouTubeMusicSync] playlists?mine=true page ${page + 1} failed with status ${
+                      plRes.status
+                    }`
+                  );
+                  if (!plPageToken) break;
+                  continue;
                 }
-              );
-              if (!plRes.ok) break;
-              const plData: any = await plRes.json().catch(() => ({}));
-              for (const pl of plData?.items || []) {
-                if (!pl?.id) continue;
-                loadedPlaylists.push({
-                  id: `pl-${pl.id}`,
-                  playlistId: String(pl.id),
-                  title: String(pl?.snippet?.title || 'Personal Playlist'),
-                  description: String(pl?.snippet?.description || ''),
-                  itemCount: Number(pl?.contentDetails?.itemCount) || 0,
-                  thumbnailUrl:
-                    pl?.snippet?.thumbnails?.medium?.url ||
-                    pl?.snippet?.thumbnails?.default?.url,
-                });
+                const plData: any = await plRes.json().catch(() => ({}));
+                for (const pl of plData?.items || []) {
+                  if (!pl?.id) continue;
+                  loadedPlaylists.push({
+                    id: `pl-${pl.id}`,
+                    playlistId: String(pl.id),
+                    title: String(pl?.snippet?.title || 'Personal Playlist'),
+                    description: String(pl?.snippet?.description || ''),
+                    itemCount: Number(pl?.contentDetails?.itemCount) || 0,
+                    thumbnailUrl:
+                      pl?.snippet?.thumbnails?.medium?.url ||
+                      pl?.snippet?.thumbnails?.default?.url,
+                  });
+                }
+                if (!plData?.nextPageToken) break;
+                plPageToken = String(plData.nextPageToken);
+              } catch (plErr) {
+                console.warn(
+                  `[YouTubeMusicSync] Error fetching playlists page ${page + 1}, continuing:`,
+                  plErr
+                );
+                if (!plPageToken) break;
               }
-              if (!plData?.nextPageToken) break;
-              plPageToken = String(plData.nextPageToken);
             }
 
             if (loadedPlaylists.length > 0) {
@@ -864,17 +977,23 @@ class YouTubeMusicEngine {
           } else {
             const errJson: any = await testRes.json().catch(() => ({}));
             const rawMsg = String(errJson?.error?.message || '');
+            console.warn(
+              `[YouTubeMusicSync] Channel check failed with status ${testRes.status}:`,
+              rawMsg
+            );
             if (rawMsg.includes('youtube.googleapis.com') || rawMsg.includes('228152919931')) {
               this.enableYouTubeApiUrl =
                 'https://console.developers.google.com/apis/api/youtube.googleapis.com/overview?project=228152919931';
             }
           }
-        } catch {}
+        } catch (oauthErr) {
+          console.warn('[YouTubeMusicSync] OAuth sync exception:', oauthErr);
+        }
       }
 
       // 2. Keyless Full Playlist Fallback: Load the full multi-batch starter catalog (70-100+ songs)
-      // if OAuth isn't connected yet or if the user has fewer than 30 songs in their starter cache
-      if (!oauthSucceeded || this.likedSongs.length < 25) {
+      // if OAuth isn't connected yet or if the user has <= 50 songs in their starter cache
+      if (!oauthSucceeded || this.likedSongs.length <= 50) {
         const starterRes = await fetch('/api/ytmusic/starter-liked');
         if (starterRes.ok) {
           const sData: any = await starterRes.json().catch(() => ({}));
@@ -887,11 +1006,14 @@ class YouTubeMusicEngine {
               ...this.likedSongs,
               ...fetchedTracks.filter((t) => !existingIds.has(t.videoId)),
             ];
+            console.log(
+              `[YouTubeMusicSync] Starter Liked catalog merged — before: ${this.likedSongs.length}, starter fetched: ${fetchedTracks.length}, total after deduplication: ${merged.length}`
+            );
             this.likedSongs = merged;
             if (this.searchResults.length === 0) {
               this.searchResults = fetchedTracks.slice(0, 30);
             }
-            if (this.queue.length < 25) {
+            if (this.queue.length <= 50) {
               this.queue = [...this.likedSongs];
               this.queueIndex = Math.min(this.queueIndex, Math.max(0, this.queue.length - 1));
               this.currentQueueTitle = 'Liked Music';
@@ -955,7 +1077,7 @@ class YouTubeMusicEngine {
       }
     } catch {}
 
-    // 2. Fallback to OAuth YouTube Data API v3 across ALL pages via nextPageToken
+    // 2. Fallback to OAuth YouTube Data API v3 across ALL pages via nextPageToken (up to 1,000 songs per YouTube API limit)
     try {
       const token = overrideToken || getGoogleHealthAccessToken();
       if (!token) return [];
@@ -963,54 +1085,85 @@ class YouTubeMusicEngine {
       const tracks: YouTubeMusicSong[] = [];
       const seen = new Set<string>();
       let pageToken = '';
+      let rawCount = 0;
+      let pagesAttempted = 0;
 
-      for (let page = 0; page < 15; page++) {
-        const res = await fetch(
-          `https://www.googleapis.com/youtube/v3/playlistItems?part=snippet,contentDetails&playlistId=${encodeURIComponent(
-            playlistId
-          )}&maxResults=50${pageToken ? `&pageToken=${encodeURIComponent(pageToken)}` : ''}`,
-          {
-            headers: { Authorization: `Bearer ${token}` },
-          }
-        );
+      for (let page = 0; page < 20; page++) {
+        pagesAttempted++;
+        try {
+          const res = await fetch(
+            `https://www.googleapis.com/youtube/v3/playlistItems?part=snippet,contentDetails&playlistId=${encodeURIComponent(
+              playlistId
+            )}&maxResults=50${pageToken ? `&pageToken=${encodeURIComponent(pageToken)}` : ''}`,
+            {
+              headers: { Authorization: `Bearer ${token}` },
+            }
+          );
 
-        if (!res.ok) break;
-        const data: any = await res.json().catch(() => ({}));
-
-        for (const item of data?.items || []) {
-          const videoId =
-            item?.contentDetails?.videoId || item?.snippet?.resourceId?.videoId;
-          const title = String(item?.snippet?.title || '');
-          if (
-            !videoId ||
-            seen.has(String(videoId)) ||
-            title === 'Private video' ||
-            title === 'Deleted video'
-          ) {
+          if (!res.ok) {
+            console.warn(
+              `[YouTubeMusicSync] fetchPlaylistTracks(${playlistId}) page ${
+                page + 1
+              } failed with status ${res.status}`
+            );
+            if (!pageToken) break;
             continue;
           }
-          seen.add(String(videoId));
-          const rawOwner = String(
-            item?.snippet?.videoOwnerChannelTitle ||
-              item?.snippet?.channelTitle ||
-              'YouTube Music'
-          );
-          tracks.push({
-            id: `plit-${playlistId}-${videoId}-${tracks.length}`,
-            videoId: String(videoId),
-            title,
-            artist: rawOwner.replace(/ - Topic$/i, ''),
-            thumbnailUrl:
-              item?.snippet?.thumbnails?.medium?.url ||
-              item?.snippet?.thumbnails?.default?.url,
-            playlistId,
-            playlistTitle,
-          });
-        }
+          const data: any = await res.json().catch(() => ({}));
+          const pageItems = Array.isArray(data?.items) ? data.items : [];
+          rawCount += pageItems.length;
 
-        if (!data?.nextPageToken) break;
-        pageToken = String(data.nextPageToken);
+          for (const item of pageItems) {
+            const videoId =
+              item?.contentDetails?.videoId || item?.snippet?.resourceId?.videoId;
+            const title = String(item?.snippet?.title || '');
+            if (
+              !videoId ||
+              seen.has(String(videoId)) ||
+              title === 'Private video' ||
+              title === 'Deleted video'
+            ) {
+              continue;
+            }
+            seen.add(String(videoId));
+            const rawOwner = String(
+              item?.snippet?.videoOwnerChannelTitle ||
+                item?.snippet?.channelTitle ||
+                'YouTube Music'
+            );
+            tracks.push({
+              id: `plit-${playlistId}-${videoId}-${tracks.length}`,
+              videoId: String(videoId),
+              title,
+              artist: rawOwner.replace(/ - Topic$/i, ''),
+              thumbnailUrl:
+                item?.snippet?.thumbnails?.medium?.url ||
+                item?.snippet?.thumbnails?.default?.url,
+              playlistId,
+              playlistTitle,
+            });
+          }
+
+          console.log(
+            `[YouTubeMusicSync] [Playlist ${playlistId}] Page ${page + 1}: loaded ${
+              pageItems.length
+            } items (running deduplicated total: ${tracks.length})`
+          );
+
+          if (!data?.nextPageToken) break;
+          pageToken = String(data.nextPageToken);
+        } catch (pageErr) {
+          console.warn(
+            `[YouTubeMusicSync] Error on playlist ${playlistId} page ${page + 1}, continuing:`,
+            pageErr
+          );
+          if (!pageToken) break;
+        }
       }
+
+      console.log(
+        `[YouTubeMusicSync] Playlist ${playlistId} complete — Pages attempted: ${pagesAttempted} | Raw items: ${rawCount} | Final deduplicated songs: ${tracks.length}`
+      );
 
       if (tracks.length > 0) {
         this.playlistTracksMap = {
