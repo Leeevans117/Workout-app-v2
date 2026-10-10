@@ -103,34 +103,17 @@ Formatting rules:
 - Keep answers clear, encouraging, and structured with short bullet points.
 - Highlight the most important biomechanical cue first, then common mistakes to avoid, and a quick progression or modification if helpful.`;
 
-// Network-first Service Worker script that clears old workbox caches and enables Android PWA installability
-const ANDROID_PWA_SW = `
-self.addEventListener('install', () => {
-  self.skipWaiting();
-});
-self.addEventListener('activate', (event) => {
-  event.waitUntil(
-    caches.keys().then((cacheNames) =>
-      Promise.all(cacheNames.map((cacheName) => caches.delete(cacheName)))
-    ).then(() => self.clients.claim())
-  );
-});
-self.addEventListener('fetch', () => {
-  // Pass all requests directly to browser network stack so dev HMR & module scripts never fail
-});
-`;
-
 async function startServer() {
   const app = express();
   const PORT = 3000;
 
   app.use(express.json());
 
-  // Serve network-first SW for Android PWA installation
+  // Serve network-first auto-rebuilding SW for Android PWA installation & cache recovery
   app.get(['/sw.js', '/dev-sw.js', '/pwa-sw.js'], (req, res) => {
     res.setHeader('Content-Type', 'application/javascript');
     res.setHeader('Cache-Control', 'no-store, no-cache, must-revalidate, max-age=0');
-    res.send(ANDROID_PWA_SW);
+    res.sendFile(path.join(process.cwd(), 'public', 'pwa-sw.js'));
   });
 
   // --- KEYLESS YOUTUBE MUSIC SEARCH & PLAYLIST EXTRACTOR (NO YOUTUBE DATA API V3 KEY NEEDED) ---
@@ -1465,17 +1448,10 @@ IMPORTANT INTERACTIVE COACHING & RESEARCH RULES:
     app.use('/assets', express.static(distAssetsPath));
   }
 
-  // Explicitly serve PWA manifest and service worker with proper headers for Chrome WebAPK installability
+  // Explicitly serve PWA manifest for Chrome WebAPK installability
   app.get('/manifest.webmanifest', (req, res) => {
     res.setHeader('Content-Type', 'application/manifest+json');
     res.sendFile(path.join(process.cwd(), 'public', 'manifest.webmanifest'));
-  });
-
-  app.get('/pwa-sw.js', (req, res) => {
-    res.setHeader('Content-Type', 'application/javascript');
-    res.setHeader('Service-Worker-Allowed', '/');
-    res.setHeader('Cache-Control', 'no-cache');
-    res.sendFile(path.join(process.cwd(), 'public', 'pwa-sw.js'));
   });
 
   // Vite middleware for development

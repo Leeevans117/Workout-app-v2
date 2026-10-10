@@ -22,27 +22,71 @@
     <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Outfit:wght@500;600;700;800&family=JetBrains+Mono:wght@500;700&display=swap" rel="stylesheet">
     <script>
       (function () {
-        try {
-          if ('caches' in window) {
-            caches.keys().then(function (names) {
-              for (var i = 0; i < names.length; i++) {
-                caches.delete(names[i]);
+        // 1. Auto-recover if a module/chunk fails to load after a cache purge or deployment
+        function handleAssetError(event) {
+          var target = event && (event.target || event.srcElement);
+          var isScriptOrLink =
+            target && (target.tagName === 'SCRIPT' || target.tagName === 'LINK');
+          var msg = (event && event.message) || (event && event.reason && event.reason.message) || '';
+          var isChunkError =
+            isScriptOrLink ||
+            /Failed to fetch dynamically imported module|Importing a module script failed|Loading chunk .* failed|Unable to preload CSS/i.test(
+              String(msg)
+            );
+
+          if (isChunkError) {
+            try {
+              var lastReload = Number(sessionStorage.getItem('apex_cache_rebuild_ts') || '0');
+              if (Date.now() - lastReload > 8000) {
+                sessionStorage.setItem('apex_cache_rebuild_ts', String(Date.now()));
+                if ('caches' in window) {
+                  caches.keys().then(function (names) {
+                    return Promise.all(names.map(function (n) { return caches.delete(n); }));
+                  }).finally(function () {
+                    window.location.reload();
+                  });
+                } else {
+                  window.location.reload();
+                }
               }
-            });
+            } catch (e) {}
           }
-          if ('serviceWorker' in navigator) {
-            window.addEventListener('load', function () {
-              navigator.serviceWorker.register('/pwa-sw.js', { scope: '/' }).then(function (reg) {
-                reg.update();
-              }).catch(function () {});
-            });
-          }
-        } catch (e) {}
+        }
+        window.addEventListener('error', handleAssetError, true);
+        window.addEventListener('unhandledrejection', handleAssetError);
+
+        // 2. Register the Network-First Auto-Rebuilding Service Worker on every open
+        if ('serviceWorker' in navigator) {
+          window.addEventListener('load', function () {
+            navigator.serviceWorker
+              .register('/pwa-sw.js', { updateViaCache: 'none' })
+              .then(function (reg) {
+                reg.update().catch(function () {});
+                if (reg.active) {
+                  reg.active.postMessage({ type: 'REBUILD_CACHE' });
+                }
+              })
+              .catch(function () {});
+          });
+
+          // Whenever the user returns to the app after purging cache, verify & rebuild cache
+          document.addEventListener('visibilitychange', function () {
+            if (document.visibilityState === 'visible' && navigator.serviceWorker.controller) {
+              navigator.serviceWorker.controller.postMessage({ type: 'REBUILD_CACHE' });
+            }
+          });
+        }
       })();
     </script>
   </head>
   <body class="bg-[#0B0E14] text-slate-100 antialiased selection:bg-blue-600 selection:text-white overflow-x-hidden min-h-screen">
-    <div id="root"></div>
+    <div id="root">
+      <div style="min-height:100vh;display:flex;flex-direction:column;gap:12px;align-items:center;justify-content:center;background:#07090E;color:#94a3b8;font-family:system-ui,-apple-system,sans-serif;font-size:14px;">
+        <div style="width:28px;height:28px;border:3px solid rgba(59,130,246,0.25);border-top-color:#3b82f6;border-radius:50%;animation:apexspin 0.8s linear infinite;"></div>
+        <span>Loading ApexPulse...</span>
+        <style>@keyframes apexspin { to { transform: rotate(360deg); } }</style>
+      </div>
+    </div>
     <script type="module" src="/src/main.tsx"></script>
   </body>
 </html>

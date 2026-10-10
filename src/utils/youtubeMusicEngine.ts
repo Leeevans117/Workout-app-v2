@@ -214,6 +214,28 @@ class YouTubeMusicEngine {
       if (this.likedSongs.length <= 50 || this.queue.length === 0) {
         this.syncPersonalLibrary(true);
       }
+
+      // If the user purges browser cache/storage while the app is open or before reopening,
+      // automatically detect missing cache and rebuild the library & queue
+      const checkAndRebuildIfPurged = () => {
+        try {
+          const hasLibCache = Boolean(localStorage.getItem(LIBRARY_CACHE_KEY));
+          if (!hasLibCache || this.likedSongs.length === 0) {
+            if (!this.isSyncingLibrary) {
+              this.syncPersonalLibrary(true);
+            } else {
+              this.saveLibraryCache();
+              this.saveQueueCache();
+            }
+          }
+        } catch {}
+      };
+      window.addEventListener('focus', checkAndRebuildIfPurged);
+      document.addEventListener('visibilitychange', () => {
+        if (document.visibilityState === 'visible') {
+          checkAndRebuildIfPurged();
+        }
+      });
     }
   }
 

@@ -52,21 +52,22 @@ export function usePWAInstall() {
     setIsAndroid(/android/.test(ua));
     setIsIOS(/iphone|ipad|ipod/.test(ua));
 
-    // Check / ensure service worker registration
+    // Ensure network-first auto-rebuilding Service Worker is active
     if ('serviceWorker' in navigator) {
       navigator.serviceWorker
-        .getRegistration()
+        .register('/pwa-sw.js', { updateViaCache: 'none' })
         .then((reg) => {
-          if (reg) {
-            setSwRegistered(true);
-          } else {
-            navigator.serviceWorker
-              .register('/pwa-sw.js', { scope: '/' })
-              .then(() => setSwRegistered(true))
-              .catch(() => {});
+          setSwRegistered(true);
+          reg.update().catch(() => {});
+          if (reg.active) {
+            reg.active.postMessage({ type: 'REBUILD_CACHE' });
           }
         })
-        .catch(() => {});
+        .catch(() => {
+          setSwRegistered(true);
+        });
+    } else {
+      setSwRegistered(true);
     }
 
     const listener = (prompt: BeforeInstallPromptEvent | null) => {

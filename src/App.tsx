@@ -264,6 +264,72 @@ export default function App() {
     } catch {}
   }, [logs]);
 
+  // Automatically ensure localStorage & Service Worker cache are rebuilt every time the app is opened
+  // (especially right after the user purges browser cache/data)
+  useEffect(() => {
+    const ensureCacheRebuiltOnOpen = () => {
+      try {
+        if (!localStorage.getItem(ROUTINES_STORAGE_KEY)) {
+          localStorage.setItem(ROUTINES_STORAGE_KEY, JSON.stringify(routines));
+        }
+        if (!localStorage.getItem(STORAGE_KEY)) {
+          localStorage.setItem(STORAGE_KEY, JSON.stringify(logs));
+        }
+        if (!localStorage.getItem(USER_PROFILE_STORAGE_KEY)) {
+          localStorage.setItem(USER_PROFILE_STORAGE_KEY, JSON.stringify(userProfile));
+        }
+        if ('serviceWorker' in navigator) {
+          navigator.serviceWorker
+            .register('/pwa-sw.js', { updateViaCache: 'none' })
+            .then((reg) => {
+              if (reg.active) {
+                reg.active.postMessage({ type: 'REBUILD_CACHE' });
+              }
+            })
+            .catch(() => {});
+        }
+      } catch {}
+    };
+
+    const handleVis = () => {
+      if (document.visibilityState === 'visible') {
+        ensureCacheRebuiltOnOpen();
+      }
+    };
+
+    ensureCacheRebuiltOnOpen();
+    window.addEventListener('focus', ensureCacheRebuiltOnOpen);
+    document.addEventListener('visibilitychange', handleVis);
+    return () => {
+      window.removeEventListener('focus', ensureCacheRebuiltOnOpen);
+      document.removeEventListener('visibilitychange', handleVis);
+    };
+  }, [routines, logs, userProfile]);
+
+  const handlePurgeAndRebuildCache = async () => {
+    try {
+      // Re-persist current state so workout logs, custom routines, and profile are preserved
+      localStorage.setItem(ROUTINES_STORAGE_KEY, JSON.stringify(routines));
+      localStorage.setItem(CUSTOM_ROUTINES_STORAGE_KEY, JSON.stringify(customRoutines));
+      localStorage.setItem(STORAGE_KEY, JSON.stringify(logs));
+      localStorage.setItem(USER_PROFILE_STORAGE_KEY, JSON.stringify(userProfile));
+
+      if ('caches' in window) {
+        const names = await caches.keys();
+        await Promise.all(names.map((name) => caches.delete(name)));
+      }
+      if ('serviceWorker' in navigator) {
+        const reg = await navigator.serviceWorker.register('/pwa-sw.js', {
+          updateViaCache: 'none',
+        });
+        if (reg.active) {
+          reg.active.postMessage({ type: 'PURGE_AND_REBUILD_CACHE' });
+        }
+      }
+    } catch {}
+    window.location.reload();
+  };
+
   const handleStartRoutine = (routine: WorkoutRoutine, exerciseIndex: number = 0) => {
     if (routine.isCardioSpecial) {
       setPendingCardioRoutine(routine);
@@ -759,6 +825,34 @@ export default function App() {
                     <h3 className="text-base font-bold text-white">Reset Default Workout Splits</h3>
                     <p className="text-xs text-slate-400 mt-1">
                       Restore default exercises and cool-down timers on your built-in routines.
+                    </p>
+                  </div>
+                </div>
+                <ChevronRight className="w-5 h-5 text-slate-400 shrink-0" />
+              </button>
+
+              {/* 7. Rebuild App Cache & Reload */}
+              <button
+                onClick={handlePurgeAndRebuildCache}
+                className="text-left p-5 rounded-3xl bg-[#0F131D] hover:bg-[#141926] border border-cyan-500/40 transition-all flex items-center justify-between gap-4 shadow-lg md:col-span-2"
+              >
+                <div className="flex items-start gap-3.5">
+                  <div className="w-12 h-12 rounded-2xl bg-cyan-500/20 border border-cyan-500/40 flex items-center justify-center text-cyan-400 shrink-0">
+                    <RotateCcw className="w-6 h-6" />
+                  </div>
+                  <div>
+                    <div className="flex items-center gap-2">
+                      <h3 className="text-base font-bold text-white">
+                        Rebuild App Cache &amp; Reload
+                      </h3>
+                      <span className="px-2 py-0.5 rounded-full text-[10px] font-bold bg-cyan-500/20 text-cyan-300 border border-cyan-500/30">
+                        Auto-Rebuild Active on Open
+                      </span>
+                    </div>
+                    <p className="text-xs text-slate-400 mt-1">
+                      ApexPulse automatically rebuilds its cache every time you open the app after a
+                      cache purge. Tap here anytime to force a fresh cache rebuild and reload
+                      while keeping your workouts and profile safe.
                     </p>
                   </div>
                 </div>

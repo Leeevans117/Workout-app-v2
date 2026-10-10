@@ -10,9 +10,13 @@ class SoundNotificationEngine {
 
   constructor() {
     // AudioContext will be initialized on first user interaction to comply with browser autoplay policies
-    const savedMuted = localStorage.getItem('apex_sound_muted');
-    if (savedMuted !== null) {
-      this.isMuted = savedMuted === 'true';
+    if (typeof window !== 'undefined') {
+      try {
+        const savedMuted = localStorage.getItem('apex_sound_muted');
+        if (savedMuted !== null) {
+          this.isMuted = savedMuted === 'true';
+        }
+      } catch {}
     }
   }
 

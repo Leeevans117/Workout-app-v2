@@ -65,7 +65,7 @@ export function handleFirestoreError(
 
 let connectionTested = false;
 export async function testFirestoreConnection() {
-  if (connectionTested) return;
+  if (connectionTested || typeof window === 'undefined') return;
   connectionTested = true;
   try {
     await getDocFromServer(doc(db, 'test', 'connection'));
@@ -76,4 +76,8 @@ export async function testFirestoreConnection() {
   }
 }
 
-testFirestoreConnection();
+if (typeof window !== 'undefined') {
+  setTimeout(() => {
+    testFirestoreConnection().catch(() => {});
+  }, 1500);
+}
