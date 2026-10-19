@@ -184,13 +184,19 @@ export const googleHealthSignIn = async (
               prompt: forceConsent ? 'consent' : '',
               callback: (resp: any) => {
                 if (resp.error) {
-                  reject(new Error(resp.error_description || resp.error));
+                  const errObj: any = new Error(resp.error_description || resp.error);
+                  errObj.code = resp.error;
+                  reject(errObj);
                   return;
                 }
                 resolve(resp);
               },
               error_callback: (err: any) => {
-                reject(new Error(err?.message || 'Google popup closed or blocked'));
+                const errType = String(err?.type || '');
+                const errMsg = String(err?.message || 'Google popup closed or blocked');
+                const errObj: any = new Error(errMsg);
+                errObj.code = errType;
+                reject(errObj);
               },
             });
             client.requestAccessToken({
@@ -223,7 +229,23 @@ export const googleHealthSignIn = async (
           }
         }
       } catch (gsiErr: any) {
-        throw gsiErr;
+        const gsiCode = String(gsiErr?.code || '').toLowerCase();
+        const gsiMsg = String(gsiErr?.message || '').toLowerCase();
+        const isPopupClosedOrBlocked =
+          gsiCode === 'popup_closed' ||
+          gsiCode === 'popup_failed_to_open' ||
+          gsiCode === 'access_denied' ||
+          gsiMsg.includes('popup window closed') ||
+          gsiMsg.includes('popup_closed') ||
+          gsiMsg.includes('popup closed') ||
+          gsiMsg.includes('popup_failed_to_open') ||
+          gsiMsg.includes('cancelled') ||
+          gsiMsg.includes('canceled');
+
+        if (isPopupClosedOrBlocked) {
+          return null;
+        }
+        // For non-cancellation GSI errors, fall through to Firebase Auth signInWithPopup fallback
       }
     }
 
@@ -231,7 +253,7 @@ export const googleHealthSignIn = async (
     const freshProvider = new GoogleAuthProvider();
     SCOPES.forEach((scope) => freshProvider.addScope(scope));
     const customParams: Record<string, string> = {
-      prompt: forceConsent ? 'consent select_account' : 'none',
+      prompt: forceConsent ? 'consent select_account' : 'select_account',
       include_granted_scopes: 'true',
     };
     if (hintEmail) {
@@ -242,7 +264,7 @@ export const googleHealthSignIn = async (
     const result = await signInWithPopup(auth, freshProvider);
     const credential = GoogleAuthProvider.credentialFromResult(result);
     if (!credential?.accessToken) {
-      throw new Error('Failed to get access token from Google sign-in.');
+      return null;
     }
 
     if (result.user?.email) {
@@ -274,8 +296,21 @@ export const googleHealthSignIn = async (
       grantedFitnessScope,
     };
   } catch (error: any) {
-    console.error('Google Health sign in error:', error);
-    throw error;
+    const code = String(error?.code || '').toLowerCase();
+    const msg = String(error?.message || '').toLowerCase();
+    if (
+      code.includes('popup-closed-by-user') ||
+      code.includes('cancelled-popup-request') ||
+      code.includes('popup-blocked') ||
+      msg.includes('popup window closed') ||
+      msg.includes('popup closed') ||
+      msg.includes('cancelled') ||
+      msg.includes('canceled')
+    ) {
+      return null;
+    }
+    console.warn('Google Health sign in notice:', error?.message || error);
+    return null;
   } finally {
     isSigningIn = false;
   }

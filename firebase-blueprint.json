@@ -169,6 +169,152 @@
         }
       },
       "required": ["uid", "dateStr", "weightKg", "maxPullUps", "maxPushUps", "note", "createdAt"]
+    },
+    "WorkoutLog": {
+      "title": "WorkoutLog",
+      "description": "Completed workout session log entry stored per user.",
+      "type": "object",
+      "properties": {
+        "uid": {
+          "type": "string",
+          "description": "Owner Firebase Auth UID.",
+          "maxLength": 128,
+          "pattern": "^[a-zA-Z0-9_\\-]+$"
+        },
+        "id": {
+          "type": "string",
+          "description": "Unique workout log ID.",
+          "maxLength": 128,
+          "pattern": "^[a-zA-Z0-9_\\-]+$"
+        },
+        "date": {
+          "type": "string",
+          "description": "Local date string YYYY-MM-DD.",
+          "minLength": 10,
+          "maxLength": 10
+        },
+        "routineId": {
+          "type": "string",
+          "description": "ID of the workout routine completed.",
+          "maxLength": 120
+        },
+        "routineTitle": {
+          "type": "string",
+          "description": "Display title of the completed workout routine.",
+          "maxLength": 160
+        },
+        "category": {
+          "type": "string",
+          "description": "Workout category.",
+          "enum": ["mcgill", "strength", "cardio", "mobility"]
+        },
+        "durationSeconds": {
+          "type": "number",
+          "description": "Total duration in seconds."
+        },
+        "completedExercisesCount": {
+          "type": "number",
+          "description": "Number of exercises completed."
+        },
+        "cardioMode": {
+          "type": "string",
+          "description": "Cardio modality or empty string.",
+          "maxLength": 32
+        },
+        "notes": {
+          "type": "string",
+          "description": "Session notes.",
+          "maxLength": 500
+        },
+        "timestamp": {
+          "type": "number",
+          "description": "Epoch milliseconds when logged."
+        },
+        "source": {
+          "type": "string",
+          "description": "Origin of log (manual or fitbit).",
+          "enum": ["manual", "fitbit"]
+        },
+        "fitbitLogId": {
+          "type": "string",
+          "description": "Fitbit/Google Health activity ID if synced.",
+          "maxLength": 128
+        },
+        "caloriesBurned": {
+          "type": "number",
+          "description": "Estimated or synced calories burned."
+        },
+        "averageHeartRate": {
+          "type": "number",
+          "description": "Average heart rate in BPM."
+        },
+        "steps": {
+          "type": "number",
+          "description": "Steps recorded during session."
+        },
+        "createdAt": {
+          "type": "string",
+          "format": "date-time",
+          "description": "Creation server timestamp."
+        },
+        "updatedAt": {
+          "type": "string",
+          "format": "date-time",
+          "description": "Last update server timestamp."
+        }
+      },
+      "required": [
+        "uid",
+        "id",
+        "date",
+        "routineId",
+        "routineTitle",
+        "category",
+        "durationSeconds",
+        "completedExercisesCount",
+        "cardioMode",
+        "notes",
+        "timestamp",
+        "source",
+        "fitbitLogId",
+        "caloriesBurned",
+        "averageHeartRate",
+        "steps",
+        "createdAt",
+        "updatedAt"
+      ]
+    },
+    "UserRoutinesState": {
+      "title": "UserRoutinesState",
+      "description": "Stores user-customized default routines and custom routines built in the studio.",
+      "type": "object",
+      "properties": {
+        "uid": {
+          "type": "string",
+          "description": "Owner Firebase Auth UID.",
+          "maxLength": 128,
+          "pattern": "^[a-zA-Z0-9_\\-]+$"
+        },
+        "routines": {
+          "type": "array",
+          "description": "Built-in workout routines customized by the user (up to 20)."
+        },
+        "customRoutines": {
+          "type": "array",
+          "description": "Custom workout routines created in Build Your Own Studio (up to 50)."
+        },
+        "createdAt": {
+          "type": "string",
+          "format": "date-time",
+          "description": "Creation server timestamp."
+        },
+        "updatedAt": {
+          "type": "string",
+          "format": "date-time",
+          "description": "Update server timestamp."
+        }
+      },
+      "required": ["uid", "routines", "customRoutines", "createdAt", "updatedAt"]
     }
   },
   "firestore": {
@@ -183,6 +329,14 @@
     "/users/{userId}/progressSnapshots/{snapshotId}": {
       "schema": { "$ref": "#/entities/ProgressSnapshot" },
       "description": "Historical check-in snapshots tracking weight and strength progress toward goals."
+    },
+    "/users/{userId}/workoutLogs/{logId}": {
+      "schema": { "$ref": "#/entities/WorkoutLog" },
+      "description": "User workout logs persisted across browser cache clears and devices."
+    },
+    "/users/{userId}/appData/{docId}": {
+      "schema": { "$ref": "#/entities/UserRoutinesState" },
+      "description": "Stores the user's routines and custom routines state."
     }
   }
 }

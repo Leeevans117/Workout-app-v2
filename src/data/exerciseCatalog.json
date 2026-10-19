@@ -1,0 +1,4702 @@
+[
+  {
+    "id": "cat-back-01",
+    "name": "Prone Floor Lat Pull-Downs (No Pull-Up Bar)",
+    "category": "strength",
+    "animationType": "mcgill-birddog",
+    "equipmentType": "bodyweight",
+    "equipmentLabel": "Zero Equipment (Bodyweight)",
+    "muscleGroupTag": "back-pull",
+    "whySwap": "#1 direct vertical pull-up replacement with zero pull-up bar or equipment needed.",
+    "defaultSets": 4,
+    "defaultReps": 12,
+    "repLabel": "12 slow reps (2s lat squeeze)",
+    "defaultHoldSeconds": 40,
+    "defaultRestSeconds": 60,
+    "prepCountdownSeconds": 10,
+    "description": "High-tension prone overhead-to-ribcage floor pull-downs replicating the exact vertical pull-up lat path on the floor with zero pull-up bar.",
+    "formCues": [
+      "Lie face down on the floor with glutes braced and chest hovering 2 inches off the mat",
+      "Reach arms overhead in a wide Y, then drive elbows down hard toward your back pockets into a tight W",
+      "Squeeze lats and shoulder blades down for 2 full seconds before extending back overhead"
+    ],
+    "targetedMuscles": [
+      "Latissimus Dorsi",
+      "Lower Trapezius",
+      "Rhomboids",
+      "Posterior Deltoid"
+    ],
+    "videoReference": {
+      "youtubeId": "tplJkuM2vkY",
+      "title": "Prone Floor Lat Pull-Downs (No Pull-Up Bar Back Workout)",
+      "channelName": "Calisthenicmovement",
+      "durationLabel": "4 Sets × 12 slow reps (2s lat squeeze)",
+      "stepByStepBreakdown": [
+        "Lie face down on the floor with glutes braced and chest hovering 2 inches off the mat",
+        "Reach arms overhead in a wide Y, then drive elbows down hard toward your back pockets into a tight W",
+        "Squeeze lats and shoulder blades down for 2 full seconds before extending back overhead",
+        "Rest 60s between sets to allow full ATP-PCr and neuromuscular recovery."
+      ],
+      "commonMistakes": [
+        "Cranking the neck backward instead of keeping gaze down at the floor.",
+        "Losing 360° abdominal bracing during the eccentric phase."
+      ]
+    }
+  },
+  {
+    "id": "cat-back-02",
+    "name": "Sliding Floor Lat Pull-Ins (No Pull-Up Bar)",
+    "category": "strength",
+    "animationType": "plank",
+    "equipmentType": "bodyweight",
+    "equipmentLabel": "Zero Equipment (Bodyweight)",
+    "muscleGroupTag": "back-pull",
+    "whySwap": "Generates true bodyweight resistance for the lats and biceps without needing any pull-up bar.",
+    "defaultSets": 4,
+    "defaultReps": 10,
+    "repLabel": "10 bodyweight floor pulls",
+    "defaultHoldSeconds": 40,
+    "defaultRestSeconds": 60,
+    "prepCountdownSeconds": 10,
+    "description": "Lying prone on the floor and pressing palms/forearms into the ground ahead of you to pull your body forward using pure lat depression.",
+    "formCues": [
+      "Lie face down on a smooth floor (or wearing socks/towel under thighs) with forearms planted overhead",
+      "Depress your shoulder blades and pull your body forward by driving elbows toward your hips",
+      "Slide slowly back to full overhead extension under 3-second eccentric control"
+    ],
+    "targetedMuscles": [
+      "Latissimus Dorsi",
+      "Teres Major",
+      "Biceps Brachii",
+      "Anterior Core"
+    ],
+    "videoReference": {
+      "youtubeId": "hXTc1mDnZCw",
+      "title": "Floor Sliding Lat Pull-Ins (Pull-Up Alternative Without a Bar)",
+      "channelName": "Calisthenicmovement",
+      "durationLabel": "4 Sets × 10 bodyweight floor pulls",
+      "stepByStepBreakdown": [
+        "Lie face down on a smooth floor (or wearing socks/towel under thighs) with forearms planted overhead",
+        "Depress your shoulder blades and pull your body forward by driving elbows toward your hips",
+        "Slide slowly back to full overhead extension under 3-second eccentric control",
+        "Rest 60s between sets to allow full ATP-PCr and neuromuscular recovery."
+      ],
+      "commonMistakes": [
+        "Pushing with the toes instead of pulling strictly with the lats and arms.",
+        "Losing 360° abdominal bracing during the eccentric phase."
+      ]
+    }
+  },
+  {
+    "id": "cat-back-03",
+    "name": "Supine Floor Elbow-Drive Back Rows (No Bar)",
+    "category": "strength",
+    "animationType": "glute-bridge",
+    "equipmentType": "bodyweight",
+    "equipmentLabel": "Zero Equipment (Bodyweight)",
+    "muscleGroupTag": "back-pull",
+    "whySwap": "High-threshold horizontal pulling contraction on the floor with zero bar or weights.",
+    "defaultSets": 4,
+    "defaultReps": 12,
+    "repLabel": "12 floor elbow-drive rows (2s hold)",
+    "defaultHoldSeconds": 40,
+    "defaultRestSeconds": 60,
+    "prepCountdownSeconds": 10,
+    "description": "Lying on your back and driving bent elbows forcefully into the floor to lift your entire upper back and chest off the mat.",
+    "formCues": [
+      "Lie flat on your back with knees bent and elbows positioned at 45° beside your ribs, fists pointed up",
+      "Drive your elbows straight down into the floor to lift your shoulder blades and upper back off the mat",
+      "Hold the peak upper-back contraction for 2 full seconds before lowering smoothly"
+    ],
+    "targetedMuscles": [
+      "Rhomboids",
+      "Latissimus Dorsi",
+      "Middle Trapezius",
+      "Posterior Deltoid"
+    ],
+    "videoReference": {
+      "youtubeId": "hXTc1mDnZCw",
+      "title": "Supine Bodyweight Floor Row (Zero Equipment Back Builder)",
+      "channelName": "ATHLEAN-X",
+      "durationLabel": "4 Sets × 12 floor elbow-drive rows (2s hold)",
+      "stepByStepBreakdown": [
+        "Lie flat on your back with knees bent and elbows positioned at 45° beside your ribs, fists pointed up",
+        "Drive your elbows straight down into the floor to lift your shoulder blades and upper back off the mat",
+        "Hold the peak upper-back contraction for 2 full seconds before lowering smoothly",
+        "Rest 60s between sets to allow full ATP-PCr and neuromuscular recovery."
+      ],
+      "commonMistakes": [
+        "Doing an abdominal crunch instead of keeping the chest proud and driving through the elbows.",
+        "Losing 360° abdominal bracing during the eccentric phase."
+      ]
+    }
+  },
+  {
+    "id": "cat-back-04",
+    "name": "Prone Reverse Snow Angels (No Pull-Up Bar)",
+    "category": "strength",
+    "animationType": "mcgill-birddog",
+    "equipmentType": "bodyweight",
+    "equipmentLabel": "Zero Equipment (Bodyweight)",
+    "muscleGroupTag": "back-pull",
+    "whySwap": "Trains the entire posterior shoulder girdle and lat insertion with zero equipment.",
+    "defaultSets": 4,
+    "defaultReps": 12,
+    "repLabel": "12 full-arc scapular sweeps",
+    "defaultHoldSeconds": 40,
+    "defaultRestSeconds": 45,
+    "prepCountdownSeconds": 10,
+    "description": "Full-arc prone scapular sweeps from overhead to hips strengthening the lats, lower traps, and rear deltoids on the floor.",
+    "formCues": [
+      "Lie face down hovering hands 3 inches off the floor overhead with thumbs pointing up",
+      "Sweep straight arms in a wide arc down to your hips while pinching shoulder blades back and down",
+      "Pause 1 second at the hips with lats engaged before sweeping slowly back overhead"
+    ],
+    "targetedMuscles": [
+      "Latissimus Dorsi",
+      "Rhomboids",
+      "Lower Trapezius",
+      "Posterior Deltoid"
+    ],
+    "videoReference": {
+      "youtubeId": "R4iO4gXC_TY",
+      "title": "How to Perform the Reverse Snow Angel Correctly",
+      "channelName": "Advanced Spine & Sports Care",
+      "durationLabel": "4 Sets × 12 full-arc scapular sweeps",
+      "stepByStepBreakdown": [
+        "Lie face down hovering hands 3 inches off the floor overhead with thumbs pointing up",
+        "Sweep straight arms in a wide arc down to your hips while pinching shoulder blades back and down",
+        "Pause 1 second at the hips with lats engaged before sweeping slowly back overhead",
+        "Rest 45s between sets to allow full ATP-PCr and neuromuscular recovery."
+      ],
+      "commonMistakes": [
+        "Shrugging shoulders up toward the ears or letting hands rest on the floor.",
+        "Losing 360° abdominal bracing during the eccentric phase."
+      ]
+    }
+  },
+  {
+    "id": "cat-back-05",
+    "name": "Wall-Corner / Doorframe Bodyweight Back Rows (No Bar)",
+    "category": "strength",
+    "animationType": "row",
+    "equipmentType": "bodyweight",
+    "equipmentLabel": "Zero Equipment (Bodyweight)",
+    "muscleGroupTag": "back-pull",
+    "whySwap": "Uses your own bodyweight leverage against any wall corner—zero pull-up bar required.",
+    "defaultSets": 4,
+    "defaultReps": 12,
+    "repLabel": "12 corner elbow-press rows",
+    "defaultHoldSeconds": 40,
+    "defaultRestSeconds": 60,
+    "prepCountdownSeconds": 10,
+    "description": "Standing with your back in a room corner (or doorway) and pressing your elbows back against the walls to row your torso forward.",
+    "formCues": [
+      "Stand facing out in a 90° room corner with feet 18 inches forward and elbows against both walls",
+      "Drive your elbows backward into the walls to push your chest forward and pinch your shoulder blades",
+      "Hold top retraction for 2 seconds and lower your upper back slowly toward the corner"
+    ],
+    "targetedMuscles": [
+      "Rhomboids",
+      "Latissimus Dorsi",
+      "Posterior Deltoid",
+      "Middle Trapezius"
+    ],
+    "videoReference": {
+      "youtubeId": "hXTc1mDnZCw",
+      "title": "Wall Corner & Doorframe Back Rows (No Pull-Up Bar Needed)",
+      "channelName": "ATHLEAN-X",
+      "durationLabel": "4 Sets × 12 corner elbow-press rows",
+      "stepByStepBreakdown": [
+        "Stand facing out in a 90° room corner with feet 18 inches forward and elbows against both walls",
+        "Drive your elbows backward into the walls to push your chest forward and pinch your shoulder blades",
+        "Hold top retraction for 2 seconds and lower your upper back slowly toward the corner",
+        "Rest 60s between sets to allow full ATP-PCr and neuromuscular recovery."
+      ],
+      "commonMistakes": [
+        "Hinging at the waist instead of moving your entire rigid body as a plank.",
+        "Losing 360° abdominal bracing during the eccentric phase."
+      ]
+    }
+  },
+  {
+    "id": "cat-back-06",
+    "name": "Alternating Kettlebell Gorilla Rows",
+    "category": "strength",
+    "animationType": "row",
+    "equipmentType": "kettlebell",
+    "equipmentLabel": "Kettlebell (1–2 KBs)",
+    "muscleGroupTag": "back-pull",
+    "whySwap": "No pull-up bar needed; builds massive lat thickness and core anti-rotation.",
+    "defaultSets": 4,
+    "defaultReps": 10,
+    "repLabel": "10 reps/side (20 total)",
+    "defaultHoldSeconds": 45,
+    "defaultRestSeconds": 60,
+    "prepCountdownSeconds": 10,
+    "description": "Wide-stance hinged kettlebell rows pulling from the floor between your ankles.",
+    "formCues": [
+      "Take a wide sumo stance with kettlebells between your ankles",
+      "Press non-working hand down onto the resting bell for rock-solid torso bracing",
+      "Row working elbow toward your hip crease and control the descent"
+    ],
+    "targetedMuscles": [
+      "Latissimus Dorsi",
+      "Rhomboids",
+      "Biceps Brachii",
+      "Anti-Rotational Core"
+    ],
+    "videoReference": {
+      "youtubeId": "fLekjceeA9c",
+      "title": "How to Do a Kettlebell Gorilla Row Correctly",
+      "channelName": "Coach Sean",
+      "durationLabel": "4 Sets × 10 reps/side (20 total)",
+      "stepByStepBreakdown": [
+        "Take a wide sumo stance with kettlebells between your ankles",
+        "Press non-working hand down onto the resting bell for rock-solid torso bracing",
+        "Row working elbow toward your hip crease and control the descent",
+        "Rest 60s between sets to allow full ATP-PCr and neuromuscular recovery."
+      ],
+      "commonMistakes": [
+        "Rounding the lower back or twisting the shoulders open.",
+        "Losing 360° abdominal bracing during the eccentric phase."
+      ]
+    }
+  },
+  {
+    "id": "cat-back-07",
+    "name": "Single-Arm Kettlebell Bent-Over Row",
+    "category": "strength",
+    "animationType": "row",
+    "equipmentType": "kettlebell",
+    "equipmentLabel": "Kettlebell (1–2 KBs)",
+    "muscleGroupTag": "back-pull",
+    "whySwap": "Unloads the lumbar spine via front-thigh support while isolating each lat.",
+    "defaultSets": 4,
+    "defaultReps": 12,
+    "repLabel": "12 reps per arm",
+    "defaultHoldSeconds": 40,
+    "defaultRestSeconds": 60,
+    "prepCountdownSeconds": 10,
+    "description": "Split-stance supported unilateral row arcing the kettlebell toward the hip pocket.",
+    "formCues": [
+      "Brace non-working forearm on front thigh in a staggered split stance",
+      "Arc the kettlebell back toward your hip in a J-curve",
+      "Pause 1 second at top contraction before lowering"
+    ],
+    "targetedMuscles": [
+      "Latissimus Dorsi",
+      "Lower Trapezius",
+      "Rear Deltoid",
+      "Biceps Brachii"
+    ],
+    "videoReference": {
+      "youtubeId": "oPgCUWuVUms",
+      "title": "Single-Arm Kettlebell Row Setup & Lat Activation",
+      "channelName": "Zen Athletic Performance",
+      "durationLabel": "4 Sets × 12 reps per arm",
+      "stepByStepBreakdown": [
+        "Brace non-working forearm on front thigh in a staggered split stance",
+        "Arc the kettlebell back toward your hip in a J-curve",
+        "Pause 1 second at top contraction before lowering",
+        "Rest 60s between sets to allow full ATP-PCr and neuromuscular recovery."
+      ],
+      "commonMistakes": [
+        "Shrugging straight up into the upper trap instead of sweeping back.",
+        "Losing 360° abdominal bracing during the eccentric phase."
+      ]
+    }
+  },
+  {
+    "id": "cat-back-08",
+    "name": "Double Kettlebell Pendlay Row",
+    "category": "strength",
+    "animationType": "row",
+    "equipmentType": "kettlebell",
+    "equipmentLabel": "Kettlebell (1–2 KBs)",
+    "muscleGroupTag": "back-pull",
+    "whySwap": "Resets spinal bracing on every rep while training explosive concentric pulling.",
+    "defaultSets": 4,
+    "defaultReps": 8,
+    "repLabel": "8 explosive dead-stop rows",
+    "defaultHoldSeconds": 35,
+    "defaultRestSeconds": 75,
+    "prepCountdownSeconds": 10,
+    "description": "Bilateral dead-stop horizontal row from the floor building upper-back power and posterior chain stiffness.",
+    "formCues": [
+      "Hinge torso nearly parallel to floor with flat neutral lumbar spine",
+      "Row both kettlebells explosively to lower ribs and return to dead stop",
+      "Re-brace core cylinder before initiating the next rep"
+    ],
+    "targetedMuscles": [
+      "Latissimus Dorsi",
+      "Rhomboids",
+      "Erector Spinae",
+      "Biceps Brachii"
+    ],
+    "videoReference": {
+      "youtubeId": "fLekjceeA9c",
+      "title": "Double Kettlebell Bent Over Row Technique",
+      "channelName": "Kettlebell Kings",
+      "durationLabel": "4 Sets × 8 explosive dead-stop rows",
+      "stepByStepBreakdown": [
+        "Hinge torso nearly parallel to floor with flat neutral lumbar spine",
+        "Row both kettlebells explosively to lower ribs and return to dead stop",
+        "Re-brace core cylinder before initiating the next rep",
+        "Rest 75s between sets to allow full ATP-PCr and neuromuscular recovery."
+      ],
+      "commonMistakes": [
+        "Jerking torso upright to heave the bells.",
+        "Losing 360° abdominal bracing during the eccentric phase."
+      ]
+    }
+  },
+  {
+    "id": "cat-back-09",
+    "name": "Renegade Plank Kettlebell Rows",
+    "category": "strength",
+    "animationType": "row",
+    "equipmentType": "kettlebell",
+    "equipmentLabel": "Kettlebell (1–2 KBs)",
+    "muscleGroupTag": "back-pull",
+    "whySwap": "Simultaneously trains lats, anterior core, and shoulder stability.",
+    "defaultSets": 3,
+    "defaultReps": 10,
+    "repLabel": "10 alternating rows",
+    "defaultHoldSeconds": 40,
+    "defaultRestSeconds": 60,
+    "prepCountdownSeconds": 10,
+    "description": "High-plank anti-rotational row combining unilateral lat pulling with extreme core stability.",
+    "formCues": [
+      "Set feet wider than shoulder-width in a high plank for anti-rotational base",
+      "Press non-rowing hand hard into the floor as you row the opposite weight to hip",
+      "Keep pelvis completely level as if balancing a glass of water on lower back"
+    ],
+    "targetedMuscles": [
+      "Latissimus Dorsi",
+      "Obliques",
+      "Rectus Abdominis",
+      "Serratus Anterior"
+    ],
+    "videoReference": {
+      "youtubeId": "wTqlJ0g3M0A",
+      "title": "How to Do the Renegade Row Without Hip Twist",
+      "channelName": "ATHLEAN-X",
+      "durationLabel": "3 Sets × 10 alternating rows",
+      "stepByStepBreakdown": [
+        "Set feet wider than shoulder-width in a high plank for anti-rotational base",
+        "Press non-rowing hand hard into the floor as you row the opposite weight to hip",
+        "Keep pelvis completely level as if balancing a glass of water on lower back",
+        "Rest 60s between sets to allow full ATP-PCr and neuromuscular recovery."
+      ],
+      "commonMistakes": [
+        "Twisting the hips open each time you row.",
+        "Losing 360° abdominal bracing during the eccentric phase."
+      ]
+    }
+  },
+  {
+    "id": "cat-back-10",
+    "name": "Kettlebell Pullover (Supine Lat Stretch)",
+    "category": "strength",
+    "animationType": "deadbug",
+    "equipmentType": "kettlebell",
+    "equipmentLabel": "Kettlebell (1–2 KBs)",
+    "muscleGroupTag": "back-pull",
+    "whySwap": "Directly trains straight-arm lat extension and overhead shoulder mobility.",
+    "defaultSets": 3,
+    "defaultReps": 12,
+    "repLabel": "12 controlled pullovers",
+    "defaultHoldSeconds": 40,
+    "defaultRestSeconds": 60,
+    "prepCountdownSeconds": 10,
+    "description": "Supine straight-arm overhead arc loading the lats in their lengthened range while bracing the ribs down.",
+    "formCues": [
+      "Lie on back with knees bent and lower ribs locked flat to the mat",
+      "Hold kettlebell by horns overhead and lower slowly toward floor behind head",
+      "Pull bell back over chest using your lats without letting ribs flare"
+    ],
+    "targetedMuscles": [
+      "Latissimus Dorsi",
+      "Serratus Anterior",
+      "Pectoralis Major",
+      "Transverse Abdominis"
+    ],
+    "videoReference": {
+      "youtubeId": "tcB1p6O2nBY",
+      "title": "Supine Kettlebell Pullover for Lats & Ribcage Control",
+      "channelName": "Squat University",
+      "durationLabel": "3 Sets × 12 controlled pullovers",
+      "stepByStepBreakdown": [
+        "Lie on back with knees bent and lower ribs locked flat to the mat",
+        "Hold kettlebell by horns overhead and lower slowly toward floor behind head",
+        "Pull bell back over chest using your lats without letting ribs flare",
+        "Rest 60s between sets to allow full ATP-PCr and neuromuscular recovery."
+      ],
+      "commonMistakes": [
+        "Arching the lower back off the floor as the weight travels overhead.",
+        "Losing 360° abdominal bracing during the eccentric phase."
+      ]
+    }
+  },
+  {
+    "id": "cat-back-11",
+    "name": "Kettlebell Gunslinger / Hammer Curls",
+    "category": "strength",
+    "animationType": "row",
+    "equipmentType": "kettlebell",
+    "equipmentLabel": "Kettlebell (1–2 KBs)",
+    "muscleGroupTag": "back-pull",
+    "whySwap": "Builds elbow flexor strength to protect the elbows during heavy pull-ups and rows.",
+    "defaultSets": 3,
+    "defaultReps": 12,
+    "repLabel": "12 curls",
+    "defaultHoldSeconds": 35,
+    "defaultRestSeconds": 45,
+    "prepCountdownSeconds": 10,
+    "description": "Strict kettlebell horn or handle curls targeting the biceps and forearm brachioradialis.",
+    "formCues": [
+      "Stand tall with glutes and abs braced and elbows pinned by your ribs",
+      "Curl the kettlebell smoothly to shoulder height without swinging torso",
+      "Lower over 3 full seconds to maximize eccentric biceps tension"
+    ],
+    "targetedMuscles": [
+      "Biceps Brachii",
+      "Brachioradialis",
+      "Forearm Flexors"
+    ],
+    "videoReference": {
+      "youtubeId": "13SFATc-mJ4",
+      "title": "Kettlebell Bicep Curl Variations for Arm Strength",
+      "channelName": "Kettlebell Kings",
+      "durationLabel": "3 Sets × 12 curls",
+      "stepByStepBreakdown": [
+        "Stand tall with glutes and abs braced and elbows pinned by your ribs",
+        "Curl the kettlebell smoothly to shoulder height without swinging torso",
+        "Lower over 3 full seconds to maximize eccentric biceps tension",
+        "Rest 45s between sets to allow full ATP-PCr and neuromuscular recovery."
+      ],
+      "commonMistakes": [
+        "Leaning backward to swing the weight up.",
+        "Losing 360° abdominal bracing during the eccentric phase."
+      ]
+    }
+  },
+  {
+    "id": "cat-back-12",
+    "name": "Towel-Grip Kettlebell Biceps Curls",
+    "category": "strength",
+    "animationType": "row",
+    "equipmentType": "kettlebell",
+    "equipmentLabel": "Kettlebell (1–2 KBs)",
+    "muscleGroupTag": "back-pull",
+    "whySwap": "Doubles forearm grip recruitment while allowing natural wrist supination.",
+    "defaultSets": 3,
+    "defaultReps": 12,
+    "repLabel": "12 towel-grip reps",
+    "defaultHoldSeconds": 40,
+    "defaultRestSeconds": 45,
+    "prepCountdownSeconds": 10,
+    "description": "Looping a gym towel through the kettlebell handle for thick-grip neutral hammer curls.",
+    "formCues": [
+      "Thread a sturdy towel through the kettlebell handle and grip both ends firmly",
+      "Keep upper arms vertical and curl hands up while twisting pinkies slightly inward",
+      "Lower slowly to full arm extension"
+    ],
+    "targetedMuscles": [
+      "Biceps Brachii",
+      "Brachioradialis",
+      "Crushing Grip"
+    ],
+    "videoReference": {
+      "youtubeId": "13SFATc-mJ4",
+      "title": "Kettlebell Towel Curls for Massive Forearms & Biceps",
+      "channelName": "Wildman Athletica",
+      "durationLabel": "3 Sets × 12 towel-grip reps",
+      "stepByStepBreakdown": [
+        "Thread a sturdy towel through the kettlebell handle and grip both ends firmly",
+        "Keep upper arms vertical and curl hands up while twisting pinkies slightly inward",
+        "Lower slowly to full arm extension",
+        "Rest 45s between sets to allow full ATP-PCr and neuromuscular recovery."
+      ],
+      "commonMistakes": [
+        "Letting elbows drift forward away from the ribcage.",
+        "Losing 360° abdominal bracing during the eccentric phase."
+      ]
+    }
+  },
+  {
+    "id": "cat-back-13",
+    "name": "Prone Swimmer Lat & Thoracic Extensions (No Bar)",
+    "category": "strength",
+    "animationType": "mcgill-birddog",
+    "equipmentType": "bodyweight",
+    "equipmentLabel": "Zero Equipment (Bodyweight)",
+    "muscleGroupTag": "back-pull",
+    "whySwap": "Builds end-range lat and rotator cuff strength on the floor with zero equipment.",
+    "defaultSets": 4,
+    "defaultReps": 12,
+    "repLabel": "12 full overhead-to-back rotations",
+    "defaultHoldSeconds": 40,
+    "defaultRestSeconds": 45,
+    "prepCountdownSeconds": 10,
+    "description": "Prone shoulder internal-to-external rotation sweep hovering hands from overhead to behind the lower back without touching the floor.",
+    "formCues": [
+      "Lie face down with forehead hovering 1 inch off mat and glutes braced",
+      "Reach hands overhead, sweep wide while rotating thumbs down, and hover hands over lower back",
+      "Reverse the arc smoothly back overhead without letting arms touch the ground"
+    ],
+    "targetedMuscles": [
+      "Latissimus Dorsi",
+      "Infraspinatus",
+      "Lower Trapezius",
+      "Rhomboids"
+    ],
+    "videoReference": {
+      "youtubeId": "tplJkuM2vkY",
+      "title": "Prone Swimmers for Scapular Control & Lat Activation",
+      "channelName": "Calisthenicmovement",
+      "durationLabel": "4 Sets × 12 full overhead-to-back rotations",
+      "stepByStepBreakdown": [
+        "Lie face down with forehead hovering 1 inch off mat and glutes braced",
+        "Reach hands overhead, sweep wide while rotating thumbs down, and hover hands over lower back",
+        "Reverse the arc smoothly back overhead without letting arms touch the ground",
+        "Rest 45s between sets to allow full ATP-PCr and neuromuscular recovery."
+      ],
+      "commonMistakes": [
+        "Rushing the sweep or hyperextending the lower back.",
+        "Losing 360° abdominal bracing during the eccentric phase."
+      ]
+    }
+  },
+  {
+    "id": "cat-back-14",
+    "name": "Quadruped Single-Arm Lat & Scapular Row (No Bar)",
+    "category": "strength",
+    "animationType": "mcgill-birddog",
+    "equipmentType": "bodyweight",
+    "equipmentLabel": "Zero Equipment (Bodyweight)",
+    "muscleGroupTag": "back-pull",
+    "whySwap": "Isolates unilateral lat depression and anti-rotational core stability with zero equipment.",
+    "defaultSets": 4,
+    "defaultReps": 12,
+    "repLabel": "12 slow isometric rows per side",
+    "defaultHoldSeconds": 40,
+    "defaultRestSeconds": 45,
+    "prepCountdownSeconds": 10,
+    "description": "All-fours unilateral high-tension lat row driving the elbow tight to the hip pocket with a 3-second maximal voluntary lat contraction.",
+    "formCues": [
+      "Start on hands and knees with neutral spine and push the floor away with the supporting hand",
+      "Reach free arm forward, then forcefully row elbow back into your hip pocket",
+      "Contract the lat at 95% effort for 3 full seconds on every repetition"
+    ],
+    "targetedMuscles": [
+      "Latissimus Dorsi",
+      "Lower Trapezius",
+      "Serratus Anterior",
+      "Core Stabilizers"
+    ],
+    "videoReference": {
+      "youtubeId": "R4iO4gXC_TY",
+      "title": "Quadruped Scapular Row & Lat Activation Drill",
+      "channelName": "Squat University",
+      "durationLabel": "4 Sets × 12 slow isometric rows per side",
+      "stepByStepBreakdown": [
+        "Start on hands and knees with neutral spine and push the floor away with the supporting hand",
+        "Reach free arm forward, then forcefully row elbow back into your hip pocket",
+        "Contract the lat at 95% effort for 3 full seconds on every repetition",
+        "Rest 45s between sets to allow full ATP-PCr and neuromuscular recovery."
+      ],
+      "commonMistakes": [
+        "Twisting the torso or shrugging the supporting shoulder.",
+        "Losing 360° abdominal bracing during the eccentric phase."
+      ]
+    }
+  },
+  {
+    "id": "cat-back-15",
+    "name": "Prone I-Y-T-W Scapular Depression Complex (No Bar)",
+    "category": "strength",
+    "animationType": "mcgill-birddog",
+    "equipmentType": "bodyweight",
+    "equipmentLabel": "Zero Equipment (Bodyweight)",
+    "muscleGroupTag": "back-pull",
+    "whySwap": "Targets every fiber of the middle/lower trapezius and rotator cuff without a pull-up bar.",
+    "defaultSets": 3,
+    "defaultReps": 12,
+    "repLabel": "3 cycles of I-Y-T-W (2s holds)",
+    "defaultHoldSeconds": 40,
+    "defaultRestSeconds": 45,
+    "prepCountdownSeconds": 10,
+    "description": "Clinical 4-angle scapular upward-rotation, depression, and retraction protocol on the floor.",
+    "formCues": [
+      "Lie prone with forehead supported or hovering neutrally",
+      "Raise thumbs-up arms in an I, 45° Y, 90° T, and tucked W for 2s each",
+      "Initiate every lift from the shoulder blades rather than the hands"
+    ],
+    "targetedMuscles": [
+      "Lower Trapezius",
+      "Middle Trapezius",
+      "Infraspinatus",
+      "Rhomboids"
+    ],
+    "videoReference": {
+      "youtubeId": "tfe4fde2524",
+      "title": "Prone Y-T-W Shoulder & Scapular Stability Drill",
+      "channelName": "Squat University",
+      "durationLabel": "3 Sets × 3 cycles of I-Y-T-W (2s holds)",
+      "stepByStepBreakdown": [
+        "Lie prone with forehead supported or hovering neutrally",
+        "Raise thumbs-up arms in an I, 45° Y, 90° T, and tucked W for 2s each",
+        "Initiate every lift from the shoulder blades rather than the hands",
+        "Rest 45s between sets to allow full ATP-PCr and neuromuscular recovery."
+      ],
+      "commonMistakes": [
+        "Arching the lower back to lift the arms higher.",
+        "Losing 360° abdominal bracing during the eccentric phase."
+      ]
+    }
+  },
+  {
+    "id": "cat-back-16",
+    "name": "Self-Resisted Towel / Isometric Biceps & Lat Pull (No Bar)",
+    "category": "strength",
+    "animationType": "row",
+    "equipmentType": "bodyweight",
+    "equipmentLabel": "Zero Equipment (Bodyweight)",
+    "muscleGroupTag": "back-pull",
+    "whySwap": "Directly trains the elbow flexors and lats anywhere with zero gym equipment.",
+    "defaultSets": 4,
+    "defaultReps": 10,
+    "repLabel": "10 slow 4s-eccentric reps",
+    "defaultHoldSeconds": 40,
+    "defaultRestSeconds": 45,
+    "prepCountdownSeconds": 10,
+    "description": "Using opposite-hand or leg-loop towel resistance to overload the biceps, brachialis, and lats through a full range of motion with zero weights or bar.",
+    "formCues": [
+      "Press non-working palm firmly over working wrist (or loop a towel behind one thigh)",
+      "Pull working arm through full flexion while resisting smoothly with the opposite limb",
+      "Fight the lowering phase for 4 full seconds on every repetition"
+    ],
+    "targetedMuscles": [
+      "Biceps Brachii",
+      "Brachialis",
+      "Latissimus Dorsi",
+      "Forearm Flexors"
+    ],
+    "videoReference": {
+      "youtubeId": "13SFATc-mJ4",
+      "title": "No-Equipment Biceps & Lat Self-Resistance Training",
+      "channelName": "ATHLEAN-X",
+      "durationLabel": "4 Sets × 10 slow 4s-eccentric reps",
+      "stepByStepBreakdown": [
+        "Press non-working palm firmly over working wrist (or loop a towel behind one thigh)",
+        "Pull working arm through full flexion while resisting smoothly with the opposite limb",
+        "Fight the lowering phase for 4 full seconds on every repetition",
+        "Rest 45s between sets to allow full ATP-PCr and neuromuscular recovery."
+      ],
+      "commonMistakes": [
+        "Letting resistance drop off during the lowering phase.",
+        "Losing 360° abdominal bracing during the eccentric phase."
+      ]
+    }
+  },
+  {
+    "id": "cat-back-17",
+    "name": "Chest-Supported Dumbbell / KB Incline Row",
+    "category": "strength",
+    "animationType": "row",
+    "equipmentType": "dumbbell",
+    "equipmentLabel": "Dumbbells / Home Gym",
+    "muscleGroupTag": "back-pull",
+    "whySwap": "100% spine-sparing row variation that eliminates lower-back fatigue.",
+    "defaultSets": 4,
+    "defaultReps": 12,
+    "repLabel": "12 strict rows",
+    "defaultHoldSeconds": 40,
+    "defaultRestSeconds": 60,
+    "prepCountdownSeconds": 10,
+    "description": "Incline bench chest-supported row isolating the lats and upper back with zero momentum.",
+    "formCues": [
+      "Rest chest firmly against a 30°–45° incline bench",
+      "Let shoulder blades protract at the bottom for a deep stretch",
+      "Drive elbows back toward hips and squeeze shoulder blades for 1 second"
+    ],
+    "targetedMuscles": [
+      "Rhomboids",
+      "Latissimus Dorsi",
+      "Middle Trapezius",
+      "Rear Deltoid"
+    ],
+    "videoReference": {
+      "youtubeId": "H75im9fAUMc",
+      "title": "Chest Supported Row Form for Maximum Upper Back Growth",
+      "channelName": "Renaissance Periodization",
+      "durationLabel": "4 Sets × 12 strict rows",
+      "stepByStepBreakdown": [
+        "Rest chest firmly against a 30°–45° incline bench",
+        "Let shoulder blades protract at the bottom for a deep stretch",
+        "Drive elbows back toward hips and squeeze shoulder blades for 1 second",
+        "Rest 60s between sets to allow full ATP-PCr and neuromuscular recovery."
+      ],
+      "commonMistakes": [
+        "Lifting chest off the pad to heave the weights.",
+        "Losing 360° abdominal bracing during the eccentric phase."
+      ]
+    }
+  },
+  {
+    "id": "cat-back-18",
+    "name": "Single-Arm Dumbbell Kroc Row",
+    "category": "strength",
+    "animationType": "row",
+    "equipmentType": "dumbbell",
+    "equipmentLabel": "Dumbbells / Home Gym",
+    "muscleGroupTag": "back-pull",
+    "whySwap": "Develops work capacity and dense lat/rhomboid hypertrophy.",
+    "defaultSets": 3,
+    "defaultReps": 15,
+    "repLabel": "15 high-volume reps/side",
+    "defaultHoldSeconds": 45,
+    "defaultRestSeconds": 75,
+    "prepCountdownSeconds": 10,
+    "description": "High-rep unilateral dumbbell row building upper-back thickness and grip endurance.",
+    "formCues": [
+      "Support non-working hand on a bench or rack with flat neutral spine",
+      "Pull dumbbell from full bottom stretch up to your hip crease",
+      "Maintain strict spinal bracing throughout all 15 reps"
+    ],
+    "targetedMuscles": [
+      "Latissimus Dorsi",
+      "Upper Back",
+      "Biceps Brachii",
+      "Forearm Grip"
+    ],
+    "videoReference": {
+      "youtubeId": "pYcpY20QaE8",
+      "title": "How to Do Single Arm Dumbbell Rows Properly",
+      "channelName": "ScottHermanFitness",
+      "durationLabel": "3 Sets × 15 high-volume reps/side",
+      "stepByStepBreakdown": [
+        "Support non-working hand on a bench or rack with flat neutral spine",
+        "Pull dumbbell from full bottom stretch up to your hip crease",
+        "Maintain strict spinal bracing throughout all 15 reps",
+        "Rest 75s between sets to allow full ATP-PCr and neuromuscular recovery."
+      ],
+      "commonMistakes": [
+        "Jerking the lower back instead of moving through the shoulder blade.",
+        "Losing 360° abdominal bracing during the eccentric phase."
+      ]
+    }
+  },
+  {
+    "id": "cat-back-19",
+    "name": "Barbell Bent-Over Row",
+    "category": "strength",
+    "animationType": "row",
+    "equipmentType": "barbell",
+    "equipmentLabel": "Barbell / Full Strength",
+    "muscleGroupTag": "back-pull",
+    "whySwap": "Loads the entire back and spinal erectors simultaneously.",
+    "defaultSets": 4,
+    "defaultReps": 8,
+    "repLabel": "8 compound reps",
+    "defaultHoldSeconds": 35,
+    "defaultRestSeconds": 90,
+    "prepCountdownSeconds": 10,
+    "description": "Classic compound bilateral barbell row building total posterior chain and back thickness.",
+    "formCues": [
+      "Hinge hips back to a 45° torso angle with knees softly unlocked",
+      "Grip bar slightly wider than shoulder-width and pull to lower sternum/upper abs",
+      "Control the eccentric lowering without bouncing"
+    ],
+    "targetedMuscles": [
+      "Latissimus Dorsi",
+      "Rhomboids",
+      "Erector Spinae",
+      "Posterior Deltoid"
+    ],
+    "videoReference": {
+      "youtubeId": "FWJR5Ve8bnQ",
+      "title": "How to Barbell Row with Perfect Form",
+      "channelName": "Jeff Nippard",
+      "durationLabel": "4 Sets × 8 compound reps",
+      "stepByStepBreakdown": [
+        "Hinge hips back to a 45° torso angle with knees softly unlocked",
+        "Grip bar slightly wider than shoulder-width and pull to lower sternum/upper abs",
+        "Control the eccentric lowering without bouncing",
+        "Rest 90s between sets to allow full ATP-PCr and neuromuscular recovery."
+      ],
+      "commonMistakes": [
+        "Standing too upright and turning the row into a shrug.",
+        "Losing 360° abdominal bracing during the eccentric phase."
+      ]
+    }
+  },
+  {
+    "id": "cat-back-20",
+    "name": "Dumbbell Incline Spider Curls",
+    "category": "strength",
+    "animationType": "row",
+    "equipmentType": "dumbbell",
+    "equipmentLabel": "Dumbbells / Home Gym",
+    "muscleGroupTag": "back-pull",
+    "whySwap": "Prevents any shoulder swinging and maximizes peak biceps squeeze.",
+    "defaultSets": 3,
+    "defaultReps": 12,
+    "repLabel": "12 strict curls",
+    "defaultHoldSeconds": 35,
+    "defaultRestSeconds": 60,
+    "prepCountdownSeconds": 10,
+    "description": "Chest-supported prone incline curls locking the humerus vertically for zero-momentum biceps isolation.",
+    "formCues": [
+      "Lie chest-down on a 45° incline bench with arms hanging straight down",
+      "Curl dumbbells up while keeping elbows locked in place",
+      "Squeeze biceps hard at the top for 1 second and lower slowly"
+    ],
+    "targetedMuscles": [
+      "Biceps Brachii (Short Head)",
+      "Brachialis"
+    ],
+    "videoReference": {
+      "youtubeId": "ke2shAeQ0O8",
+      "title": "Spider Curls for Peak Biceps Contraction",
+      "channelName": "Renaissance Periodization",
+      "durationLabel": "3 Sets × 12 strict curls",
+      "stepByStepBreakdown": [
+        "Lie chest-down on a 45° incline bench with arms hanging straight down",
+        "Curl dumbbells up while keeping elbows locked in place",
+        "Squeeze biceps hard at the top for 1 second and lower slowly",
+        "Rest 60s between sets to allow full ATP-PCr and neuromuscular recovery."
+      ],
+      "commonMistakes": [
+        "Swinging elbows backward during the curl.",
+        "Losing 360° abdominal bracing during the eccentric phase."
+      ]
+    }
+  },
+  {
+    "id": "cat-back-21",
+    "name": "Dumbbell Zottman Curls (Biceps & Forearms)",
+    "category": "strength",
+    "animationType": "row",
+    "equipmentType": "dumbbell",
+    "equipmentLabel": "Dumbbells / Home Gym",
+    "muscleGroupTag": "back-pull",
+    "whySwap": "Trains both biceps and elbow-stabilizing forearm extensors in one movement.",
+    "defaultSets": 3,
+    "defaultReps": 10,
+    "repLabel": "10 eccentric-pronated reps",
+    "defaultHoldSeconds": 40,
+    "defaultRestSeconds": 60,
+    "prepCountdownSeconds": 10,
+    "description": "Supinated concentric curl paired with a pronated reverse-curl eccentric lowering.",
+    "formCues": [
+      "Curl dumbbells up with palms facing up (supinated)",
+      "Rotate wrists 180° at the top so palms face down (pronated)",
+      "Lower slowly over 3 seconds in the reverse-curl position, then rotate back at bottom"
+    ],
+    "targetedMuscles": [
+      "Biceps Brachii",
+      "Brachioradialis",
+      "Forearm Extensors"
+    ],
+    "videoReference": {
+      "youtubeId": "FSGDM9-d29w",
+      "title": "How to Do the Zottman Curl for Arms & Forearms",
+      "channelName": "Buff Dudes",
+      "durationLabel": "3 Sets × 10 eccentric-pronated reps",
+      "stepByStepBreakdown": [
+        "Curl dumbbells up with palms facing up (supinated)",
+        "Rotate wrists 180° at the top so palms face down (pronated)",
+        "Lower slowly over 3 seconds in the reverse-curl position, then rotate back at bottom",
+        "Rest 60s between sets to allow full ATP-PCr and neuromuscular recovery."
+      ],
+      "commonMistakes": [
+        "Lowering too fast on the pronated eccentric phase.",
+        "Losing 360° abdominal bracing during the eccentric phase."
+      ]
+    }
+  },
+  {
+    "id": "cat-back-22",
+    "name": "Archer Pull-Ups / Typewriter Pull-Ups",
+    "category": "strength",
+    "animationType": "pullup",
+    "equipmentType": "bodyweight",
+    "equipmentLabel": "Zero Equipment (Bodyweight)",
+    "muscleGroupTag": "back-pull",
+    "whySwap": "Bridges the gap between standard pull-ups and one-arm pull-up strength.",
+    "defaultSets": 4,
+    "defaultReps": 6,
+    "repLabel": "6 alternating reps",
+    "defaultHoldSeconds": 35,
+    "defaultRestSeconds": 90,
+    "prepCountdownSeconds": 10,
+    "description": "Advanced wide-grip unilateral pull-up shifting load to one arm at a time.",
+    "formCues": [
+      "Take a wide overhand grip on the pull-up bar",
+      "Pull your chin toward your right hand while keeping your left arm straight across the bar",
+      "Lower under control and pull toward your left hand on the next rep"
+    ],
+    "targetedMuscles": [
+      "Latissimus Dorsi",
+      "Biceps Brachii",
+      "Lower Trapezius",
+      "Core"
+    ],
+    "videoReference": {
+      "youtubeId": "eGo4IYlbE5g",
+      "title": "Archer Pull-Up Progression Tutorial",
+      "channelName": "Calisthenicmovement",
+      "durationLabel": "4 Sets × 6 alternating reps",
+      "stepByStepBreakdown": [
+        "Take a wide overhand grip on the pull-up bar",
+        "Pull your chin toward your right hand while keeping your left arm straight across the bar",
+        "Lower under control and pull toward your left hand on the next rep",
+        "Rest 90s between sets to allow full ATP-PCr and neuromuscular recovery."
+      ],
+      "commonMistakes": [
+        "Kipping or dropping uncontrollably from the top.",
+        "Losing 360° abdominal bracing during the eccentric phase."
+      ]
+    }
+  },
+  {
+    "id": "cat-chest-01",
+    "name": "Strict Military Push-Ups",
+    "category": "strength",
+    "animationType": "pushup",
+    "equipmentType": "bodyweight",
+    "equipmentLabel": "Zero Equipment (Bodyweight)",
+    "muscleGroupTag": "chest-push",
+    "whySwap": "Builds chest, triceps, serratus anterior, and core stiffness simultaneously.",
+    "defaultSets": 4,
+    "defaultReps": 12,
+    "repLabel": "12 strict reps",
+    "defaultHoldSeconds": 35,
+    "defaultRestSeconds": 60,
+    "prepCountdownSeconds": 10,
+    "description": "Foundational closed-kinetic-chain horizontal press with a 45° elbow track and rigid plank core.",
+    "formCues": [
+      "Screw palms into the floor slightly wider than shoulder-width",
+      "Track elbows back at a 45° arrow angle as chest lowers to 1 inch above floor",
+      "Press up as one rigid plank unit to full protraction"
+    ],
+    "targetedMuscles": [
+      "Pectoralis Major",
+      "Anterior Deltoid",
+      "Triceps Brachii",
+      "Anterior Core"
+    ],
+    "videoReference": {
+      "youtubeId": "IODxDxX7oi4",
+      "title": "The Perfect Push-Up — Do It Right!",
+      "channelName": "Calisthenicmovement",
+      "durationLabel": "4 Sets × 12 strict reps",
+      "stepByStepBreakdown": [
+        "Screw palms into the floor slightly wider than shoulder-width",
+        "Track elbows back at a 45° arrow angle as chest lowers to 1 inch above floor",
+        "Press up as one rigid plank unit to full protraction",
+        "Rest 60s between sets to allow full ATP-PCr and neuromuscular recovery."
+      ],
+      "commonMistakes": [
+        "Flaring elbows to 90° or letting hips sag.",
+        "Losing 360° abdominal bracing during the eccentric phase."
+      ]
+    }
+  },
+  {
+    "id": "cat-chest-02",
+    "name": "Wide-to-Side Archer Push-Ups",
+    "category": "strength",
+    "animationType": "pushup",
+    "equipmentType": "bodyweight",
+    "equipmentLabel": "Zero Equipment (Bodyweight)",
+    "muscleGroupTag": "chest-push",
+    "whySwap": "High overload for the chest without needing external weights.",
+    "defaultSets": 4,
+    "defaultReps": 10,
+    "repLabel": "10 alternating reps",
+    "defaultHoldSeconds": 35,
+    "defaultRestSeconds": 60,
+    "prepCountdownSeconds": 10,
+    "description": "Unilateral bodyweight horizontal press shifting 70% of bodyweight onto one arm while the opposite arm assists.",
+    "formCues": [
+      "Set hands 1.5x wider than shoulder-width with fingers angled out 45°",
+      "Shift torso laterally over right hand while keeping left arm straight",
+      "Press back to center and alternate sides"
+    ],
+    "targetedMuscles": [
+      "Pectoralis Major",
+      "Anterior Deltoid",
+      "Triceps Brachii",
+      "Core"
+    ],
+    "videoReference": {
+      "youtubeId": "mzr0RYNDzzI",
+      "title": "Archer Push-Ups Made Easy in 3 Steps",
+      "channelName": "Stozfit Calisthenics",
+      "durationLabel": "4 Sets × 10 alternating reps",
+      "stepByStepBreakdown": [
+        "Set hands 1.5x wider than shoulder-width with fingers angled out 45°",
+        "Shift torso laterally over right hand while keeping left arm straight",
+        "Press back to center and alternate sides",
+        "Rest 60s between sets to allow full ATP-PCr and neuromuscular recovery."
+      ],
+      "commonMistakes": [
+        "Twisting the pelvis instead of keeping hips square to the floor.",
+        "Losing 360° abdominal bracing during the eccentric phase."
+      ]
+    }
+  },
+  {
+    "id": "cat-chest-03",
+    "name": "Dead-Stop Hand-Release Push-Ups",
+    "category": "strength",
+    "animationType": "pushup",
+    "equipmentType": "bodyweight",
+    "equipmentLabel": "Zero Equipment (Bodyweight)",
+    "muscleGroupTag": "chest-push",
+    "whySwap": "Eliminates bounce momentum and reinforces upper-back retraction.",
+    "defaultSets": 4,
+    "defaultReps": 12,
+    "repLabel": "12 dead-stop reps",
+    "defaultHoldSeconds": 35,
+    "defaultRestSeconds": 60,
+    "prepCountdownSeconds": 10,
+    "description": "Full-range push-up pausing on the floor to lift palms 1 inch and pinch the scapulae before pressing.",
+    "formCues": [
+      "Lower chest all the way to the floor as one solid unit",
+      "Lift hands 1 inch off floor to pinch shoulder blades together",
+      "Plant hands, brace abs and glutes, and press up cleanly"
+    ],
+    "targetedMuscles": [
+      "Pectoralis Major",
+      "Triceps Brachii",
+      "Rhomboids",
+      "Anterior Core"
+    ],
+    "videoReference": {
+      "youtubeId": "ZXPZLZErnUw",
+      "title": "How To Do A Hand-Release Push-Up",
+      "channelName": "Bodybuilding.com",
+      "durationLabel": "4 Sets × 12 dead-stop reps",
+      "stepByStepBreakdown": [
+        "Lower chest all the way to the floor as one solid unit",
+        "Lift hands 1 inch off floor to pinch shoulder blades together",
+        "Plant hands, brace abs and glutes, and press up cleanly",
+        "Rest 60s between sets to allow full ATP-PCr and neuromuscular recovery."
+      ],
+      "commonMistakes": [
+        "Peeling chest up while hips stay stuck on the floor.",
+        "Losing 360° abdominal bracing during the eccentric phase."
+      ]
+    }
+  },
+  {
+    "id": "cat-chest-04",
+    "name": "Feet-Elevated Decline Push-Ups (Upper Chest)",
+    "category": "strength",
+    "animationType": "pushup",
+    "equipmentType": "bodyweight",
+    "equipmentLabel": "Zero Equipment (Bodyweight)",
+    "muscleGroupTag": "chest-push",
+    "whySwap": "Increases bodyweight load to ~75% and targets the upper pectoral fibers.",
+    "defaultSets": 4,
+    "defaultReps": 12,
+    "repLabel": "12 decline reps",
+    "defaultHoldSeconds": 35,
+    "defaultRestSeconds": 60,
+    "prepCountdownSeconds": 10,
+    "description": "Elevating feet on a bench or step to shift the pressing angle toward the clavicular upper chest and front delts.",
+    "formCues": [
+      "Place toes on a 12–18 inch bench or step with hands under shoulders",
+      "Brace core strongly so lower back never hyperextends",
+      "Lower upper chest between hands and press to lockout"
+    ],
+    "targetedMuscles": [
+      "Clavicular Pectoralis (Upper Chest)",
+      "Anterior Deltoid",
+      "Triceps Brachii"
+    ],
+    "videoReference": {
+      "youtubeId": "SKPab2YC8BE",
+      "title": "Decline Push-Up Form for Upper Chest",
+      "channelName": "ScottHermanFitness",
+      "durationLabel": "4 Sets × 12 decline reps",
+      "stepByStepBreakdown": [
+        "Place toes on a 12–18 inch bench or step with hands under shoulders",
+        "Brace core strongly so lower back never hyperextends",
+        "Lower upper chest between hands and press to lockout",
+        "Rest 60s between sets to allow full ATP-PCr and neuromuscular recovery."
+      ],
+      "commonMistakes": [
+        "Letting the lower back sag under the elevated hip angle.",
+        "Losing 360° abdominal bracing during the eccentric phase."
+      ]
+    }
+  },
+  {
+    "id": "cat-chest-05",
+    "name": "Deficit Push-Ups on Kettlebells / Parallettes",
+    "category": "strength",
+    "animationType": "pushup",
+    "equipmentType": "kettlebell",
+    "equipmentLabel": "Kettlebell (1–2 KBs)",
+    "muscleGroupTag": "chest-push",
+    "whySwap": "Loaded stretch hypertrophy for the pectorals with neutral wrist alignment.",
+    "defaultSets": 4,
+    "defaultReps": 10,
+    "repLabel": "10 deep-stretch reps",
+    "defaultHoldSeconds": 40,
+    "defaultRestSeconds": 60,
+    "prepCountdownSeconds": 10,
+    "description": "Hands elevated on stable kettlebell handles or blocks to lower the chest 2–3 inches deeper than floor level.",
+    "formCues": [
+      "Grip two wide-base kettlebells or push-up bars shoulder-width apart",
+      "Lower chest slowly below handle level until a deep pectoral stretch is felt",
+      "Pause 1 second in the stretch and press up smoothly"
+    ],
+    "targetedMuscles": [
+      "Pectoralis Major",
+      "Anterior Deltoid",
+      "Triceps Brachii"
+    ],
+    "videoReference": {
+      "youtubeId": "IODxDxX7oi4",
+      "title": "Deficit Push-Ups for Deep Pectoral Stretch",
+      "channelName": "Renaissance Periodization",
+      "durationLabel": "4 Sets × 10 deep-stretch reps",
+      "stepByStepBreakdown": [
+        "Grip two wide-base kettlebells or push-up bars shoulder-width apart",
+        "Lower chest slowly below handle level until a deep pectoral stretch is felt",
+        "Pause 1 second in the stretch and press up smoothly",
+        "Rest 60s between sets to allow full ATP-PCr and neuromuscular recovery."
+      ],
+      "commonMistakes": [
+        "Dropping too deep with shrugged shoulders.",
+        "Losing 360° abdominal bracing during the eccentric phase."
+      ]
+    }
+  },
+  {
+    "id": "cat-chest-06",
+    "name": "Pseudo-Planche Lean Push-Ups",
+    "category": "strength",
+    "animationType": "pushup",
+    "equipmentType": "bodyweight",
+    "equipmentLabel": "Zero Equipment (Bodyweight)",
+    "muscleGroupTag": "chest-push",
+    "whySwap": "Extreme bodyweight leverage progression matching heavy bench press tension.",
+    "defaultSets": 3,
+    "defaultReps": 8,
+    "repLabel": "8 forward-lean reps",
+    "defaultHoldSeconds": 35,
+    "defaultRestSeconds": 75,
+    "prepCountdownSeconds": 10,
+    "description": "Shifting shoulders significantly forward past the wrists with fingers turned out to heavily load chest and front delts.",
+    "formCues": [
+      "Turn fingers out 45°–90° and lean shoulders forward so hands align near lower ribs",
+      "Maintain protracted hollow-body core tension",
+      "Lower under control while keeping the forward lean at the top and bottom"
+    ],
+    "targetedMuscles": [
+      "Anterior Deltoid",
+      "Pectoralis Major",
+      "Biceps Tendon",
+      "Core"
+    ],
+    "videoReference": {
+      "youtubeId": "odcPqBOlJhI",
+      "title": "How to Do Pseudo Planche Push-Ups",
+      "channelName": "FitnessFAQs",
+      "durationLabel": "3 Sets × 8 forward-lean reps",
+      "stepByStepBreakdown": [
+        "Turn fingers out 45°–90° and lean shoulders forward so hands align near lower ribs",
+        "Maintain protracted hollow-body core tension",
+        "Lower under control while keeping the forward lean at the top and bottom",
+        "Rest 75s between sets to allow full ATP-PCr and neuromuscular recovery."
+      ],
+      "commonMistakes": [
+        "Rocking backward on the ascent to make the press easier.",
+        "Losing 360° abdominal bracing during the eccentric phase."
+      ]
+    }
+  },
+  {
+    "id": "cat-chest-07",
+    "name": "Explosive Plyometric Clap Push-Ups",
+    "category": "strength",
+    "animationType": "pushup",
+    "equipmentType": "bodyweight",
+    "equipmentLabel": "Zero Equipment (Bodyweight)",
+    "muscleGroupTag": "chest-push",
+    "whySwap": "Recruits high-threshold Type II muscle fibers in the chest and triceps.",
+    "defaultSets": 4,
+    "defaultReps": 6,
+    "repLabel": "6 explosive reps",
+    "defaultHoldSeconds": 25,
+    "defaultRestSeconds": 75,
+    "prepCountdownSeconds": 10,
+    "description": "Rapid stretch-shortening cycle push-up launching the palms off the floor for fast-twitch power.",
+    "formCues": [
+      "Lower under control and explode through the floor as fast as possible",
+      "Land softly on the balls of your palms and immediately absorb into the next rep",
+      "Keep abs and glutes locked rigid in the air"
+    ],
+    "targetedMuscles": [
+      "Fast-Twitch Pectoralis",
+      "Triceps Brachii",
+      "Anterior Deltoid"
+    ],
+    "videoReference": {
+      "youtubeId": "EYwWCgM198U",
+      "title": "Plyometric Push-Ups for Explosive Upper Body Power",
+      "channelName": "ATHLEAN-X",
+      "durationLabel": "4 Sets × 6 explosive reps",
+      "stepByStepBreakdown": [
+        "Lower under control and explode through the floor as fast as possible",
+        "Land softly on the balls of your palms and immediately absorb into the next rep",
+        "Keep abs and glutes locked rigid in the air",
+        "Rest 75s between sets to allow full ATP-PCr and neuromuscular recovery."
+      ],
+      "commonMistakes": [
+        "Landing with stiff locked elbows.",
+        "Losing 360° abdominal bracing during the eccentric phase."
+      ]
+    }
+  },
+  {
+    "id": "cat-chest-08",
+    "name": "3-Second Pause Tempo Push-Ups (3-2-1)",
+    "category": "strength",
+    "animationType": "pushup",
+    "equipmentType": "bodyweight",
+    "equipmentLabel": "Zero Equipment (Bodyweight)",
+    "muscleGroupTag": "chest-push",
+    "whySwap": "Maximizes mechanical tension and time-under-tension without external weights.",
+    "defaultSets": 4,
+    "defaultReps": 10,
+    "repLabel": "10 tempo reps (3s down, 2s hold)",
+    "defaultHoldSeconds": 45,
+    "defaultRestSeconds": 60,
+    "prepCountdownSeconds": 10,
+    "description": "3-second eccentric lowering followed by a 2-second isometric hover 1 inch above the floor.",
+    "formCues": [
+      "Count a strict 3 seconds on the way down",
+      "Freeze 1 inch above the floor for 2 full seconds without touching chest down",
+      "Drive explosively to the top lockout"
+    ],
+    "targetedMuscles": [
+      "Pectoralis Major",
+      "Triceps Brachii",
+      "Serratus Anterior"
+    ],
+    "videoReference": {
+      "youtubeId": "IODxDxX7oi4",
+      "title": "Tempo Push-Ups for Maximum Time Under Tension",
+      "channelName": "Calisthenicmovement",
+      "durationLabel": "4 Sets × 10 tempo reps (3s down, 2s hold)",
+      "stepByStepBreakdown": [
+        "Count a strict 3 seconds on the way down",
+        "Freeze 1 inch above the floor for 2 full seconds without touching chest down",
+        "Drive explosively to the top lockout",
+        "Rest 60s between sets to allow full ATP-PCr and neuromuscular recovery."
+      ],
+      "commonMistakes": [
+        "Resting the chest on the floor during the bottom hold.",
+        "Losing 360° abdominal bracing during the eccentric phase."
+      ]
+    }
+  },
+  {
+    "id": "cat-chest-09",
+    "name": "Spiderman Core-Crunch Push-Ups",
+    "category": "strength",
+    "animationType": "pushup",
+    "equipmentType": "bodyweight",
+    "equipmentLabel": "Zero Equipment (Bodyweight)",
+    "muscleGroupTag": "chest-push",
+    "whySwap": "Combines horizontal pressing with oblique and hip mobility work.",
+    "defaultSets": 3,
+    "defaultReps": 10,
+    "repLabel": "10 alternating reps",
+    "defaultHoldSeconds": 40,
+    "defaultRestSeconds": 60,
+    "prepCountdownSeconds": 10,
+    "description": "Bringing one knee laterally toward the ipsilateral elbow at the bottom of each push-up.",
+    "formCues": [
+      "As you lower into the push-up, sweep right knee out and up to touch right elbow",
+      "Return foot to plank as you press back to top lockout",
+      "Alternate legs on every rep"
+    ],
+    "targetedMuscles": [
+      "Pectoralis Major",
+      "External Obliques",
+      "Hip Flexors",
+      "Triceps Brachii"
+    ],
+    "videoReference": {
+      "youtubeId": "qG2o3n3vW8U",
+      "title": "How to Do Spiderman Push-Ups",
+      "channelName": "ScottHermanFitness",
+      "durationLabel": "3 Sets × 10 alternating reps",
+      "stepByStepBreakdown": [
+        "As you lower into the push-up, sweep right knee out and up to touch right elbow",
+        "Return foot to plank as you press back to top lockout",
+        "Alternate legs on every rep",
+        "Rest 60s between sets to allow full ATP-PCr and neuromuscular recovery."
+      ],
+      "commonMistakes": [
+        "Sagging the hips toward the floor as the knee comes forward.",
+        "Losing 360° abdominal bracing during the eccentric phase."
+      ]
+    }
+  },
+  {
+    "id": "cat-chest-10",
+    "name": "Parallel Bar / Ring Chest Dips",
+    "category": "strength",
+    "animationType": "diamond-pushup",
+    "equipmentType": "bodyweight",
+    "equipmentLabel": "Zero Equipment (Bodyweight)",
+    "muscleGroupTag": "chest-push",
+    "whySwap": "Often called the upper-body squat for its massive chest and triceps loading.",
+    "defaultSets": 4,
+    "defaultReps": 8,
+    "repLabel": "8 deep chest dips",
+    "defaultHoldSeconds": 35,
+    "defaultRestSeconds": 75,
+    "prepCountdownSeconds": 10,
+    "description": "Forward-leaning parallel bar dip targeting the sternal and costal fibers of the chest.",
+    "formCues": [
+      "Support body on parallel bars with shoulders depressed away from ears",
+      "Lean torso forward 25° and lower until shoulders reach elbow level",
+      "Press back to full lockout while maintaining forward torso tilt"
+    ],
+    "targetedMuscles": [
+      "Lower Pectoralis Major",
+      "Triceps Brachii",
+      "Anterior Deltoid"
+    ],
+    "videoReference": {
+      "youtubeId": "2z8JmcrW-As",
+      "title": "Chest Dips vs Tricep Dips — Form Breakdown",
+      "channelName": "Calisthenicmovement",
+      "durationLabel": "4 Sets × 8 deep chest dips",
+      "stepByStepBreakdown": [
+        "Support body on parallel bars with shoulders depressed away from ears",
+        "Lean torso forward 25° and lower until shoulders reach elbow level",
+        "Press back to full lockout while maintaining forward torso tilt",
+        "Rest 75s between sets to allow full ATP-PCr and neuromuscular recovery."
+      ],
+      "commonMistakes": [
+        "Shrugging shoulders or dropping too deep without scapular control.",
+        "Losing 360° abdominal bracing during the eccentric phase."
+      ]
+    }
+  },
+  {
+    "id": "cat-chest-11",
+    "name": "Kettlebell Floor Press (Single or Double)",
+    "category": "strength",
+    "animationType": "pushup",
+    "equipmentType": "kettlebell",
+    "equipmentLabel": "Kettlebell (1–2 KBs)",
+    "muscleGroupTag": "chest-push",
+    "whySwap": "Heavy pressing overload with zero shoulder impingement risk.",
+    "defaultSets": 4,
+    "defaultReps": 12,
+    "repLabel": "12 floor presses",
+    "defaultHoldSeconds": 40,
+    "defaultRestSeconds": 60,
+    "prepCountdownSeconds": 10,
+    "description": "Supine kettlebell press from the floor with a safe 45° elbow stop that protects the anterior shoulder capsule.",
+    "formCues": [
+      "Lie on back with knees bent and rack kettlebell(s) with straight wrists",
+      "Lower until triceps gently pause on the floor for 1 second",
+      "Press straight up over mid-chest to full lockout"
+    ],
+    "targetedMuscles": [
+      "Pectoralis Major",
+      "Triceps Brachii",
+      "Anterior Deltoid"
+    ],
+    "videoReference": {
+      "youtubeId": "4ULa6AJcjr8",
+      "title": "The Kettlebell Floor Press Technique & Setup",
+      "channelName": "Zack Henderson",
+      "durationLabel": "4 Sets × 12 floor presses",
+      "stepByStepBreakdown": [
+        "Lie on back with knees bent and rack kettlebell(s) with straight wrists",
+        "Lower until triceps gently pause on the floor for 1 second",
+        "Press straight up over mid-chest to full lockout",
+        "Rest 60s between sets to allow full ATP-PCr and neuromuscular recovery."
+      ],
+      "commonMistakes": [
+        "Bouncing elbows off the floor or letting wrists bend backward.",
+        "Losing 360° abdominal bracing during the eccentric phase."
+      ]
+    }
+  },
+  {
+    "id": "cat-chest-12",
+    "name": "Alternating See-Saw Kettlebell Floor Press",
+    "category": "strength",
+    "animationType": "pushup",
+    "equipmentType": "kettlebell",
+    "equipmentLabel": "Kettlebell (1–2 KBs)",
+    "muscleGroupTag": "chest-push",
+    "whySwap": "Doubles shoulder stability and anti-rotational core demand.",
+    "defaultSets": 4,
+    "defaultReps": 10,
+    "repLabel": "10 reps/side",
+    "defaultHoldSeconds": 45,
+    "defaultRestSeconds": 60,
+    "prepCountdownSeconds": 10,
+    "description": "Holding one kettlebell locked out overhead while the opposite arm presses, increasing isometric time under tension.",
+    "formCues": [
+      "Press both kettlebells to lockout above your chest",
+      "Lower left arm to the floor and press back up while right arm holds rock-solid",
+      "Alternate in a smooth see-saw rhythm"
+    ],
+    "targetedMuscles": [
+      "Pectoralis Major",
+      "Triceps Brachii",
+      "Anti-Rotational Core"
+    ],
+    "videoReference": {
+      "youtubeId": "4ULa6AJcjr8",
+      "title": "Alternating Kettlebell Floor Press Variations",
+      "channelName": "Kettlebell Kings",
+      "durationLabel": "4 Sets × 10 reps/side",
+      "stepByStepBreakdown": [
+        "Press both kettlebells to lockout above your chest",
+        "Lower left arm to the floor and press back up while right arm holds rock-solid",
+        "Alternate in a smooth see-saw rhythm",
+        "Rest 60s between sets to allow full ATP-PCr and neuromuscular recovery."
+      ],
+      "commonMistakes": [
+        "Letting the holding arm drift or bend while the other arm presses.",
+        "Losing 360° abdominal bracing during the eccentric phase."
+      ]
+    }
+  },
+  {
+    "id": "cat-chest-13",
+    "name": "Glute-Bridge Kettlebell Chest Press",
+    "category": "strength",
+    "animationType": "glute-bridge",
+    "equipmentType": "kettlebell",
+    "equipmentLabel": "Kettlebell (1–2 KBs)",
+    "muscleGroupTag": "chest-push",
+    "whySwap": "Activates glutes and posterior chain while targeting lower-chest fibers.",
+    "defaultSets": 4,
+    "defaultReps": 12,
+    "repLabel": "12 bridge presses",
+    "defaultHoldSeconds": 40,
+    "defaultRestSeconds": 60,
+    "prepCountdownSeconds": 10,
+    "description": "Holding an isometric glute bridge while pressing kettlebells to mimic a decline bench angle.",
+    "formCues": [
+      "Drive through heels into a strong glute bridge before pressing",
+      "Lower triceps to the floor and press bells straight over sternum",
+      "Keep glutes squeezed and ribs braced throughout the set"
+    ],
+    "targetedMuscles": [
+      "Lower Pectoralis",
+      "Gluteus Maximus",
+      "Triceps Brachii",
+      "Core"
+    ],
+    "videoReference": {
+      "youtubeId": "4ULa6AJcjr8",
+      "title": "Glute Bridge Kettlebell Floor Press",
+      "channelName": "Funk Roberts",
+      "durationLabel": "4 Sets × 12 bridge presses",
+      "stepByStepBreakdown": [
+        "Drive through heels into a strong glute bridge before pressing",
+        "Lower triceps to the floor and press bells straight over sternum",
+        "Keep glutes squeezed and ribs braced throughout the set",
+        "Rest 60s between sets to allow full ATP-PCr and neuromuscular recovery."
+      ],
+      "commonMistakes": [
+        "Hyperextending the lower back instead of extending through the hips.",
+        "Losing 360° abdominal bracing during the eccentric phase."
+      ]
+    }
+  },
+  {
+    "id": "cat-chest-14",
+    "name": "Kettlebell Crush-Grip Svend Floor Press",
+    "category": "strength",
+    "animationType": "diamond-pushup",
+    "equipmentType": "kettlebell",
+    "equipmentLabel": "Kettlebell (1–2 KBs)",
+    "muscleGroupTag": "chest-push",
+    "whySwap": "Continuous adduction tension produces an intense inner-pectoral contraction.",
+    "defaultSets": 3,
+    "defaultReps": 12,
+    "repLabel": "12 crush presses",
+    "defaultHoldSeconds": 35,
+    "defaultRestSeconds": 45,
+    "prepCountdownSeconds": 10,
+    "description": "Squeezing the iron sides of a single kettlebell inward between both palms while pressing from the chest.",
+    "formCues": [
+      "Lie on your back and grip the sides of a single kettlebell bell between both palms",
+      "Crush your palms inward as hard as possible while pressing straight up",
+      "Lower slowly to sternum while maintaining inward pressure"
+    ],
+    "targetedMuscles": [
+      "Sternal Pectoralis",
+      "Triceps Brachii",
+      "Anterior Deltoid"
+    ],
+    "videoReference": {
+      "youtubeId": "o5ZgxHhLJ2w",
+      "title": "Crush Grip Kettlebell Press for Inner Chest & Triceps",
+      "channelName": "Kettlebell Kings",
+      "durationLabel": "3 Sets × 12 crush presses",
+      "stepByStepBreakdown": [
+        "Lie on your back and grip the sides of a single kettlebell bell between both palms",
+        "Crush your palms inward as hard as possible while pressing straight up",
+        "Lower slowly to sternum while maintaining inward pressure",
+        "Rest 45s between sets to allow full ATP-PCr and neuromuscular recovery."
+      ],
+      "commonMistakes": [
+        "Relaxing the inward palm squeeze at the top of the rep.",
+        "Losing 360° abdominal bracing during the eccentric phase."
+      ]
+    }
+  },
+  {
+    "id": "cat-chest-15",
+    "name": "Single-Arm Hollow-Body Kettlebell Press",
+    "category": "strength",
+    "animationType": "pushup",
+    "equipmentType": "kettlebell",
+    "equipmentLabel": "Kettlebell (1–2 KBs)",
+    "muscleGroupTag": "chest-push",
+    "whySwap": "Integrates heavy unilateral pressing with deep anti-rotational core bracing.",
+    "defaultSets": 3,
+    "defaultReps": 10,
+    "repLabel": "10 reps per arm",
+    "defaultHoldSeconds": 40,
+    "defaultRestSeconds": 60,
+    "prepCountdownSeconds": 10,
+    "description": "Unilateral supine press with legs extended or braced, forcing the obliques to resist torso rotation.",
+    "formCues": [
+      "Lie supine and press one kettlebell while bracing abs 360°",
+      "Keep opposite shoulder blade glued flat to the floor",
+      "Exhale forcefully through the sticking point"
+    ],
+    "targetedMuscles": [
+      "Pectoralis Major",
+      "Obliques",
+      "Transverse Abdominis",
+      "Triceps"
+    ],
+    "videoReference": {
+      "youtubeId": "4ULa6AJcjr8",
+      "title": "Single-Arm Kettlebell Floor Press & Core Bracing",
+      "channelName": "StrongFirst",
+      "durationLabel": "3 Sets × 10 reps per arm",
+      "stepByStepBreakdown": [
+        "Lie supine and press one kettlebell while bracing abs 360°",
+        "Keep opposite shoulder blade glued flat to the floor",
+        "Exhale forcefully through the sticking point",
+        "Rest 60s between sets to allow full ATP-PCr and neuromuscular recovery."
+      ],
+      "commonMistakes": [
+        "Rolling onto the non-pressing shoulder to cheat the weight up.",
+        "Losing 360° abdominal bracing during the eccentric phase."
+      ]
+    }
+  },
+  {
+    "id": "cat-chest-16",
+    "name": "Flat Dumbbell Bench Press",
+    "category": "strength",
+    "animationType": "pushup",
+    "equipmentType": "dumbbell",
+    "equipmentLabel": "Dumbbells / Home Gym",
+    "muscleGroupTag": "chest-push",
+    "whySwap": "Allows deeper bottom stretch and natural converging arc compared to a barbell.",
+    "defaultSets": 4,
+    "defaultReps": 10,
+    "repLabel": "10 full-ROM reps",
+    "defaultHoldSeconds": 40,
+    "defaultRestSeconds": 75,
+    "prepCountdownSeconds": 10,
+    "description": "Full range-of-motion bilateral dumbbell bench press with natural scapular retraction.",
+    "formCues": [
+      "Retract and depress shoulder blades firmly into the bench",
+      "Lower dumbbells with a 45° elbow tuck until bells reach chest level",
+      "Press up and slightly inward without clanging the weights together"
+    ],
+    "targetedMuscles": [
+      "Pectoralis Major",
+      "Triceps Brachii",
+      "Anterior Deltoid"
+    ],
+    "videoReference": {
+      "youtubeId": "VmB1G1K7v94",
+      "title": "How to Dumbbell Bench Press for Maximum Chest Growth",
+      "channelName": "ScottHermanFitness",
+      "durationLabel": "4 Sets × 10 full-ROM reps",
+      "stepByStepBreakdown": [
+        "Retract and depress shoulder blades firmly into the bench",
+        "Lower dumbbells with a 45° elbow tuck until bells reach chest level",
+        "Press up and slightly inward without clanging the weights together",
+        "Rest 75s between sets to allow full ATP-PCr and neuromuscular recovery."
+      ],
+      "commonMistakes": [
+        "Flaring elbows out at 90° in a T-shape.",
+        "Losing 360° abdominal bracing during the eccentric phase."
+      ]
+    }
+  },
+  {
+    "id": "cat-chest-17",
+    "name": "30° Incline Dumbbell Press (Clavicular Pec)",
+    "category": "strength",
+    "animationType": "pushup",
+    "equipmentType": "dumbbell",
+    "equipmentLabel": "Dumbbells / Home Gym",
+    "muscleGroupTag": "chest-push",
+    "whySwap": "EMG research confirms 30° incline maximizes upper-pec fiber recruitment.",
+    "defaultSets": 4,
+    "defaultReps": 10,
+    "repLabel": "10 incline reps",
+    "defaultHoldSeconds": 40,
+    "defaultRestSeconds": 75,
+    "prepCountdownSeconds": 10,
+    "description": "30-degree low-incline dumbbell press isolating the upper chest without excessive front-delt takeover.",
+    "formCues": [
+      "Set bench to a shallow 30° incline (1–2 notches up from flat)",
+      "Lower dumbbells under control to the sides of your upper chest",
+      "Drive straight up toward the ceiling while keeping upper back tight"
+    ],
+    "targetedMuscles": [
+      "Clavicular Pectoralis",
+      "Anterior Deltoid",
+      "Triceps Brachii"
+    ],
+    "videoReference": {
+      "youtubeId": "8iPEnn-ltC8",
+      "title": "The Best Incline Bench Angle for Upper Chest",
+      "channelName": "Jeff Nippard",
+      "durationLabel": "4 Sets × 10 incline reps",
+      "stepByStepBreakdown": [
+        "Set bench to a shallow 30° incline (1–2 notches up from flat)",
+        "Lower dumbbells under control to the sides of your upper chest",
+        "Drive straight up toward the ceiling while keeping upper back tight",
+        "Rest 75s between sets to allow full ATP-PCr and neuromuscular recovery."
+      ],
+      "commonMistakes": [
+        "Setting bench too steep (60°) which shifts load mostly to shoulders.",
+        "Losing 360° abdominal bracing during the eccentric phase."
+      ]
+    }
+  },
+  {
+    "id": "cat-chest-18",
+    "name": "Barbell Bench Press",
+    "category": "strength",
+    "animationType": "pushup",
+    "equipmentType": "barbell",
+    "equipmentLabel": "Barbell / Full Strength",
+    "muscleGroupTag": "chest-push",
+    "whySwap": "Highest absolute load capacity for anterior pushing strength.",
+    "defaultSets": 4,
+    "defaultReps": 6,
+    "repLabel": "6 strength reps",
+    "defaultHoldSeconds": 35,
+    "defaultRestSeconds": 90,
+    "prepCountdownSeconds": 10,
+    "description": "Primary bilateral barbell horizontal press for maximal upper-body pushing strength.",
+    "formCues": [
+      "Plant feet firmly for leg drive and pin retracted shoulder blades to bench",
+      "Lower bar in a slight J-curve to lower sternum with elbows tucked ~45°",
+      "Press bar back up over shoulders to lockout"
+    ],
+    "targetedMuscles": [
+      "Pectoralis Major",
+      "Triceps Brachii",
+      "Anterior Deltoid"
+    ],
+    "videoReference": {
+      "youtubeId": "vcBig73ojpE",
+      "title": "How To Bench Press For Chest Growth & Shoulder Safety",
+      "channelName": "Jeff Nippard",
+      "durationLabel": "4 Sets × 6 strength reps",
+      "stepByStepBreakdown": [
+        "Plant feet firmly for leg drive and pin retracted shoulder blades to bench",
+        "Lower bar in a slight J-curve to lower sternum with elbows tucked ~45°",
+        "Press bar back up over shoulders to lockout",
+        "Rest 90s between sets to allow full ATP-PCr and neuromuscular recovery."
+      ],
+      "commonMistakes": [
+        "Bouncing the bar off the ribcage or lifting hips off the bench.",
+        "Losing 360° abdominal bracing during the eccentric phase."
+      ]
+    }
+  },
+  {
+    "id": "cat-chest-19",
+    "name": "Dumbbell Chest Flyes (Loaded Stretch)",
+    "category": "strength",
+    "animationType": "pushup",
+    "equipmentType": "dumbbell",
+    "equipmentLabel": "Dumbbells / Home Gym",
+    "muscleGroupTag": "chest-push",
+    "whySwap": "Directly trains the primary anatomical function of the chest (horizontal adduction).",
+    "defaultSets": 3,
+    "defaultReps": 12,
+    "repLabel": "12 stretch flyes",
+    "defaultHoldSeconds": 40,
+    "defaultRestSeconds": 60,
+    "prepCountdownSeconds": 10,
+    "description": "Wide-arc horizontal adduction isolating the pectoralis major with soft 15° bent elbows.",
+    "formCues": [
+      "Keep a soft 15°–20° bend in your elbows fixed throughout the movement",
+      "Lower arms in a wide arc until elbows reach bench level (do not over-drop)",
+      "Hug an imaginary tree to bring dumbbells back over chest"
+    ],
+    "targetedMuscles": [
+      "Pectoralis Major",
+      "Anterior Deltoid",
+      "Biceps Short Head"
+    ],
+    "videoReference": {
+      "youtubeId": "eozdVDA78K0",
+      "title": "How to Do Dumbbell Chest Flyes Safely",
+      "channelName": "ScottHermanFitness",
+      "durationLabel": "3 Sets × 12 stretch flyes",
+      "stepByStepBreakdown": [
+        "Keep a soft 15°–20° bend in your elbows fixed throughout the movement",
+        "Lower arms in a wide arc until elbows reach bench level (do not over-drop)",
+        "Hug an imaginary tree to bring dumbbells back over chest",
+        "Rest 60s between sets to allow full ATP-PCr and neuromuscular recovery."
+      ],
+      "commonMistakes": [
+        "Dropping elbows way below torso level and straining the anterior shoulder.",
+        "Losing 360° abdominal bracing during the eccentric phase."
+      ]
+    }
+  },
+  {
+    "id": "cat-chest-20",
+    "name": "Serratus Push-Up Plus (Scapular Protraction)",
+    "category": "strength",
+    "animationType": "pushup",
+    "equipmentType": "bodyweight",
+    "equipmentLabel": "Zero Equipment (Bodyweight)",
+    "muscleGroupTag": "chest-push",
+    "whySwap": "Strengthens the serratus anterior to prevent scapular winging and shoulder pain.",
+    "defaultSets": 3,
+    "defaultReps": 15,
+    "repLabel": "15 protraction reps",
+    "defaultHoldSeconds": 35,
+    "defaultRestSeconds": 45,
+    "prepCountdownSeconds": 10,
+    "description": "Full push-up finishing with an extra 2-inch scapular protraction push at the top.",
+    "formCues": [
+      "Perform a clean push-up to straight arms",
+      "At the top, push the floor away an extra 2 inches to spread shoulder blades wide",
+      "Hold top protraction for 1 second on every rep"
+    ],
+    "targetedMuscles": [
+      "Serratus Anterior",
+      "Pectoralis Minor",
+      "Anterior Core"
+    ],
+    "videoReference": {
+      "youtubeId": "ALzFr2GT-Is",
+      "title": "Serratus Push-Up Plus for Winged Scapula & Healthy Shoulders",
+      "channelName": "Squat University",
+      "durationLabel": "3 Sets × 15 protraction reps",
+      "stepByStepBreakdown": [
+        "Perform a clean push-up to straight arms",
+        "At the top, push the floor away an extra 2 inches to spread shoulder blades wide",
+        "Hold top protraction for 1 second on every rep",
+        "Rest 45s between sets to allow full ATP-PCr and neuromuscular recovery."
+      ],
+      "commonMistakes": [
+        "Rounding the lower back instead of protracting only the shoulder blades.",
+        "Losing 360° abdominal bracing during the eccentric phase."
+      ]
+    }
+  },
+  {
+    "id": "cat-chest-21",
+    "name": "Asymmetric Single-KB Offset Push-Ups",
+    "category": "strength",
+    "animationType": "pushup",
+    "equipmentType": "kettlebell",
+    "equipmentLabel": "Kettlebell (1–2 KBs)",
+    "muscleGroupTag": "chest-push",
+    "whySwap": "Combines deficit range of motion on one side with explosive lockout on the other.",
+    "defaultSets": 4,
+    "defaultReps": 10,
+    "repLabel": "5 reps per side",
+    "defaultHoldSeconds": 35,
+    "defaultRestSeconds": 60,
+    "prepCountdownSeconds": 10,
+    "description": "One hand elevated on a stable kettlebell while the other hand plants on the floor for deep unilateral stretch.",
+    "formCues": [
+      "Place right hand on a stable wide-base kettlebell and left hand on floor",
+      "Lower chest deep while keeping shoulders level",
+      "Complete 5 reps, then switch the kettlebell to the left hand for 5 reps"
+    ],
+    "targetedMuscles": [
+      "Pectoralis Major",
+      "Triceps Brachii",
+      "Anterior Core",
+      "Serratus Anterior"
+    ],
+    "videoReference": {
+      "youtubeId": "o5ZgxHhLJ2w",
+      "title": "Offset Kettlebell Push-Ups for Chest Strength",
+      "channelName": "Kettlebell Kings",
+      "durationLabel": "4 Sets × 5 reps per side",
+      "stepByStepBreakdown": [
+        "Place right hand on a stable wide-base kettlebell and left hand on floor",
+        "Lower chest deep while keeping shoulders level",
+        "Complete 5 reps, then switch the kettlebell to the left hand for 5 reps",
+        "Rest 60s between sets to allow full ATP-PCr and neuromuscular recovery."
+      ],
+      "commonMistakes": [
+        "Letting the torso twist toward the floor hand.",
+        "Losing 360° abdominal bracing during the eccentric phase."
+      ]
+    }
+  },
+  {
+    "id": "cat-sh-01",
+    "name": "Diamond Close-Grip Push-Ups",
+    "category": "strength",
+    "animationType": "diamond-pushup",
+    "equipmentType": "bodyweight",
+    "equipmentLabel": "Zero Equipment (Bodyweight)",
+    "muscleGroupTag": "triceps-shoulders",
+    "whySwap": "ACE EMG studies rank diamond push-ups #1 for bodyweight triceps activation.",
+    "defaultSets": 3,
+    "defaultReps": 10,
+    "repLabel": "10 diamond reps",
+    "defaultHoldSeconds": 30,
+    "defaultRestSeconds": 60,
+    "prepCountdownSeconds": 10,
+    "description": "Close-grip triangle push-up positioned beneath the sternum for maximal triceps recruitment.",
+    "formCues": [
+      "Place hands beneath lower sternum forming a diamond with thumbs and index fingers",
+      "Glide elbows tightly along your ribcage as you descend",
+      "Press straight up to full triceps lockout"
+    ],
+    "targetedMuscles": [
+      "Triceps Brachii",
+      "Sternal Pectoralis",
+      "Anterior Deltoid"
+    ],
+    "videoReference": {
+      "youtubeId": "J0DnG1_S92I",
+      "title": "How To: Diamond Push-Up (Elbow Alignment)",
+      "channelName": "ScottHermanFitness",
+      "durationLabel": "3 Sets × 10 diamond reps",
+      "stepByStepBreakdown": [
+        "Place hands beneath lower sternum forming a diamond with thumbs and index fingers",
+        "Glide elbows tightly along your ribcage as you descend",
+        "Press straight up to full triceps lockout",
+        "Rest 60s between sets to allow full ATP-PCr and neuromuscular recovery."
+      ],
+      "commonMistakes": [
+        "Placing hands under the face/neck and flaring elbows sideways.",
+        "Losing 360° abdominal bracing during the eccentric phase."
+      ]
+    }
+  },
+  {
+    "id": "cat-sh-02",
+    "name": "Bodyweight Pike Push-Ups (Vertical Press)",
+    "category": "strength",
+    "animationType": "diamond-pushup",
+    "equipmentType": "bodyweight",
+    "equipmentLabel": "Zero Equipment (Bodyweight)",
+    "muscleGroupTag": "triceps-shoulders",
+    "whySwap": "Best zero-equipment vertical overhead press for deltoid and triceps strength.",
+    "defaultSets": 4,
+    "defaultReps": 8,
+    "repLabel": "8 pike presses",
+    "defaultHoldSeconds": 35,
+    "defaultRestSeconds": 60,
+    "prepCountdownSeconds": 10,
+    "description": "Inverted-V bodyweight overhead press lowering the head forward into a tripod triangle.",
+    "formCues": [
+      "Pike hips high into an inverted V with hands shoulder-width apart",
+      "Shift shoulders forward so the top of your head touches in front of your hands (tripod)",
+      "Press up and back until ears align between shoulders at lockout"
+    ],
+    "targetedMuscles": [
+      "Anterior & Lateral Deltoids",
+      "Triceps Brachii",
+      "Upper Pectoralis"
+    ],
+    "videoReference": {
+      "youtubeId": "Yy6Bs3woWTY",
+      "title": "Are You Doing Pike Push-Ups Correctly?",
+      "channelName": "FitnessFAQs",
+      "durationLabel": "4 Sets × 8 pike presses",
+      "stepByStepBreakdown": [
+        "Pike hips high into an inverted V with hands shoulder-width apart",
+        "Shift shoulders forward so the top of your head touches in front of your hands (tripod)",
+        "Press up and back until ears align between shoulders at lockout",
+        "Rest 60s between sets to allow full ATP-PCr and neuromuscular recovery."
+      ],
+      "commonMistakes": [
+        "Dropping head straight between hands with flared elbows.",
+        "Losing 360° abdominal bracing during the eccentric phase."
+      ]
+    }
+  },
+  {
+    "id": "cat-sh-03",
+    "name": "Bodyweight Sphinx Triceps Extensions",
+    "category": "strength",
+    "animationType": "plank",
+    "equipmentType": "bodyweight",
+    "equipmentLabel": "Zero Equipment (Bodyweight)",
+    "muscleGroupTag": "triceps-shoulders",
+    "whySwap": "Bodyweight skullcrusher equivalent with zero equipment.",
+    "defaultSets": 3,
+    "defaultReps": 10,
+    "repLabel": "10 sphinx extensions",
+    "defaultHoldSeconds": 35,
+    "defaultRestSeconds": 60,
+    "prepCountdownSeconds": 10,
+    "description": "Forearm-plank to high-plank pure elbow extension isolating all three heads of the triceps.",
+    "formCues": [
+      "Begin in a forearm plank with palms flat slightly ahead of shoulders",
+      "Press through palms to lift both elbows off the mat simultaneously",
+      "Lower both elbows back to the mat over 2 controlled seconds"
+    ],
+    "targetedMuscles": [
+      "Triceps Brachii (Long & Lateral Heads)",
+      "Rectus Abdominis",
+      "Serratus Anterior"
+    ],
+    "videoReference": {
+      "youtubeId": "MN9B3wQMqcQ",
+      "title": "How to Do Sphinx Push-Ups for Triceps Strength",
+      "channelName": "Primal Stride",
+      "durationLabel": "3 Sets × 10 sphinx extensions",
+      "stepByStepBreakdown": [
+        "Begin in a forearm plank with palms flat slightly ahead of shoulders",
+        "Press through palms to lift both elbows off the mat simultaneously",
+        "Lower both elbows back to the mat over 2 controlled seconds",
+        "Rest 60s between sets to allow full ATP-PCr and neuromuscular recovery."
+      ],
+      "commonMistakes": [
+        "Extending one arm at a time or letting hips sag.",
+        "Losing 360° abdominal bracing during the eccentric phase."
+      ]
+    }
+  },
+  {
+    "id": "cat-sh-04",
+    "name": "Plank Shoulder-Tap Push-Ups",
+    "category": "strength",
+    "animationType": "shoulder-tap",
+    "equipmentType": "bodyweight",
+    "equipmentLabel": "Zero Equipment (Bodyweight)",
+    "muscleGroupTag": "triceps-shoulders",
+    "whySwap": "Forces each shoulder girdle to stabilize full upper-body weight unilaterally.",
+    "defaultSets": 3,
+    "defaultReps": 10,
+    "repLabel": "10 reps + contralateral taps",
+    "defaultHoldSeconds": 35,
+    "defaultRestSeconds": 60,
+    "prepCountdownSeconds": 10,
+    "description": "Strict push-up paired with a slow single-arm shoulder tap at the top to challenge rotary stability.",
+    "formCues": [
+      "Set feet wide for an anti-rotational base",
+      "Complete a full push-up, then pause at top to tap left hand to right shoulder for 2s",
+      "Zero hip shift or pelvic rotation during the tap"
+    ],
+    "targetedMuscles": [
+      "Anterior Deltoid",
+      "Triceps Brachii",
+      "Serratus Anterior",
+      "Obliques"
+    ],
+    "videoReference": {
+      "youtubeId": "gWHQpMUd7vw",
+      "title": "Plank Shoulder Tap & Push-Up Anti-Rotation Guide",
+      "channelName": "Mind Pump TV",
+      "durationLabel": "3 Sets × 10 reps + contralateral taps",
+      "stepByStepBreakdown": [
+        "Set feet wide for an anti-rotational base",
+        "Complete a full push-up, then pause at top to tap left hand to right shoulder for 2s",
+        "Zero hip shift or pelvic rotation during the tap",
+        "Rest 60s between sets to allow full ATP-PCr and neuromuscular recovery."
+      ],
+      "commonMistakes": [
+        "Rushing the tap and swaying the hips side to side.",
+        "Losing 360° abdominal bracing during the eccentric phase."
+      ]
+    }
+  },
+  {
+    "id": "cat-sh-05",
+    "name": "Elevated Wall Handstand Push-Up / Pike Hold",
+    "category": "strength",
+    "animationType": "diamond-pushup",
+    "equipmentType": "bodyweight",
+    "equipmentLabel": "Zero Equipment (Bodyweight)",
+    "muscleGroupTag": "triceps-shoulders",
+    "whySwap": "Builds elite bodyweight overhead pressing power.",
+    "defaultSets": 4,
+    "defaultReps": 6,
+    "repLabel": "6 elevated pike/HSPU reps",
+    "defaultHoldSeconds": 35,
+    "defaultRestSeconds": 75,
+    "prepCountdownSeconds": 10,
+    "description": "Feet elevated on a box or wall in a 90° L-pike to maximize vertical shoulder pressing load.",
+    "formCues": [
+      "Place feet on a box or bench and walk hands back until torso is vertical",
+      "Lower head forward of hands with tucked elbows",
+      "Press forcefully to overhead lockout with ribs braced"
+    ],
+    "targetedMuscles": [
+      "Deltoids",
+      "Triceps Brachii",
+      "Upper Trapezius",
+      "Core"
+    ],
+    "videoReference": {
+      "youtubeId": "Yy6Bs3woWTY",
+      "title": "Elevated Pike Push-Up to Handstand Push-Up Progression",
+      "channelName": "FitnessFAQs",
+      "durationLabel": "4 Sets × 6 elevated pike/HSPU reps",
+      "stepByStepBreakdown": [
+        "Place feet on a box or bench and walk hands back until torso is vertical",
+        "Lower head forward of hands with tucked elbows",
+        "Press forcefully to overhead lockout with ribs braced",
+        "Rest 75s between sets to allow full ATP-PCr and neuromuscular recovery."
+      ],
+      "commonMistakes": [
+        "Arching the lower back into a banana shape.",
+        "Losing 360° abdominal bracing during the eccentric phase."
+      ]
+    }
+  },
+  {
+    "id": "cat-sh-06",
+    "name": "Bench / Chair Triceps Dips (Shoulders Packed)",
+    "category": "strength",
+    "animationType": "diamond-pushup",
+    "equipmentType": "bodyweight",
+    "equipmentLabel": "Zero Equipment (Bodyweight)",
+    "muscleGroupTag": "triceps-shoulders",
+    "whySwap": "Accessible triceps builder when performed to a safe 90° elbow angle.",
+    "defaultSets": 3,
+    "defaultReps": 12,
+    "repLabel": "12 controlled dips",
+    "defaultHoldSeconds": 35,
+    "defaultRestSeconds": 60,
+    "prepCountdownSeconds": 10,
+    "description": "Hands planted on a bench edge with fingers turned slightly outward and shoulders depressed.",
+    "formCues": [
+      "Grip bench edge with fingers turned slightly out (external rotation) and chest proud",
+      "Slide back close to the bench and stop at a strict 90° elbow bend",
+      "Drive through palms to lock out triceps at the top"
+    ],
+    "targetedMuscles": [
+      "Triceps Brachii",
+      "Anterior Deltoid",
+      "Lower Pectoralis"
+    ],
+    "videoReference": {
+      "youtubeId": "0326dy_-CzM",
+      "title": "How to Do Bench Dips Safely Without Shoulder Pain",
+      "channelName": "ATHLEAN-X",
+      "durationLabel": "3 Sets × 12 controlled dips",
+      "stepByStepBreakdown": [
+        "Grip bench edge with fingers turned slightly out (external rotation) and chest proud",
+        "Slide back close to the bench and stop at a strict 90° elbow bend",
+        "Drive through palms to lock out triceps at the top",
+        "Rest 60s between sets to allow full ATP-PCr and neuromuscular recovery."
+      ],
+      "commonMistakes": [
+        "Dropping hips far below 90° with internally rotated rounded shoulders.",
+        "Losing 360° abdominal bracing during the eccentric phase."
+      ]
+    }
+  },
+  {
+    "id": "cat-sh-07",
+    "name": "Hindu Dive-Bomber Push-Ups",
+    "category": "strength",
+    "animationType": "diamond-pushup",
+    "equipmentType": "bodyweight",
+    "equipmentLabel": "Zero Equipment (Bodyweight)",
+    "muscleGroupTag": "triceps-shoulders",
+    "whySwap": "Combines shoulder pressing, triceps lockout, and thoracic mobility.",
+    "defaultSets": 3,
+    "defaultReps": 10,
+    "repLabel": "10 dive-bomber reps",
+    "defaultHoldSeconds": 40,
+    "defaultRestSeconds": 60,
+    "prepCountdownSeconds": 10,
+    "description": "Fluid pike-to-press swooping push-up training the shoulders and triceps through a full arc.",
+    "formCues": [
+      "Start in a high pike with hips raised",
+      "Bend elbows to swoop nose and chest low along the floor",
+      "Press chest up to lockout and reverse smoothly back to the pike"
+    ],
+    "targetedMuscles": [
+      "Anterior Deltoid",
+      "Triceps Brachii",
+      "Pectoralis Major",
+      "Thoracic Spine"
+    ],
+    "videoReference": {
+      "youtubeId": "R2yT7Q_4_3g",
+      "title": "How to Do Dive Bomber & Hindu Push-Ups",
+      "channelName": "Calisthenicmovement",
+      "durationLabel": "3 Sets × 10 dive-bomber reps",
+      "stepByStepBreakdown": [
+        "Start in a high pike with hips raised",
+        "Bend elbows to swoop nose and chest low along the floor",
+        "Press chest up to lockout and reverse smoothly back to the pike",
+        "Rest 60s between sets to allow full ATP-PCr and neuromuscular recovery."
+      ],
+      "commonMistakes": [
+        "Letting lower back sag passively without glute bracing.",
+        "Losing 360° abdominal bracing during the eccentric phase."
+      ]
+    }
+  },
+  {
+    "id": "cat-sh-08",
+    "name": "Kettlebell Halos + Overhead Triceps Extension",
+    "category": "strength",
+    "animationType": "diamond-pushup",
+    "equipmentType": "kettlebell",
+    "equipmentLabel": "Kettlebell (1–2 KBs)",
+    "muscleGroupTag": "triceps-shoulders",
+    "whySwap": "Stretches the long head of the triceps under load while mobilizing shoulders.",
+    "defaultSets": 3,
+    "defaultReps": 10,
+    "repLabel": "10 halos + extensions",
+    "defaultHoldSeconds": 40,
+    "defaultRestSeconds": 60,
+    "prepCountdownSeconds": 10,
+    "description": "Horn-grip kettlebell halo around the head followed by an overhead long-head triceps extension.",
+    "formCues": [
+      "Hold kettlebell by horns at sternum and circle tightly around head",
+      "Press overhead, keep elbows tucked forward, and lower bell behind neck",
+      "Extend back to full overhead lockout with ribs locked down"
+    ],
+    "targetedMuscles": [
+      "Triceps Brachii (Long Head)",
+      "Deltoids",
+      "Rotator Cuff",
+      "Core"
+    ],
+    "videoReference": {
+      "youtubeId": "13SFATc-mJ4",
+      "title": "Kettlebell Halo & Overhead Triceps Extension",
+      "channelName": "Coach Gabe West",
+      "durationLabel": "3 Sets × 10 halos + extensions",
+      "stepByStepBreakdown": [
+        "Hold kettlebell by horns at sternum and circle tightly around head",
+        "Press overhead, keep elbows tucked forward, and lower bell behind neck",
+        "Extend back to full overhead lockout with ribs locked down",
+        "Rest 60s between sets to allow full ATP-PCr and neuromuscular recovery."
+      ],
+      "commonMistakes": [
+        "Flaring ribs and arching lower back during the overhead extension.",
+        "Losing 360° abdominal bracing during the eccentric phase."
+      ]
+    }
+  },
+  {
+    "id": "cat-sh-09",
+    "name": "Single-Arm Kettlebell Overhead Military Press",
+    "category": "strength",
+    "animationType": "pullup",
+    "equipmentType": "kettlebell",
+    "equipmentLabel": "Kettlebell (1–2 KBs)",
+    "muscleGroupTag": "triceps-shoulders",
+    "whySwap": "Gold-standard kettlebell overhead strength and scapular upward-rotation builder.",
+    "defaultSets": 4,
+    "defaultReps": 8,
+    "repLabel": "8 strict presses/arm",
+    "defaultHoldSeconds": 40,
+    "defaultRestSeconds": 60,
+    "prepCountdownSeconds": 10,
+    "description": "Strict standing unilateral kettlebell press from the front rack to full overhead lockout.",
+    "formCues": [
+      "Clean kettlebell to front rack with straight wrist and packed lat",
+      "Squeeze glutes, quads, and abs, then press bell in a J-curve to overhead lockout",
+      "Pull the bell actively back down into the rack using your lat"
+    ],
+    "targetedMuscles": [
+      "Anterior & Lateral Deltoids",
+      "Triceps Brachii",
+      "Serratus Anterior",
+      "Obliques"
+    ],
+    "videoReference": {
+      "youtubeId": "eKQ4B9b_uYQ",
+      "title": "How to Master the Kettlebell Military Press",
+      "channelName": "StrongFirst",
+      "durationLabel": "4 Sets × 8 strict presses/arm",
+      "stepByStepBreakdown": [
+        "Clean kettlebell to front rack with straight wrist and packed lat",
+        "Squeeze glutes, quads, and abs, then press bell in a J-curve to overhead lockout",
+        "Pull the bell actively back down into the rack using your lat",
+        "Rest 60s between sets to allow full ATP-PCr and neuromuscular recovery."
+      ],
+      "commonMistakes": [
+        "Leaning sideways or arching the lumbar spine to press the weight.",
+        "Losing 360° abdominal bracing during the eccentric phase."
+      ]
+    }
+  },
+  {
+    "id": "cat-sh-10",
+    "name": "Half-Kneeling Kettlebell Press",
+    "category": "strength",
+    "animationType": "lunge",
+    "equipmentType": "kettlebell",
+    "equipmentLabel": "Kettlebell (1–2 KBs)",
+    "muscleGroupTag": "triceps-shoulders",
+    "whySwap": "Eliminates lower-back arching while challenging hip and core stability.",
+    "defaultSets": 4,
+    "defaultReps": 10,
+    "repLabel": "10 reps per side",
+    "defaultHoldSeconds": 40,
+    "defaultRestSeconds": 60,
+    "prepCountdownSeconds": 10,
+    "description": "Overhead pressing from a 90/90 half-kneeling stance to lock the pelvis and prevent lumbar compensation.",
+    "formCues": [
+      "Kneel on right knee with left foot planted forward at 90°",
+      "Squeeze right glute and brace ribs down before pressing kettlebell overhead",
+      "Pause 1 second at overhead lockout with bicep by ear"
+    ],
+    "targetedMuscles": [
+      "Deltoids",
+      "Triceps Brachii",
+      "Gluteus Medius",
+      "Core Cylinder"
+    ],
+    "videoReference": {
+      "youtubeId": "eKQ4B9b_uYQ",
+      "title": "Half-Kneeling Kettlebell Overhead Press Guide",
+      "channelName": "Squat University",
+      "durationLabel": "4 Sets × 10 reps per side",
+      "stepByStepBreakdown": [
+        "Kneel on right knee with left foot planted forward at 90°",
+        "Squeeze right glute and brace ribs down before pressing kettlebell overhead",
+        "Pause 1 second at overhead lockout with bicep by ear",
+        "Rest 60s between sets to allow full ATP-PCr and neuromuscular recovery."
+      ],
+      "commonMistakes": [
+        "Allowing the front knee to wobble inward.",
+        "Losing 360° abdominal bracing during the eccentric phase."
+      ]
+    }
+  },
+  {
+    "id": "cat-sh-11",
+    "name": "Seated Z-Press (Floor Overhead Press)",
+    "category": "strength",
+    "animationType": "pullup",
+    "equipmentType": "kettlebell",
+    "equipmentLabel": "Kettlebell (1–2 KBs)",
+    "muscleGroupTag": "triceps-shoulders",
+    "whySwap": "Zero leg drive possible; forces 100% pure shoulder and core strength.",
+    "defaultSets": 3,
+    "defaultReps": 8,
+    "repLabel": "8 strict Z-presses",
+    "defaultHoldSeconds": 35,
+    "defaultRestSeconds": 60,
+    "prepCountdownSeconds": 10,
+    "description": "Seated flat on the floor with legs extended straight out while pressing kettlebells or dumbbells overhead.",
+    "formCues": [
+      "Sit tall on the floor with legs extended in a V and torso completely vertical",
+      "Brace abs hard and press weight overhead without leaning back",
+      "Lower under control to rack position"
+    ],
+    "targetedMuscles": [
+      "Deltoids",
+      "Triceps Brachii",
+      "Thoracic Extensors",
+      "Anterior Core"
+    ],
+    "videoReference": {
+      "youtubeId": "eKQ4B9b_uYQ",
+      "title": "How to Perform the Z-Press for Pure Shoulder Strength",
+      "channelName": "Jeff Nippard",
+      "durationLabel": "3 Sets × 8 strict Z-presses",
+      "stepByStepBreakdown": [
+        "Sit tall on the floor with legs extended in a V and torso completely vertical",
+        "Brace abs hard and press weight overhead without leaning back",
+        "Lower under control to rack position",
+        "Rest 60s between sets to allow full ATP-PCr and neuromuscular recovery."
+      ],
+      "commonMistakes": [
+        "Slouching the upper back or bending knees to cheat.",
+        "Losing 360° abdominal bracing during the eccentric phase."
+      ]
+    }
+  },
+  {
+    "id": "cat-sh-12",
+    "name": "Kettlebell Push Press (Leg-Drive Power)",
+    "category": "strength",
+    "animationType": "squat",
+    "equipmentType": "kettlebell",
+    "equipmentLabel": "Kettlebell (1–2 KBs)",
+    "muscleGroupTag": "triceps-shoulders",
+    "whySwap": "Allows heavier overhead loading and trains lower-to-upper body force transfer.",
+    "defaultSets": 4,
+    "defaultReps": 10,
+    "repLabel": "10 explosive push presses",
+    "defaultHoldSeconds": 35,
+    "defaultRestSeconds": 60,
+    "prepCountdownSeconds": 10,
+    "description": "Quick 4-inch quarter-squat dip and explosive hip/leg drive launching the kettlebell overhead, followed by a slow eccentric.",
+    "formCues": [
+      "Dip knees 4 inches vertically while keeping torso upright",
+      "Drive through heels explosively to punch kettlebell overhead",
+      "Lower the weight slowly over 3 seconds to build strict strength"
+    ],
+    "targetedMuscles": [
+      "Deltoids",
+      "Triceps Brachii",
+      "Quadriceps",
+      "Glutes"
+    ],
+    "videoReference": {
+      "youtubeId": "eKQ4B9b_uYQ",
+      "title": "Kettlebell Push Press Technique & Dip-Drive",
+      "channelName": "Kettlebell Kings",
+      "durationLabel": "4 Sets × 10 explosive push presses",
+      "stepByStepBreakdown": [
+        "Dip knees 4 inches vertically while keeping torso upright",
+        "Drive through heels explosively to punch kettlebell overhead",
+        "Lower the weight slowly over 3 seconds to build strict strength",
+        "Rest 60s between sets to allow full ATP-PCr and neuromuscular recovery."
+      ],
+      "commonMistakes": [
+        "Hinging forward during the dip instead of dipping straight down.",
+        "Losing 360° abdominal bracing during the eccentric phase."
+      ]
+    }
+  },
+  {
+    "id": "cat-sh-13",
+    "name": "Bottoms-Up Kettlebell Overhead Press",
+    "category": "strength",
+    "animationType": "pullup",
+    "equipmentType": "kettlebell",
+    "equipmentLabel": "Kettlebell (1–2 KBs)",
+    "muscleGroupTag": "triceps-shoulders",
+    "whySwap": "Clinically proven to wake up the rotator cuff and stabilize the glenohumeral joint.",
+    "defaultSets": 3,
+    "defaultReps": 8,
+    "repLabel": "8 bottoms-up reps/arm",
+    "defaultHoldSeconds": 40,
+    "defaultRestSeconds": 60,
+    "prepCountdownSeconds": 10,
+    "description": "Dr. Stuart McGill favorite: pressing an inverted kettlebell (horn down, bell up) requiring extreme grip and rotator cuff centration.",
+    "formCues": [
+      "Clean a light-to-moderate kettlebell upside down so the heavy bell sits above your fist",
+      "Crush the handle tightly to keep the bell balanced vertically",
+      "Press slowly overhead while maintaining 360° core stiffness"
+    ],
+    "targetedMuscles": [
+      "Rotator Cuff",
+      "Deltoids",
+      "Triceps Brachii",
+      "Forearm Crush Grip"
+    ],
+    "videoReference": {
+      "youtubeId": "13SFATc-mJ4",
+      "title": "Dr. Stuart McGill Bottoms-Up Kettlebell Press for Shoulder Stability",
+      "channelName": "Squat University",
+      "durationLabel": "3 Sets × 8 bottoms-up reps/arm",
+      "stepByStepBreakdown": [
+        "Clean a light-to-moderate kettlebell upside down so the heavy bell sits above your fist",
+        "Crush the handle tightly to keep the bell balanced vertically",
+        "Press slowly overhead while maintaining 360° core stiffness",
+        "Rest 60s between sets to allow full ATP-PCr and neuromuscular recovery."
+      ],
+      "commonMistakes": [
+        "Using a weight too heavy to control safely.",
+        "Losing 360° abdominal bracing during the eccentric phase."
+      ]
+    }
+  },
+  {
+    "id": "cat-sh-14",
+    "name": "Supine Kettlebell Skullcrushers (Triceps)",
+    "category": "strength",
+    "animationType": "pushup",
+    "equipmentType": "kettlebell",
+    "equipmentLabel": "Kettlebell (1–2 KBs)",
+    "muscleGroupTag": "triceps-shoulders",
+    "whySwap": "Direct triceps isolation with constant tension at lockout.",
+    "defaultSets": 3,
+    "defaultReps": 12,
+    "repLabel": "12 skullcrushers",
+    "defaultHoldSeconds": 35,
+    "defaultRestSeconds": 60,
+    "prepCountdownSeconds": 10,
+    "description": "Supine horn-grip elbow extensions lowering the kettlebell toward the forehead with upper arms angled slightly back.",
+    "formCues": [
+      "Lie on your back holding one kettlebell by the horns above your chin",
+      "Angle upper arms 15° back toward your head to keep tension on the triceps",
+      "Bend only at the elbows to lower bell to forehead, then extend to lockout"
+    ],
+    "targetedMuscles": [
+      "Triceps Brachii (Medial & Lateral Heads)",
+      "Anconeus"
+    ],
+    "videoReference": {
+      "youtubeId": "4ULa6AJcjr8",
+      "title": "Kettlebell Floor Skullcrushers for Triceps",
+      "channelName": "Kettlebell Kings",
+      "durationLabel": "3 Sets × 12 skullcrushers",
+      "stepByStepBreakdown": [
+        "Lie on your back holding one kettlebell by the horns above your chin",
+        "Angle upper arms 15° back toward your head to keep tension on the triceps",
+        "Bend only at the elbows to lower bell to forehead, then extend to lockout",
+        "Rest 60s between sets to allow full ATP-PCr and neuromuscular recovery."
+      ],
+      "commonMistakes": [
+        "Letting elbows flare wide or swinging upper arms.",
+        "Losing 360° abdominal bracing during the eccentric phase."
+      ]
+    }
+  },
+  {
+    "id": "cat-sh-15",
+    "name": "Kettlebell Close-Grip Crush Push-Up",
+    "category": "strength",
+    "animationType": "diamond-pushup",
+    "equipmentType": "kettlebell",
+    "equipmentLabel": "Kettlebell (1–2 KBs)",
+    "muscleGroupTag": "triceps-shoulders",
+    "whySwap": "Neutral wrist position compared to flat-floor diamond push-ups.",
+    "defaultSets": 3,
+    "defaultReps": 10,
+    "repLabel": "10 crush push-ups",
+    "defaultHoldSeconds": 35,
+    "defaultRestSeconds": 60,
+    "prepCountdownSeconds": 10,
+    "description": "Gripping the iron ball of a wide-base kettlebell in a close-grip plank press.",
+    "formCues": [
+      "Test that your kettlebell has a wide, flat, non-tipping base on the mat",
+      "Grip the sides of the bell and lower sternum to the handle with tucked elbows",
+      "Press straight up while crushing palms inward"
+    ],
+    "targetedMuscles": [
+      "Triceps Brachii",
+      "Sternal Pectoralis",
+      "Anterior Deltoid"
+    ],
+    "videoReference": {
+      "youtubeId": "o5ZgxHhLJ2w",
+      "title": "Close-Grip Kettlebell Push-Ups",
+      "channelName": "Kettlebell Kings",
+      "durationLabel": "3 Sets × 10 crush push-ups",
+      "stepByStepBreakdown": [
+        "Test that your kettlebell has a wide, flat, non-tipping base on the mat",
+        "Grip the sides of the bell and lower sternum to the handle with tucked elbows",
+        "Press straight up while crushing palms inward",
+        "Rest 60s between sets to allow full ATP-PCr and neuromuscular recovery."
+      ],
+      "commonMistakes": [
+        "Using a narrow-base kettlebell without checking stability first.",
+        "Losing 360° abdominal bracing during the eccentric phase."
+      ]
+    }
+  },
+  {
+    "id": "cat-sh-16",
+    "name": "Standing Dumbbell Overhead Press",
+    "category": "strength",
+    "animationType": "pullup",
+    "equipmentType": "dumbbell",
+    "equipmentLabel": "Dumbbells / Home Gym",
+    "muscleGroupTag": "triceps-shoulders",
+    "whySwap": "Builds complete 3D deltoid and triceps strength.",
+    "defaultSets": 4,
+    "defaultReps": 10,
+    "repLabel": "10 overhead presses",
+    "defaultHoldSeconds": 40,
+    "defaultRestSeconds": 75,
+    "prepCountdownSeconds": 10,
+    "description": "Bilateral standing dumbbell press in the scapular plane (30° forward of torso).",
+    "formCues": [
+      "Hold dumbbells at shoulder height with elbows angled 30° forward (scapular plane)",
+      "Squeeze glutes and brace abs so lower back remains neutral",
+      "Press dumbbells overhead to full lockout without clanging"
+    ],
+    "targetedMuscles": [
+      "Anterior & Lateral Deltoids",
+      "Triceps Brachii",
+      "Upper Trapezius",
+      "Core"
+    ],
+    "videoReference": {
+      "youtubeId": "qEwKCR5JCog",
+      "title": "How to Dumbbell Shoulder Press Properly",
+      "channelName": "ScottHermanFitness",
+      "durationLabel": "4 Sets × 10 overhead presses",
+      "stepByStepBreakdown": [
+        "Hold dumbbells at shoulder height with elbows angled 30° forward (scapular plane)",
+        "Squeeze glutes and brace abs so lower back remains neutral",
+        "Press dumbbells overhead to full lockout without clanging",
+        "Rest 75s between sets to allow full ATP-PCr and neuromuscular recovery."
+      ],
+      "commonMistakes": [
+        "Flaring elbows straight out to 90° and overarching the spine.",
+        "Losing 360° abdominal bracing during the eccentric phase."
+      ]
+    }
+  },
+  {
+    "id": "cat-sh-17",
+    "name": "Dumbbell Lateral Raises (Scapular Plane)",
+    "category": "strength",
+    "animationType": "pullup",
+    "equipmentType": "dumbbell",
+    "equipmentLabel": "Dumbbells / Home Gym",
+    "muscleGroupTag": "triceps-shoulders",
+    "whySwap": "The #1 isolation movement for medial deltoid width and shoulder health.",
+    "defaultSets": 4,
+    "defaultReps": 15,
+    "repLabel": "15 lateral raises",
+    "defaultHoldSeconds": 40,
+    "defaultRestSeconds": 45,
+    "prepCountdownSeconds": 10,
+    "description": "Controlled abduction in the 30° scapular plane isolating the lateral deltoid head.",
+    "formCues": [
+      "Hinge forward 10° and raise dumbbells out and slightly forward (30° scapular plane)",
+      "Lead with your elbows and stop at shoulder height",
+      "Lower slowly over 2.5 seconds without swinging"
+    ],
+    "targetedMuscles": [
+      "Lateral Deltoid",
+      "Supraspinatus",
+      "Upper Trapezius"
+    ],
+    "videoReference": {
+      "youtubeId": "3VcKaXpzqRo",
+      "title": "How to Do Lateral Raises for Wider Shoulders",
+      "channelName": "Jeff Nippard",
+      "durationLabel": "4 Sets × 15 lateral raises",
+      "stepByStepBreakdown": [
+        "Hinge forward 10° and raise dumbbells out and slightly forward (30° scapular plane)",
+        "Lead with your elbows and stop at shoulder height",
+        "Lower slowly over 2.5 seconds without swinging",
+        "Rest 45s between sets to allow full ATP-PCr and neuromuscular recovery."
+      ],
+      "commonMistakes": [
+        "Using momentum or shrugging upper traps to swing weights up.",
+        "Losing 360° abdominal bracing during the eccentric phase."
+      ]
+    }
+  },
+  {
+    "id": "cat-sh-18",
+    "name": "Bent-Over Rear Delt Dumbbell Flyes",
+    "category": "strength",
+    "animationType": "row",
+    "equipmentType": "dumbbell",
+    "equipmentLabel": "Dumbbells / Home Gym",
+    "muscleGroupTag": "triceps-shoulders",
+    "whySwap": "Balances pressing volume and keeps shoulders pulled back in healthy posture.",
+    "defaultSets": 3,
+    "defaultReps": 15,
+    "repLabel": "15 rear-delt flyes",
+    "defaultHoldSeconds": 40,
+    "defaultRestSeconds": 45,
+    "prepCountdownSeconds": 10,
+    "description": "Hinged horizontal abduction targeting the posterior deltoids and external rotators.",
+    "formCues": [
+      "Hinge torso to 45°–60° with flat neutral spine",
+      "Sweep arms wide at a 45° angle away from torso without pinching traps",
+      "Pause briefly at top and lower under control"
+    ],
+    "targetedMuscles": [
+      "Posterior Deltoid",
+      "Rhomboids",
+      "Infraspinatus",
+      "Teres Minor"
+    ],
+    "videoReference": {
+      "youtubeId": "EA7u4Q_8HQ0",
+      "title": "How to Hit Rear Delts Properly",
+      "channelName": "Jeff Nippard",
+      "durationLabel": "3 Sets × 15 rear-delt flyes",
+      "stepByStepBreakdown": [
+        "Hinge torso to 45°–60° with flat neutral spine",
+        "Sweep arms wide at a 45° angle away from torso without pinching traps",
+        "Pause briefly at top and lower under control",
+        "Rest 45s between sets to allow full ATP-PCr and neuromuscular recovery."
+      ],
+      "commonMistakes": [
+        "Turning the fly into a narrow row.",
+        "Losing 360° abdominal bracing during the eccentric phase."
+      ]
+    }
+  },
+  {
+    "id": "cat-sh-19",
+    "name": "Dumbbell Arnold Shoulder Press",
+    "category": "strength",
+    "animationType": "pullup",
+    "equipmentType": "dumbbell",
+    "equipmentLabel": "Dumbbells / Home Gym",
+    "muscleGroupTag": "triceps-shoulders",
+    "whySwap": "Hits all three deltoid heads through a long rotational range of motion.",
+    "defaultSets": 3,
+    "defaultReps": 10,
+    "repLabel": "10 rotational presses",
+    "defaultHoldSeconds": 40,
+    "defaultRestSeconds": 60,
+    "prepCountdownSeconds": 10,
+    "description": "Starting with palms facing you at chin level and rotating outward as you press overhead.",
+    "formCues": [
+      "Start with dumbbells in front of shoulders, palms facing toward you",
+      "Open elbows and rotate palms forward smoothly as you press overhead",
+      "Reverse the rotation on the way down to the tucked starting position"
+    ],
+    "targetedMuscles": [
+      "Anterior Deltoid",
+      "Lateral Deltoid",
+      "Triceps Brachii"
+    ],
+    "videoReference": {
+      "youtubeId": "6Z15_WdXmVw",
+      "title": "How to Do the Arnold Press Correctly",
+      "channelName": "ScottHermanFitness",
+      "durationLabel": "3 Sets × 10 rotational presses",
+      "stepByStepBreakdown": [
+        "Start with dumbbells in front of shoulders, palms facing toward you",
+        "Open elbows and rotate palms forward smoothly as you press overhead",
+        "Reverse the rotation on the way down to the tucked starting position",
+        "Rest 60s between sets to allow full ATP-PCr and neuromuscular recovery."
+      ],
+      "commonMistakes": [
+        "Rushing the bottom rotation with momentum.",
+        "Losing 360° abdominal bracing during the eccentric phase."
+      ]
+    }
+  },
+  {
+    "id": "cat-sh-20",
+    "name": "Overhead Barbell Military Press (OHP)",
+    "category": "strength",
+    "animationType": "pullup",
+    "equipmentType": "barbell",
+    "equipmentLabel": "Barbell / Full Strength",
+    "muscleGroupTag": "triceps-shoulders",
+    "whySwap": "True test of total-body vertical pressing and core pillar stability.",
+    "defaultSets": 4,
+    "defaultReps": 6,
+    "repLabel": "6 strict barbell reps",
+    "defaultHoldSeconds": 35,
+    "defaultRestSeconds": 90,
+    "prepCountdownSeconds": 10,
+    "description": "Classic standing barbell overhead press from the clavicles to stacked overhead lockout.",
+    "formCues": [
+      "Grip bar just outside shoulders with wrists stacked and forearms vertical",
+      "Squeeze glutes and quads hard, tuck chin slightly back, and press bar straight up",
+      "Push head slightly through the window once the bar clears your forehead"
+    ],
+    "targetedMuscles": [
+      "Anterior & Lateral Deltoids",
+      "Triceps Brachii",
+      "Upper Pectoralis",
+      "Core"
+    ],
+    "videoReference": {
+      "youtubeId": "_RlRDWO2jfg",
+      "title": "How to Overhead Press with Perfect Technique",
+      "channelName": "Jeff Nippard",
+      "durationLabel": "4 Sets × 6 strict barbell reps",
+      "stepByStepBreakdown": [
+        "Grip bar just outside shoulders with wrists stacked and forearms vertical",
+        "Squeeze glutes and quads hard, tuck chin slightly back, and press bar straight up",
+        "Push head slightly through the window once the bar clears your forehead",
+        "Rest 90s between sets to allow full ATP-PCr and neuromuscular recovery."
+      ],
+      "commonMistakes": [
+        "Pressing the bar out in front of the face in a forward loop.",
+        "Losing 360° abdominal bracing during the eccentric phase."
+      ]
+    }
+  },
+  {
+    "id": "cat-sh-21",
+    "name": "Close-Grip Barbell Bench Press (Triceps)",
+    "category": "strength",
+    "animationType": "diamond-pushup",
+    "equipmentType": "barbell",
+    "equipmentLabel": "Barbell / Full Strength",
+    "muscleGroupTag": "triceps-shoulders",
+    "whySwap": "Heaviest compound movement for triceps mass and lockout power.",
+    "defaultSets": 4,
+    "defaultReps": 8,
+    "repLabel": "8 close-grip reps",
+    "defaultHoldSeconds": 35,
+    "defaultRestSeconds": 75,
+    "prepCountdownSeconds": 10,
+    "description": "Shoulder-width grip barbell press keeping elbows tucked along the ribs to overload the triceps.",
+    "formCues": [
+      "Grip bar shoulder-width apart (do not place hands touching, which strains wrists)",
+      "Keep elbows tucked close to your torso as bar lowers to lower sternum",
+      "Drive explosively to full triceps lockout"
+    ],
+    "targetedMuscles": [
+      "Triceps Brachii",
+      "Anterior Deltoid",
+      "Upper/Inner Pectoralis"
+    ],
+    "videoReference": {
+      "youtubeId": "nEF0bv2FW94",
+      "title": "Close-Grip Bench Press Form for Massive Triceps",
+      "channelName": "ScottHermanFitness",
+      "durationLabel": "4 Sets × 8 close-grip reps",
+      "stepByStepBreakdown": [
+        "Grip bar shoulder-width apart (do not place hands touching, which strains wrists)",
+        "Keep elbows tucked close to your torso as bar lowers to lower sternum",
+        "Drive explosively to full triceps lockout",
+        "Rest 75s between sets to allow full ATP-PCr and neuromuscular recovery."
+      ],
+      "commonMistakes": [
+        "Gripping too narrow (2 inches apart) causing wrist ulnar pain.",
+        "Losing 360° abdominal bracing during the eccentric phase."
+      ]
+    }
+  },
+  {
+    "id": "cat-leg-01",
+    "name": "Bodyweight Tempo Squats (360° Core Brace)",
+    "category": "strength",
+    "animationType": "squat",
+    "equipmentType": "bodyweight",
+    "equipmentLabel": "Zero Equipment (Bodyweight)",
+    "muscleGroupTag": "legs-glutes",
+    "whySwap": "Fundamental lower-body movement pattern for knee, hip, and ankle longevity.",
+    "defaultSets": 4,
+    "defaultReps": 15,
+    "repLabel": "15 deep squats",
+    "defaultHoldSeconds": 45,
+    "defaultRestSeconds": 60,
+    "prepCountdownSeconds": 10,
+    "description": "Deep athletic bodyweight squat maintaining tripod foot pressure and neutral lumbar curvature.",
+    "formCues": [
+      "Root big toe, pinky toe, and heel into the floor (tripod foot)",
+      "Break at hips and knees simultaneously while keeping chest proud",
+      "Descend to full depth without lumbar butt-wink and drive up forcefully"
+    ],
+    "targetedMuscles": [
+      "Quadriceps",
+      "Gluteus Maximus",
+      "Adductors",
+      "Core Cylinder"
+    ],
+    "videoReference": {
+      "youtubeId": "aclHkVaku9U",
+      "title": "How to Do a Perfect Squat",
+      "channelName": "Squat University",
+      "durationLabel": "4 Sets × 15 deep squats",
+      "stepByStepBreakdown": [
+        "Root big toe, pinky toe, and heel into the floor (tripod foot)",
+        "Break at hips and knees simultaneously while keeping chest proud",
+        "Descend to full depth without lumbar butt-wink and drive up forcefully",
+        "Rest 60s between sets to allow full ATP-PCr and neuromuscular recovery."
+      ],
+      "commonMistakes": [
+        "Letting knees collapse inward (valgus) on the ascent.",
+        "Losing 360° abdominal bracing during the eccentric phase."
+      ]
+    }
+  },
+  {
+    "id": "cat-leg-02",
+    "name": "Kettlebell Goblet Squats",
+    "category": "strength",
+    "animationType": "squat",
+    "equipmentType": "kettlebell",
+    "equipmentLabel": "Kettlebell (1–2 KBs)",
+    "muscleGroupTag": "legs-glutes",
+    "whySwap": "Spares the lower back while deeply loading quads, glutes, and thoracic extension.",
+    "defaultSets": 4,
+    "defaultReps": 12,
+    "repLabel": "12 goblet squats",
+    "defaultHoldSeconds": 45,
+    "defaultRestSeconds": 60,
+    "prepCountdownSeconds": 10,
+    "description": "Front-loaded kettlebell squat acting as a natural counterbalance for upright posture and deep hip flexion.",
+    "formCues": [
+      "Hold kettlebell by horns close to sternum with elbows pointing down",
+      "Sit straight down between your heels while bracing abs 360°",
+      "Drive through midfoot to stand tall and lock out glutes"
+    ],
+    "targetedMuscles": [
+      "Quadriceps",
+      "Gluteus Maximus",
+      "Anterior Core",
+      "Upper Back"
+    ],
+    "videoReference": {
+      "youtubeId": "dBnNCOtuGNQ",
+      "title": "Kettlebell Goblet Squat Technique & Depth Guide",
+      "channelName": "Coach Chandler Marchman",
+      "durationLabel": "4 Sets × 12 goblet squats",
+      "stepByStepBreakdown": [
+        "Hold kettlebell by horns close to sternum with elbows pointing down",
+        "Sit straight down between your heels while bracing abs 360°",
+        "Drive through midfoot to stand tall and lock out glutes",
+        "Rest 60s between sets to allow full ATP-PCr and neuromuscular recovery."
+      ],
+      "commonMistakes": [
+        "Holding the kettlebell far away from the chest.",
+        "Losing 360° abdominal bracing during the eccentric phase."
+      ]
+    }
+  },
+  {
+    "id": "cat-leg-03",
+    "name": "Double Kettlebell Front-Rack Squats",
+    "category": "strength",
+    "animationType": "squat",
+    "equipmentType": "kettlebell",
+    "equipmentLabel": "Kettlebell (1–2 KBs)",
+    "muscleGroupTag": "legs-glutes",
+    "whySwap": "One of the highest-return full-body strength builders in kettlebell training.",
+    "defaultSets": 4,
+    "defaultReps": 8,
+    "repLabel": "8 heavy front squats",
+    "defaultHoldSeconds": 40,
+    "defaultRestSeconds": 90,
+    "prepCountdownSeconds": 10,
+    "description": "Two kettlebells racked on the upper torso challenging anterior core stiffness and quad strength.",
+    "formCues": [
+      "Clean two kettlebells into a tight front rack with wrists straight",
+      "Take a deep diaphragmatic breath and squat between your ankles",
+      "Exhale sharply through the sticking point to stand tall"
+    ],
+    "targetedMuscles": [
+      "Quadriceps",
+      "Gluteus Maximus",
+      "Thoracic Extensors",
+      "Core Cylinder"
+    ],
+    "videoReference": {
+      "youtubeId": "dBnNCOtuGNQ",
+      "title": "Double Kettlebell Front Squat Mastery",
+      "channelName": "StrongFirst",
+      "durationLabel": "4 Sets × 8 heavy front squats",
+      "stepByStepBreakdown": [
+        "Clean two kettlebells into a tight front rack with wrists straight",
+        "Take a deep diaphragmatic breath and squat between your ankles",
+        "Exhale sharply through the sticking point to stand tall",
+        "Rest 90s between sets to allow full ATP-PCr and neuromuscular recovery."
+      ],
+      "commonMistakes": [
+        "Letting elbows drop and upper back round forward.",
+        "Losing 360° abdominal bracing during the eccentric phase."
+      ]
+    }
+  },
+  {
+    "id": "cat-leg-04",
+    "name": "Kettlebell Romanian Deadlifts (RDL Hip Hinge)",
+    "category": "strength",
+    "animationType": "rdl",
+    "equipmentType": "kettlebell",
+    "equipmentLabel": "Kettlebell (1–2 KBs)",
+    "muscleGroupTag": "legs-glutes",
+    "whySwap": "Builds bulletproof hamstrings and glutes without knee shear.",
+    "defaultSets": 4,
+    "defaultReps": 15,
+    "repLabel": "15 hip-hinge reps",
+    "defaultHoldSeconds": 45,
+    "defaultRestSeconds": 60,
+    "prepCountdownSeconds": 10,
+    "description": "Pure horizontal hip translation backward loading the hamstrings and glutes with zero lumbar flexion.",
+    "formCues": [
+      "Unlock knees to a fixed 15° angle and pack lats tightly",
+      "Glide hips straight back toward the wall behind you until hamstrings stretch",
+      "Snap hips forward to stand tall and squeeze glutes without overarching"
+    ],
+    "targetedMuscles": [
+      "Hamstrings",
+      "Gluteus Maximus",
+      "Latissimus Dorsi",
+      "Erector Spinae"
+    ],
+    "videoReference": {
+      "youtubeId": "5bJEigM5iVg",
+      "title": "Fix Your RDL Form! Ultimate Romanian Deadlift Tutorial",
+      "channelName": "Squat University",
+      "durationLabel": "4 Sets × 15 hip-hinge reps",
+      "stepByStepBreakdown": [
+        "Unlock knees to a fixed 15° angle and pack lats tightly",
+        "Glide hips straight back toward the wall behind you until hamstrings stretch",
+        "Snap hips forward to stand tall and squeeze glutes without overarching",
+        "Rest 60s between sets to allow full ATP-PCr and neuromuscular recovery."
+      ],
+      "commonMistakes": [
+        "Reaching toward the floor by rounding the lower back.",
+        "Losing 360° abdominal bracing during the eccentric phase."
+      ]
+    }
+  },
+  {
+    "id": "cat-leg-05",
+    "name": "Two-Hand Russian Kettlebell Swings",
+    "category": "strength",
+    "animationType": "rdl",
+    "equipmentType": "kettlebell",
+    "equipmentLabel": "Kettlebell (1–2 KBs)",
+    "muscleGroupTag": "legs-glutes",
+    "whySwap": "Dr. Stuart McGill research shows KB swings build rapid glute activation and athletic power.",
+    "defaultSets": 4,
+    "defaultReps": 15,
+    "repLabel": "15 ballistic swings",
+    "defaultHoldSeconds": 35,
+    "defaultRestSeconds": 60,
+    "prepCountdownSeconds": 10,
+    "description": "Ballistic posterior-chain hip snap floating the kettlebell to chest height.",
+    "formCues": [
+      "Hike kettlebell high between thighs like a football center snap",
+      "Snap hips forward into a standing plank—arms remain relaxed ropes",
+      "Wait until forearms touch hips before hinging back for the next rep"
+    ],
+    "targetedMuscles": [
+      "Gluteus Maximus",
+      "Hamstrings",
+      "Erector Spinae",
+      "Latissimus Dorsi"
+    ],
+    "videoReference": {
+      "youtubeId": "YSxHifyI6s8",
+      "title": "How to Kettlebell Swing with Perfect Hip Hinge",
+      "channelName": "StrongFirst",
+      "durationLabel": "4 Sets × 15 ballistic swings",
+      "stepByStepBreakdown": [
+        "Hike kettlebell high between thighs like a football center snap",
+        "Snap hips forward into a standing plank—arms remain relaxed ropes",
+        "Wait until forearms touch hips before hinging back for the next rep",
+        "Rest 60s between sets to allow full ATP-PCr and neuromuscular recovery."
+      ],
+      "commonMistakes": [
+        "Squatting the swing down and lifting with the front delts.",
+        "Losing 360° abdominal bracing during the eccentric phase."
+      ]
+    }
+  },
+  {
+    "id": "cat-leg-06",
+    "name": "Single-Leg Kettlebell Kickstand RDL",
+    "category": "strength",
+    "animationType": "rdl",
+    "equipmentType": "kettlebell",
+    "equipmentLabel": "Kettlebell (1–2 KBs)",
+    "muscleGroupTag": "legs-glutes",
+    "whySwap": "All the unilateral glute/hamstring overload of a single-leg RDL without losing balance.",
+    "defaultSets": 3,
+    "defaultReps": 10,
+    "repLabel": "10 reps per leg",
+    "defaultHoldSeconds": 45,
+    "defaultRestSeconds": 60,
+    "prepCountdownSeconds": 10,
+    "description": "Unilateral Romanian deadlift using the rear toes as a light 10% balance kickstand.",
+    "formCues": [
+      "Place 90% of weight on front foot and prop back toes 6 inches behind heel",
+      "Hinge hips straight back while keeping pelvis square to the floor",
+      "Drive through front heel to stand tall"
+    ],
+    "targetedMuscles": [
+      "Gluteus Maximus",
+      "Gluteus Medius",
+      "Biceps Femoris (Hamstrings)"
+    ],
+    "videoReference": {
+      "youtubeId": "5bJEigM5iVg",
+      "title": "B-Stance / Kickstand RDL for Glutes & Hamstrings",
+      "channelName": "Squat University",
+      "durationLabel": "3 Sets × 10 reps per leg",
+      "stepByStepBreakdown": [
+        "Place 90% of weight on front foot and prop back toes 6 inches behind heel",
+        "Hinge hips straight back while keeping pelvis square to the floor",
+        "Drive through front heel to stand tall",
+        "Rest 60s between sets to allow full ATP-PCr and neuromuscular recovery."
+      ],
+      "commonMistakes": [
+        "Putting 50% of the weight onto the rear kickstand foot.",
+        "Losing 360° abdominal bracing during the eccentric phase."
+      ]
+    }
+  },
+  {
+    "id": "cat-leg-07",
+    "name": "Kettlebell Tactical Reverse Lunges",
+    "category": "strength",
+    "animationType": "lunge",
+    "equipmentType": "kettlebell",
+    "equipmentLabel": "Kettlebell (1–2 KBs)",
+    "muscleGroupTag": "legs-glutes",
+    "whySwap": "Challenges single-leg deceleration, hip stability, and dynamic hand-to-hand coordination.",
+    "defaultSets": 4,
+    "defaultReps": 12,
+    "repLabel": "12 alternating lunges",
+    "defaultHoldSeconds": 45,
+    "defaultRestSeconds": 60,
+    "prepCountdownSeconds": 10,
+    "description": "Step-back lunge passing the kettlebell underneath the front thigh at the bottom of each rep.",
+    "formCues": [
+      "Step back with the leg on the same side holding the kettlebell",
+      "Pass the kettlebell cleanly under your front hamstring at the bottom",
+      "Drive through front heel to return to standing"
+    ],
+    "targetedMuscles": [
+      "Quadriceps",
+      "Gluteus Maximus",
+      "Gluteus Medius",
+      "Hamstrings"
+    ],
+    "videoReference": {
+      "youtubeId": "2Vr8Bx7epC8",
+      "title": "Tactical Kettlebell Lunge Technique",
+      "channelName": "Kettlebell Kings",
+      "durationLabel": "4 Sets × 12 alternating lunges",
+      "stepByStepBreakdown": [
+        "Step back with the leg on the same side holding the kettlebell",
+        "Pass the kettlebell cleanly under your front hamstring at the bottom",
+        "Drive through front heel to return to standing",
+        "Rest 60s between sets to allow full ATP-PCr and neuromuscular recovery."
+      ],
+      "commonMistakes": [
+        "Rounding the upper back to reach underneath the leg.",
+        "Losing 360° abdominal bracing during the eccentric phase."
+      ]
+    }
+  },
+  {
+    "id": "cat-leg-08",
+    "name": "Kettlebell Cossack Lateral Squats",
+    "category": "strength",
+    "animationType": "squat",
+    "equipmentType": "kettlebell",
+    "equipmentLabel": "Kettlebell (1–2 KBs)",
+    "muscleGroupTag": "legs-glutes",
+    "whySwap": "Unlocks groin/adductor mobility and lateral knee stability.",
+    "defaultSets": 3,
+    "defaultReps": 10,
+    "repLabel": "10 side-to-side reps",
+    "defaultHoldSeconds": 45,
+    "defaultRestSeconds": 60,
+    "prepCountdownSeconds": 10,
+    "description": "Frontal-plane lateral squat sitting deep onto one heel while the opposite leg straightens with toes up.",
+    "formCues": [
+      "Take a wide stance and hold kettlebell at goblet chest position",
+      "Shift hips over right heel while pivoting left toes toward the ceiling",
+      "Drive back through right heel and alternate to the left side"
+    ],
+    "targetedMuscles": [
+      "Adductors",
+      "Quadriceps",
+      "Gluteus Medius",
+      "Hip Mobility"
+    ],
+    "videoReference": {
+      "youtubeId": "tpczTeSkHz0",
+      "title": "How to Do Cossack Squats for Hip Mobility & Leg Strength",
+      "channelName": "FitnessFAQs",
+      "durationLabel": "3 Sets × 10 side-to-side reps",
+      "stepByStepBreakdown": [
+        "Take a wide stance and hold kettlebell at goblet chest position",
+        "Shift hips over right heel while pivoting left toes toward the ceiling",
+        "Drive back through right heel and alternate to the left side",
+        "Rest 60s between sets to allow full ATP-PCr and neuromuscular recovery."
+      ],
+      "commonMistakes": [
+        "Letting the working heel peel off the floor.",
+        "Losing 360° abdominal bracing during the eccentric phase."
+      ]
+    }
+  },
+  {
+    "id": "cat-leg-09",
+    "name": "Kettlebell Sumo Deadlift",
+    "category": "strength",
+    "animationType": "rdl",
+    "equipmentType": "kettlebell",
+    "equipmentLabel": "Kettlebell (1–2 KBs)",
+    "muscleGroupTag": "legs-glutes",
+    "whySwap": "Shorter lever arm on the lumbar spine with high glute and inner-thigh recruitment.",
+    "defaultSets": 4,
+    "defaultReps": 12,
+    "repLabel": "12 sumo deadlifts",
+    "defaultHoldSeconds": 40,
+    "defaultRestSeconds": 60,
+    "prepCountdownSeconds": 10,
+    "description": "Wide-stance deadlift with toes turned out 30° and kettlebell positioned directly between the ankles.",
+    "formCues": [
+      "Stand wide with kettlebell handle aligned with your ankle bones",
+      "Wedge hips down and push knees out in line with toes",
+      "Push the floor away to stand tall and lock out hips"
+    ],
+    "targetedMuscles": [
+      "Gluteus Maximus",
+      "Adductors",
+      "Quadriceps",
+      "Upper Back"
+    ],
+    "videoReference": {
+      "youtubeId": "5bJEigM5iVg",
+      "title": "Kettlebell Sumo Deadlift Form & Setup",
+      "channelName": "StrongFirst",
+      "durationLabel": "4 Sets × 12 sumo deadlifts",
+      "stepByStepBreakdown": [
+        "Stand wide with kettlebell handle aligned with your ankle bones",
+        "Wedge hips down and push knees out in line with toes",
+        "Push the floor away to stand tall and lock out hips",
+        "Rest 60s between sets to allow full ATP-PCr and neuromuscular recovery."
+      ],
+      "commonMistakes": [
+        "Lifting hips first before the chest rises.",
+        "Losing 360° abdominal bracing during the eccentric phase."
+      ]
+    }
+  },
+  {
+    "id": "cat-leg-10",
+    "name": "Bodyweight Alternating Reverse Lunges",
+    "category": "strength",
+    "animationType": "lunge",
+    "equipmentType": "bodyweight",
+    "equipmentLabel": "Zero Equipment (Bodyweight)",
+    "muscleGroupTag": "legs-glutes",
+    "whySwap": "Significantly less patellofemoral shear stress than forward lunges.",
+    "defaultSets": 4,
+    "defaultReps": 16,
+    "repLabel": "16 reps (8 per leg)",
+    "defaultHoldSeconds": 45,
+    "defaultRestSeconds": 50,
+    "prepCountdownSeconds": 10,
+    "description": "Knee-friendly backward step lunge maintaining a vertical front shin and slight 15° torso lean.",
+    "formCues": [
+      "Step backward on railroad-track width (hip-width apart)",
+      "Lower until both knees reach 90° with front shin vertical",
+      "Drive through front midfoot and heel to stand tall"
+    ],
+    "targetedMuscles": [
+      "Quadriceps",
+      "Gluteus Maximus",
+      "Gluteus Medius"
+    ],
+    "videoReference": {
+      "youtubeId": "2Vr8Bx7epC8",
+      "title": "How to Lunge for Maximum Glute & Quad Recruitment",
+      "channelName": "Squat University",
+      "durationLabel": "4 Sets × 16 reps (8 per leg)",
+      "stepByStepBreakdown": [
+        "Step backward on railroad-track width (hip-width apart)",
+        "Lower until both knees reach 90° with front shin vertical",
+        "Drive through front midfoot and heel to stand tall",
+        "Rest 50s between sets to allow full ATP-PCr and neuromuscular recovery."
+      ],
+      "commonMistakes": [
+        "Stepping on a tightrope line causing loss of balance.",
+        "Losing 360° abdominal bracing during the eccentric phase."
+      ]
+    }
+  },
+  {
+    "id": "cat-leg-11",
+    "name": "Rear-Foot Elevated Bulgarian Split Squats",
+    "category": "strength",
+    "animationType": "lunge",
+    "equipmentType": "bodyweight",
+    "equipmentLabel": "Zero Equipment (Bodyweight)",
+    "muscleGroupTag": "legs-glutes",
+    "whySwap": "Matches heavy barbell squat hypertrophy with zero axial spine compression.",
+    "defaultSets": 4,
+    "defaultReps": 10,
+    "repLabel": "10 reps per leg",
+    "defaultHoldSeconds": 45,
+    "defaultRestSeconds": 75,
+    "prepCountdownSeconds": 10,
+    "description": "Single-leg split squat with rearlaces resting on a bench or couch for deep unilateral leg hypertrophy.",
+    "formCues": [
+      "Rest top of back foot on a knee-high bench or step",
+      "Lower back knee toward the floor with a slight forward torso hinge",
+      "Drive through front heel to full single-leg extension"
+    ],
+    "targetedMuscles": [
+      "Quadriceps",
+      "Gluteus Maximus",
+      "Gluteus Medius"
+    ],
+    "videoReference": {
+      "youtubeId": "2C-uNgKwPLE",
+      "title": "How to Bulgarian Split Squat (Glute vs Quad Focus)",
+      "channelName": "Jeff Nippard",
+      "durationLabel": "4 Sets × 10 reps per leg",
+      "stepByStepBreakdown": [
+        "Rest top of back foot on a knee-high bench or step",
+        "Lower back knee toward the floor with a slight forward torso hinge",
+        "Drive through front heel to full single-leg extension",
+        "Rest 75s between sets to allow full ATP-PCr and neuromuscular recovery."
+      ],
+      "commonMistakes": [
+        "Pushing off the back elevated foot instead of the front leg.",
+        "Losing 360° abdominal bracing during the eccentric phase."
+      ]
+    }
+  },
+  {
+    "id": "cat-leg-12",
+    "name": "Bilateral Glute Bridges (2s Isometric Squeeze)",
+    "category": "strength",
+    "animationType": "glute-bridge",
+    "equipmentType": "bodyweight",
+    "equipmentLabel": "Zero Equipment (Bodyweight)",
+    "muscleGroupTag": "legs-glutes",
+    "whySwap": "Reverses sitting-induced glute amnesia and supports the pelvis.",
+    "defaultSets": 4,
+    "defaultReps": 15,
+    "repLabel": "15 reps (2s top hold)",
+    "defaultHoldSeconds": 45,
+    "defaultRestSeconds": 45,
+    "prepCountdownSeconds": 10,
+    "description": "Supine hip extension with posterior pelvic lock isolating the gluteus maximus.",
+    "formCues": [
+      "Plant heels 6 inches from glutes with knees hip-width apart",
+      "Brace abs so ribs stay connected to pelvis",
+      "Bridge hips up and hold peak glute squeeze for 2 full seconds"
+    ],
+    "targetedMuscles": [
+      "Gluteus Maximus",
+      "Hamstrings",
+      "Core Stabilizers"
+    ],
+    "videoReference": {
+      "youtubeId": "OUgsJ8-Vi0E",
+      "title": "How to Do a Glute Bridge Without Lower Back Arching",
+      "channelName": "Squat University",
+      "durationLabel": "4 Sets × 15 reps (2s top hold)",
+      "stepByStepBreakdown": [
+        "Plant heels 6 inches from glutes with knees hip-width apart",
+        "Brace abs so ribs stay connected to pelvis",
+        "Bridge hips up and hold peak glute squeeze for 2 full seconds",
+        "Rest 45s between sets to allow full ATP-PCr and neuromuscular recovery."
+      ],
+      "commonMistakes": [
+        "Overarching the lower back at the top.",
+        "Losing 360° abdominal bracing during the eccentric phase."
+      ]
+    }
+  },
+  {
+    "id": "cat-leg-13",
+    "name": "Single-Leg Bodyweight Glute Bridges",
+    "category": "strength",
+    "animationType": "glute-bridge",
+    "equipmentType": "bodyweight",
+    "equipmentLabel": "Zero Equipment (Bodyweight)",
+    "muscleGroupTag": "legs-glutes",
+    "whySwap": "Fixes left-to-right glute imbalances and prevents lumbar hyperextension.",
+    "defaultSets": 4,
+    "defaultReps": 10,
+    "repLabel": "10 reps per leg",
+    "defaultHoldSeconds": 45,
+    "defaultRestSeconds": 45,
+    "prepCountdownSeconds": 10,
+    "description": "Unilateral supine hip extension hugging the opposite knee to lock the lumbar spine.",
+    "formCues": [
+      "Hug non-working knee toward chest to lock lumbar spine neutral",
+      "Drive through planted heel to full hip extension",
+      "Hold 2 seconds at top with level pelvis"
+    ],
+    "targetedMuscles": [
+      "Gluteus Maximus",
+      "Gluteus Medius",
+      "Hamstrings"
+    ],
+    "videoReference": {
+      "youtubeId": "lFHZD4X5q0g",
+      "title": "Single-Leg Glute Bridge Technique & Hip Stability",
+      "channelName": "Squat University",
+      "durationLabel": "4 Sets × 10 reps per leg",
+      "stepByStepBreakdown": [
+        "Hug non-working knee toward chest to lock lumbar spine neutral",
+        "Drive through planted heel to full hip extension",
+        "Hold 2 seconds at top with level pelvis",
+        "Rest 45s between sets to allow full ATP-PCr and neuromuscular recovery."
+      ],
+      "commonMistakes": [
+        "Letting the unplanted hip drop or twist.",
+        "Losing 360° abdominal bracing during the eccentric phase."
+      ]
+    }
+  },
+  {
+    "id": "cat-leg-14",
+    "name": "Supine Hamstring Walkouts (Floor Sliders)",
+    "category": "strength",
+    "animationType": "glute-bridge",
+    "equipmentType": "bodyweight",
+    "equipmentLabel": "Zero Equipment (Bodyweight)",
+    "muscleGroupTag": "legs-glutes",
+    "whySwap": "Intense eccentric and isometric knee-flexion hamstring training with zero equipment.",
+    "defaultSets": 3,
+    "defaultReps": 8,
+    "repLabel": "8 slow walkout cycles",
+    "defaultHoldSeconds": 45,
+    "defaultRestSeconds": 60,
+    "prepCountdownSeconds": 10,
+    "description": "Holding a glute bridge while walking heels out in 4 short steps to near-extension and walking back in.",
+    "formCues": [
+      "Bridge hips off the floor and keep toes pointed up (heels digging down)",
+      "Take 4 tiny heel steps outward until legs are nearly straight",
+      "Walk heels back in 4 steps while keeping hips elevated off the floor"
+    ],
+    "targetedMuscles": [
+      "Hamstrings (Biceps Femoris)",
+      "Gluteus Maximus",
+      "Calves"
+    ],
+    "videoReference": {
+      "youtubeId": "lFHZD4X5q0g",
+      "title": "Hamstring Walkouts for Bulletproof Posterior Chain",
+      "channelName": "ATHLEAN-X",
+      "durationLabel": "3 Sets × 8 slow walkout cycles",
+      "stepByStepBreakdown": [
+        "Bridge hips off the floor and keep toes pointed up (heels digging down)",
+        "Take 4 tiny heel steps outward until legs are nearly straight",
+        "Walk heels back in 4 steps while keeping hips elevated off the floor",
+        "Rest 60s between sets to allow full ATP-PCr and neuromuscular recovery."
+      ],
+      "commonMistakes": [
+        "Letting hips sag to the floor as heels walk out.",
+        "Losing 360° abdominal bracing during the eccentric phase."
+      ]
+    }
+  },
+  {
+    "id": "cat-leg-15",
+    "name": "Bodyweight Sissy Squats / Reverse Nordic Curls",
+    "category": "strength",
+    "animationType": "squat",
+    "equipmentType": "bodyweight",
+    "equipmentLabel": "Zero Equipment (Bodyweight)",
+    "muscleGroupTag": "legs-glutes",
+    "whySwap": "Directly strengthens the rectus femoris in its lengthened position.",
+    "defaultSets": 3,
+    "defaultReps": 10,
+    "repLabel": "10 slow eccentric reps",
+    "defaultHoldSeconds": 40,
+    "defaultRestSeconds": 60,
+    "prepCountdownSeconds": 10,
+    "description": "Tall-kneeling lean-back maintaining a straight line from knees to head to stretch and load the rectus femoris.",
+    "formCues": [
+      "Kneel tall on a padded mat with glutes squeezed and hips fully extended",
+      "Lean body backward as one rigid plank from knees through shoulders",
+      "Pull yourself back to vertical using pure quad contraction"
+    ],
+    "targetedMuscles": [
+      "Rectus Femoris (Quads)",
+      "Vastus Medialis",
+      "Patellar Tendon"
+    ],
+    "videoReference": {
+      "youtubeId": "daP_ce2k77s",
+      "title": "Reverse Nordic Curls for Bulletproof Quads & Knees",
+      "channelName": "FitnessFAQs",
+      "durationLabel": "3 Sets × 10 slow eccentric reps",
+      "stepByStepBreakdown": [
+        "Kneel tall on a padded mat with glutes squeezed and hips fully extended",
+        "Lean body backward as one rigid plank from knees through shoulders",
+        "Pull yourself back to vertical using pure quad contraction",
+        "Rest 60s between sets to allow full ATP-PCr and neuromuscular recovery."
+      ],
+      "commonMistakes": [
+        "Breaking at the hips and sitting onto the heels.",
+        "Losing 360° abdominal bracing during the eccentric phase."
+      ]
+    }
+  },
+  {
+    "id": "cat-leg-16",
+    "name": "90° Isometric Wall Sit + Calf Raises",
+    "category": "strength",
+    "animationType": "squat",
+    "equipmentType": "bodyweight",
+    "equipmentLabel": "Zero Equipment (Bodyweight)",
+    "muscleGroupTag": "legs-glutes",
+    "whySwap": "Isometric quad loading provides patellar tendon analgesia and muscular endurance.",
+    "defaultSets": 3,
+    "defaultReps": 1,
+    "repLabel": "45s isometric hold",
+    "defaultHoldSeconds": 45,
+    "defaultRestSeconds": 60,
+    "prepCountdownSeconds": 10,
+    "description": "45-second isometric 90-degree squat against a wall with alternating heel raises.",
+    "formCues": [
+      "Press entire back flat against a wall with thighs parallel to floor",
+      "Keep shins vertical directly above ankles",
+      "Raise and lower heels slowly while holding the 90° thigh angle"
+    ],
+    "targetedMuscles": [
+      "Quadriceps",
+      "Soleus",
+      "Gluteus Medius"
+    ],
+    "videoReference": {
+      "youtubeId": "y-wV4Venusw",
+      "title": "How to Do a Proper Wall Sit for Knee Tendon Health",
+      "channelName": "Squat University",
+      "durationLabel": "3 Sets × 45s isometric hold",
+      "stepByStepBreakdown": [
+        "Press entire back flat against a wall with thighs parallel to floor",
+        "Keep shins vertical directly above ankles",
+        "Raise and lower heels slowly while holding the 90° thigh angle",
+        "Rest 60s between sets to allow full ATP-PCr and neuromuscular recovery."
+      ],
+      "commonMistakes": [
+        "Resting hands on thighs to support body weight.",
+        "Losing 360° abdominal bracing during the eccentric phase."
+      ]
+    }
+  },
+  {
+    "id": "cat-leg-17",
+    "name": "Single-Leg Pistol Squat to Box / Bench",
+    "category": "strength",
+    "animationType": "squat",
+    "equipmentType": "bodyweight",
+    "equipmentLabel": "Zero Equipment (Bodyweight)",
+    "muscleGroupTag": "legs-glutes",
+    "whySwap": "Builds elite unilateral leg strength and knee tracking control.",
+    "defaultSets": 3,
+    "defaultReps": 8,
+    "repLabel": "8 reps per leg",
+    "defaultHoldSeconds": 40,
+    "defaultRestSeconds": 60,
+    "prepCountdownSeconds": 10,
+    "description": "Controlled single-leg squat lowering lightly onto a bench or chair and standing up on one leg.",
+    "formCues": [
+      "Stand 4 inches in front of a bench on one foot with arms extended forward",
+      "Sit hips back over heel over 3 seconds until glutes lightly kiss the bench",
+      "Drive through midfoot without rocking backward to stand up"
+    ],
+    "targetedMuscles": [
+      "Quadriceps",
+      "Gluteus Maximus",
+      "Gluteus Medius",
+      "Ankle Stabilizers"
+    ],
+    "videoReference": {
+      "youtubeId": "vq5-vdgJc0I",
+      "title": "Box Pistol Squat Progression for Single-Leg Strength",
+      "channelName": "Squat University",
+      "durationLabel": "3 Sets × 8 reps per leg",
+      "stepByStepBreakdown": [
+        "Stand 4 inches in front of a bench on one foot with arms extended forward",
+        "Sit hips back over heel over 3 seconds until glutes lightly kiss the bench",
+        "Drive through midfoot without rocking backward to stand up",
+        "Rest 60s between sets to allow full ATP-PCr and neuromuscular recovery."
+      ],
+      "commonMistakes": [
+        "Plopping onto the bench and using momentum to bounce up.",
+        "Losing 360° abdominal bracing during the eccentric phase."
+      ]
+    }
+  },
+  {
+    "id": "cat-leg-18",
+    "name": "Explosive Squat Jumps (Soft Landing)",
+    "category": "strength",
+    "animationType": "squat",
+    "equipmentType": "bodyweight",
+    "equipmentLabel": "Zero Equipment (Bodyweight)",
+    "muscleGroupTag": "legs-glutes",
+    "whySwap": "Develops lower-body rate of force development (RFD) and tendon elasticity.",
+    "defaultSets": 4,
+    "defaultReps": 8,
+    "repLabel": "8 explosive jumps",
+    "defaultHoldSeconds": 30,
+    "defaultRestSeconds": 75,
+    "prepCountdownSeconds": 10,
+    "description": "Triple-extension vertical jump squat focusing on quiet, shock-absorbing toe-to-heel landings.",
+    "formCues": [
+      "Dip rapidly into a quarter-to-half squat and swing arms back",
+      "Explode vertically through hips, knees, and ankles",
+      "Land softly toe-to-heel and immediately absorb into an athletic stance"
+    ],
+    "targetedMuscles": [
+      "Fast-Twitch Quadriceps",
+      "Gluteus Maximus",
+      "Gastrocnemius"
+    ],
+    "videoReference": {
+      "youtubeId": "U4s4mEQ5VqU",
+      "title": "Jump Squats for Explosive Lower Body Power",
+      "channelName": "ATHLEAN-X",
+      "durationLabel": "4 Sets × 8 explosive jumps",
+      "stepByStepBreakdown": [
+        "Dip rapidly into a quarter-to-half squat and swing arms back",
+        "Explode vertically through hips, knees, and ankles",
+        "Land softly toe-to-heel and immediately absorb into an athletic stance",
+        "Rest 75s between sets to allow full ATP-PCr and neuromuscular recovery."
+      ],
+      "commonMistakes": [
+        "Landing stiff-legged with loud impact.",
+        "Losing 360° abdominal bracing during the eccentric phase."
+      ]
+    }
+  },
+  {
+    "id": "cat-leg-19",
+    "name": "Single-Leg Elevated Calf Raises (2s Stretch)",
+    "category": "strength",
+    "animationType": "squat",
+    "equipmentType": "bodyweight",
+    "equipmentLabel": "Zero Equipment (Bodyweight)",
+    "muscleGroupTag": "legs-glutes",
+    "whySwap": "Pausing at the bottom eliminates Achilles bounce and forces true calf muscle work.",
+    "defaultSets": 4,
+    "defaultReps": 15,
+    "repLabel": "15 reps per leg",
+    "defaultHoldSeconds": 45,
+    "defaultRestSeconds": 45,
+    "prepCountdownSeconds": 10,
+    "description": "Full range-of-motion unilateral calf raise on a step with a 2-second bottom stretch pause.",
+    "formCues": [
+      "Stand on the ball of one foot on a step edge",
+      "Lower heel all the way down and pause for 2 seconds in the deep stretch",
+      "Drive straight up onto big toe and hold 1 second at peak contraction"
+    ],
+    "targetedMuscles": [
+      "Gastrocnemius",
+      "Soleus",
+      "Achilles Tendon"
+    ],
+    "videoReference": {
+      "youtubeId": "-M4-G8p8fmc",
+      "title": "How to Build Calves: Full Stretch & Pause Technique",
+      "channelName": "Renaissance Periodization",
+      "durationLabel": "4 Sets × 15 reps per leg",
+      "stepByStepBreakdown": [
+        "Stand on the ball of one foot on a step edge",
+        "Lower heel all the way down and pause for 2 seconds in the deep stretch",
+        "Drive straight up onto big toe and hold 1 second at peak contraction",
+        "Rest 45s between sets to allow full ATP-PCr and neuromuscular recovery."
+      ],
+      "commonMistakes": [
+        "Bouncing rapidly through the middle range.",
+        "Losing 360° abdominal bracing during the eccentric phase."
+      ]
+    }
+  },
+  {
+    "id": "cat-leg-20",
+    "name": "Barbell Back Squat",
+    "category": "strength",
+    "animationType": "squat",
+    "equipmentType": "barbell",
+    "equipmentLabel": "Barbell / Full Strength",
+    "muscleGroupTag": "legs-glutes",
+    "whySwap": "King of lower-body compound strength exercises.",
+    "defaultSets": 4,
+    "defaultReps": 6,
+    "repLabel": "6 strength reps",
+    "defaultHoldSeconds": 40,
+    "defaultRestSeconds": 120,
+    "prepCountdownSeconds": 10,
+    "description": "Foundational bilateral barbell squat for maximal lower-body force production.",
+    "formCues": [
+      "Wedge upper back tightly under the bar and brace 360° intra-abdominal pressure",
+      "Break at hips and knees together while tracking knees over toes",
+      "Drive hips and chest up at the exact same speed out of the hole"
+    ],
+    "targetedMuscles": [
+      "Quadriceps",
+      "Gluteus Maximus",
+      "Adductors",
+      "Erector Spinae"
+    ],
+    "videoReference": {
+      "youtubeId": "bEv6CCg2BC8",
+      "title": "How to Back Squat with Perfect Form",
+      "channelName": "Jeff Nippard",
+      "durationLabel": "4 Sets × 6 strength reps",
+      "stepByStepBreakdown": [
+        "Wedge upper back tightly under the bar and brace 360° intra-abdominal pressure",
+        "Break at hips and knees together while tracking knees over toes",
+        "Drive hips and chest up at the exact same speed out of the hole",
+        "Rest 120s between sets to allow full ATP-PCr and neuromuscular recovery."
+      ],
+      "commonMistakes": [
+        "Shooting hips up faster than the chest (good-morning squat).",
+        "Losing 360° abdominal bracing during the eccentric phase."
+      ]
+    }
+  },
+  {
+    "id": "cat-leg-21",
+    "name": "Barbell Romanian Deadlift (RDL)",
+    "category": "strength",
+    "animationType": "rdl",
+    "equipmentType": "barbell",
+    "equipmentLabel": "Barbell / Full Strength",
+    "muscleGroupTag": "legs-glutes",
+    "whySwap": "Superior posterior chain hypertrophy and hamstring length-tension development.",
+    "defaultSets": 4,
+    "defaultReps": 8,
+    "repLabel": "8 heavy hinge reps",
+    "defaultHoldSeconds": 40,
+    "defaultRestSeconds": 90,
+    "prepCountdownSeconds": 10,
+    "description": "Heavy barbell eccentric-loaded hip hinge shaving the thighs and shins.",
+    "formCues": [
+      "Unrack bar at hip height and pull bar against thighs using your lats",
+      "Push hips straight backward with soft 15° knees until bar reaches mid-shin",
+      "Drive hips forward to lockout without leaning backward"
+    ],
+    "targetedMuscles": [
+      "Hamstrings",
+      "Gluteus Maximus",
+      "Erector Spinae",
+      "Latissimus Dorsi"
+    ],
+    "videoReference": {
+      "youtubeId": "_oyxCn2iSjU",
+      "title": "How to Barbell Romanian Deadlift Properly",
+      "channelName": "Jeff Nippard",
+      "durationLabel": "4 Sets × 8 heavy hinge reps",
+      "stepByStepBreakdown": [
+        "Unrack bar at hip height and pull bar against thighs using your lats",
+        "Push hips straight backward with soft 15° knees until bar reaches mid-shin",
+        "Drive hips forward to lockout without leaning backward",
+        "Rest 90s between sets to allow full ATP-PCr and neuromuscular recovery."
+      ],
+      "commonMistakes": [
+        "Letting the bar drift forward away from the shins.",
+        "Losing 360° abdominal bracing during the eccentric phase."
+      ]
+    }
+  },
+  {
+    "id": "cat-leg-22",
+    "name": "Barbell / Kettlebell Hip Thrust",
+    "category": "strength",
+    "animationType": "glute-bridge",
+    "equipmentType": "barbell",
+    "equipmentLabel": "Barbell / Full Strength",
+    "muscleGroupTag": "legs-glutes",
+    "whySwap": "Highest EMG gluteus maximus activation at full hip extension.",
+    "defaultSets": 4,
+    "defaultReps": 10,
+    "repLabel": "10 hip thrusts (2s hold)",
+    "defaultHoldSeconds": 45,
+    "defaultRestSeconds": 75,
+    "prepCountdownSeconds": 10,
+    "description": "Upper-back supported loaded hip extension maximizing peak gluteus maximus contraction at full lockout.",
+    "formCues": [
+      "Hinge around bottom of shoulder blades on a bench with shins vertical at top",
+      "Keep chin tucked and ribs down (sternum-to-pelvis connection)",
+      "Lock out hips to horizontal tabletop and hold 2 seconds"
+    ],
+    "targetedMuscles": [
+      "Gluteus Maximus",
+      "Gluteus Medius",
+      "Hamstrings"
+    ],
+    "videoReference": {
+      "youtubeId": "xDmFkJxPzeM",
+      "title": "How to Do the Barbell Hip Thrust Correctly",
+      "channelName": "Bret Contreras (Glute Guy)",
+      "durationLabel": "4 Sets × 10 hip thrusts (2s hold)",
+      "stepByStepBreakdown": [
+        "Hinge around bottom of shoulder blades on a bench with shins vertical at top",
+        "Keep chin tucked and ribs down (sternum-to-pelvis connection)",
+        "Lock out hips to horizontal tabletop and hold 2 seconds",
+        "Rest 75s between sets to allow full ATP-PCr and neuromuscular recovery."
+      ],
+      "commonMistakes": [
+        "Throwing head back and overarching the lumbar spine.",
+        "Losing 360° abdominal bracing during the eccentric phase."
+      ]
+    }
+  },
+  {
+    "id": "cat-leg-23",
+    "name": "Dumbbell Walking Lunges",
+    "category": "strength",
+    "animationType": "lunge",
+    "equipmentType": "dumbbell",
+    "equipmentLabel": "Dumbbells / Home Gym",
+    "muscleGroupTag": "legs-glutes",
+    "whySwap": "Builds functional unilateral leg strength, hip extension, and grip endurance.",
+    "defaultSets": 3,
+    "defaultReps": 16,
+    "repLabel": "16 steps (8 per leg)",
+    "defaultHoldSeconds": 45,
+    "defaultRestSeconds": 75,
+    "prepCountdownSeconds": 10,
+    "description": "Dynamic forward-stepping unilateral lunges holding dumbbells at the sides.",
+    "formCues": [
+      "Hold dumbbells at sides with shoulders packed down and back",
+      "Take a controlled step forward and lower back knee 1 inch from floor",
+      "Drive through front heel directly into the next step"
+    ],
+    "targetedMuscles": [
+      "Quadriceps",
+      "Gluteus Maximus",
+      "Forearm Grip",
+      "Core"
+    ],
+    "videoReference": {
+      "youtubeId": "L8fvypPrzzs",
+      "title": "Dumbbell Walking Lunge Form Breakdown",
+      "channelName": "ScottHermanFitness",
+      "durationLabel": "3 Sets × 16 steps (8 per leg)",
+      "stepByStepBreakdown": [
+        "Hold dumbbells at sides with shoulders packed down and back",
+        "Take a controlled step forward and lower back knee 1 inch from floor",
+        "Drive through front heel directly into the next step",
+        "Rest 75s between sets to allow full ATP-PCr and neuromuscular recovery."
+      ],
+      "commonMistakes": [
+        "Banging the back knee onto the floor.",
+        "Losing 360° abdominal bracing during the eccentric phase."
+      ]
+    }
+  },
+  {
+    "id": "cat-leg-24",
+    "name": "Dumbbell Step-Ups (Knee-Over-Midfoot)",
+    "category": "strength",
+    "animationType": "lunge",
+    "equipmentType": "dumbbell",
+    "equipmentLabel": "Dumbbells / Home Gym",
+    "muscleGroupTag": "legs-glutes",
+    "whySwap": "Pure concentric and eccentric single-leg quad and glute builder.",
+    "defaultSets": 3,
+    "defaultReps": 10,
+    "repLabel": "10 reps per leg",
+    "defaultHoldSeconds": 45,
+    "defaultRestSeconds": 60,
+    "prepCountdownSeconds": 10,
+    "description": "Strict unilateral step-up onto a knee-high box with zero push-off from the trailing floor foot.",
+    "formCues": [
+      "Plant entire working foot on box and dorsiflex trailing floor toes up",
+      "Lean torso slightly forward over working knee and drive straight up",
+      "Lower slowly over 3 seconds before trailing heel touches floor"
+    ],
+    "targetedMuscles": [
+      "Gluteus Maximus",
+      "Quadriceps",
+      "Gluteus Medius"
+    ],
+    "videoReference": {
+      "youtubeId": "dQqApCGd5Ss",
+      "title": "How to Do Step-Ups Without Pushing Off the Back Foot",
+      "channelName": "Squat University",
+      "durationLabel": "3 Sets × 10 reps per leg",
+      "stepByStepBreakdown": [
+        "Plant entire working foot on box and dorsiflex trailing floor toes up",
+        "Lean torso slightly forward over working knee and drive straight up",
+        "Lower slowly over 3 seconds before trailing heel touches floor",
+        "Rest 60s between sets to allow full ATP-PCr and neuromuscular recovery."
+      ],
+      "commonMistakes": [
+        "Springing off the bottom foot to help the top leg.",
+        "Losing 360° abdominal bracing during the eccentric phase."
+      ]
+    }
+  },
+  {
+    "id": "cat-core-01",
+    "name": "McGill Modified Curl-Up (Lumbar Protected)",
+    "category": "strength",
+    "animationType": "mcgill-curlup",
+    "equipmentType": "bodyweight",
+    "equipmentLabel": "Zero Equipment (Bodyweight)",
+    "muscleGroupTag": "core-grip-carries",
+    "whySwap": "Builds anterior core stiffness with zero intervertebral disc flexion stress.",
+    "defaultSets": 4,
+    "defaultReps": 5,
+    "repLabel": "5 × 10s isometric holds",
+    "defaultHoldSeconds": 10,
+    "defaultRestSeconds": 25,
+    "prepCountdownSeconds": 10,
+    "description": "Dr. Stuart McGill anterior core brace lifting head and shoulders 1 inch with hands supporting the lumbar curve.",
+    "formCues": [
+      "Slide palms-down hands under lower back with one knee bent and one leg straight",
+      "Brace abs 360° and hover head/shoulders 1 inch as one rigid block",
+      "Hold 10 seconds while breathing smoothly"
+    ],
+    "targetedMuscles": [
+      "Rectus Abdominis",
+      "Transverse Abdominis",
+      "Deep Cervical Flexors"
+    ],
+    "videoReference": {
+      "youtubeId": "C89EKtI8a3o",
+      "title": "The McGill Big 3: How to Do the McGill Curl-Up Correctly",
+      "channelName": "Squat University",
+      "durationLabel": "4 Sets × 5 × 10s isometric holds",
+      "stepByStepBreakdown": [
+        "Slide palms-down hands under lower back with one knee bent and one leg straight",
+        "Brace abs 360° and hover head/shoulders 1 inch as one rigid block",
+        "Hold 10 seconds while breathing smoothly",
+        "Rest 25s between sets to allow full ATP-PCr and neuromuscular recovery."
+      ],
+      "commonMistakes": [
+        "Flattening the lower back into your hands or crunching high.",
+        "Losing 360° abdominal bracing during the eccentric phase."
+      ]
+    }
+  },
+  {
+    "id": "cat-core-02",
+    "name": "McGill Side Bridge (QL & Obliques)",
+    "category": "strength",
+    "animationType": "mcgill-sidebridge",
+    "equipmentType": "bodyweight",
+    "equipmentLabel": "Zero Equipment (Bodyweight)",
+    "muscleGroupTag": "core-grip-carries",
+    "whySwap": "Highest lateral spine stabilization with minimal compressive load.",
+    "defaultSets": 4,
+    "defaultReps": 5,
+    "repLabel": "5 × 10s holds per side",
+    "defaultHoldSeconds": 10,
+    "defaultRestSeconds": 25,
+    "prepCountdownSeconds": 10,
+    "description": "Lateral core pillar bridge hinges hips forward and upward to lock the quadratus lumborum and obliques.",
+    "formCues": [
+      "Stack elbow directly beneath shoulder and place top hand on opposite shoulder",
+      "Hinge hips forward and up into a straight diagonal line",
+      "Hold 10 seconds with calm diaphragmatic breathing"
+    ],
+    "targetedMuscles": [
+      "Quadratus Lumborum",
+      "Internal & External Obliques",
+      "Gluteus Medius"
+    ],
+    "videoReference": {
+      "youtubeId": "2_e4I-brfqs",
+      "title": "McGill Side Bridge / Side Plank Coaching Breakdown",
+      "channelName": "Squat University",
+      "durationLabel": "4 Sets × 5 × 10s holds per side",
+      "stepByStepBreakdown": [
+        "Stack elbow directly beneath shoulder and place top hand on opposite shoulder",
+        "Hinge hips forward and up into a straight diagonal line",
+        "Hold 10 seconds with calm diaphragmatic breathing",
+        "Rest 25s between sets to allow full ATP-PCr and neuromuscular recovery."
+      ],
+      "commonMistakes": [
+        "Shrugging the bottom shoulder or twisting the pelvis.",
+        "Losing 360° abdominal bracing during the eccentric phase."
+      ]
+    }
+  },
+  {
+    "id": "cat-core-03",
+    "name": "McGill Bird Dog (Posterior Anti-Rotation)",
+    "category": "strength",
+    "animationType": "mcgill-birddog",
+    "equipmentType": "bodyweight",
+    "equipmentLabel": "Zero Equipment (Bodyweight)",
+    "muscleGroupTag": "core-grip-carries",
+    "whySwap": "Trains multifidus and erector spinae endurance without spinal hyperextension.",
+    "defaultSets": 4,
+    "defaultReps": 5,
+    "repLabel": "5 × 10s holds per side",
+    "defaultHoldSeconds": 10,
+    "defaultRestSeconds": 25,
+    "prepCountdownSeconds": 10,
+    "description": "Quadruped opposite fist-and-heel horizontal extension training posterior chain co-contraction.",
+    "formCues": [
+      "Brace core in quadruped before moving any limb",
+      "Clench front fist and push opposite heel straight back parallel to floor",
+      "Hold 10 seconds, then sweep hand to knee underneath before repeating"
+    ],
+    "targetedMuscles": [
+      "Erector Spinae",
+      "Multifidus",
+      "Gluteus Maximus",
+      "Latissimus Dorsi"
+    ],
+    "videoReference": {
+      "youtubeId": "pS-SfFoc8uk",
+      "title": "How to Master the McGill Bird Dog",
+      "channelName": "Squat University",
+      "durationLabel": "4 Sets × 5 × 10s holds per side",
+      "stepByStepBreakdown": [
+        "Brace core in quadruped before moving any limb",
+        "Clench front fist and push opposite heel straight back parallel to floor",
+        "Hold 10 seconds, then sweep hand to knee underneath before repeating",
+        "Rest 25s between sets to allow full ATP-PCr and neuromuscular recovery."
+      ],
+      "commonMistakes": [
+        "Raising the back leg above hip height and arching the lower back.",
+        "Losing 360° abdominal bracing during the eccentric phase."
+      ]
+    }
+  },
+  {
+    "id": "cat-core-04",
+    "name": "Heavy Bilateral Farmer’s Carries (10m Walk)",
+    "category": "strength",
+    "animationType": "farmers-carry",
+    "equipmentType": "kettlebell",
+    "equipmentLabel": "Kettlebell (1–2 KBs)",
+    "muscleGroupTag": "core-grip-carries",
+    "whySwap": "Creates a \"walking plank\" that integrates grip, traps, and 360° core bracing.",
+    "defaultSets": 3,
+    "defaultReps": 1,
+    "repLabel": "10m walk (30s carry)",
+    "defaultHoldSeconds": 30,
+    "defaultRestSeconds": 60,
+    "prepCountdownSeconds": 10,
+    "description": "Walking tall with heavy kettlebells or dumbbells in both hands for total-body axial stability and grip.",
+    "formCues": [
+      "Deadlift weights cleanly and pack shoulders down and slightly back",
+      "Brace abdominal wall 360° and keep crown of head tall",
+      "Take short, crisp heel-to-toe steps with zero lateral sway"
+    ],
+    "targetedMuscles": [
+      "Forearm Crush Grip",
+      "Upper & Lower Trapezius",
+      "Quadratus Lumborum",
+      "Core"
+    ],
+    "videoReference": {
+      "youtubeId": "p5MNNosenJc",
+      "title": "How to Do the Farmer’s Walk Correctly",
+      "channelName": "Buff Dudes",
+      "durationLabel": "3 Sets × 10m walk (30s carry)",
+      "stepByStepBreakdown": [
+        "Deadlift weights cleanly and pack shoulders down and slightly back",
+        "Brace abdominal wall 360° and keep crown of head tall",
+        "Take short, crisp heel-to-toe steps with zero lateral sway",
+        "Rest 60s between sets to allow full ATP-PCr and neuromuscular recovery."
+      ],
+      "commonMistakes": [
+        "Letting weights bang into thighs or shrugging shoulders into ears.",
+        "Losing 360° abdominal bracing during the eccentric phase."
+      ]
+    }
+  },
+  {
+    "id": "cat-core-05",
+    "name": "Kettlebell Front-Rack March in Place",
+    "category": "strength",
+    "animationType": "farmers-carry",
+    "equipmentType": "kettlebell",
+    "equipmentLabel": "Kettlebell (1–2 KBs)",
+    "muscleGroupTag": "core-grip-carries",
+    "whySwap": "Trains single-leg hip lock and oblique lateral stability when walking space is limited.",
+    "defaultSets": 3,
+    "defaultReps": 20,
+    "repLabel": "20 slow marches (30s)",
+    "defaultHoldSeconds": 30,
+    "defaultRestSeconds": 60,
+    "prepCountdownSeconds": 10,
+    "description": "Standing front-rack slow march pausing on one leg for 2 seconds per step in zero floor space.",
+    "formCues": [
+      "Clean 1 or 2 kettlebells to front rack with elbows tucked against ribs",
+      "Lift one knee to 90° hip height and pause 2 seconds without leaning",
+      "Alternate legs smoothly while breathing behind the shield"
+    ],
+    "targetedMuscles": [
+      "Internal & External Obliques",
+      "Quadratus Lumborum",
+      "Rectus Abdominis"
+    ],
+    "videoReference": {
+      "youtubeId": "nKMTa3d1YNY",
+      "title": "Kettlebell Rack Marches — Core & Oblique Bracing",
+      "channelName": "Coach Gabe West",
+      "durationLabel": "3 Sets × 20 slow marches (30s)",
+      "stepByStepBreakdown": [
+        "Clean 1 or 2 kettlebells to front rack with elbows tucked against ribs",
+        "Lift one knee to 90° hip height and pause 2 seconds without leaning",
+        "Alternate legs smoothly while breathing behind the shield",
+        "Rest 60s between sets to allow full ATP-PCr and neuromuscular recovery."
+      ],
+      "commonMistakes": [
+        "Leaning torso sideways over the standing leg.",
+        "Losing 360° abdominal bracing during the eccentric phase."
+      ]
+    }
+  },
+  {
+    "id": "cat-core-06",
+    "name": "Overhead Waiter’s Kettlebell Carry / March",
+    "category": "strength",
+    "animationType": "farmers-carry",
+    "equipmentType": "kettlebell",
+    "equipmentLabel": "Kettlebell (1–2 KBs)",
+    "muscleGroupTag": "core-grip-carries",
+    "whySwap": "Dynamic rotator cuff centration and lateral core stability.",
+    "defaultSets": 3,
+    "defaultReps": 1,
+    "repLabel": "30s per arm",
+    "defaultHoldSeconds": 30,
+    "defaultRestSeconds": 60,
+    "prepCountdownSeconds": 10,
+    "description": "Carrying or marching with one kettlebell locked out overhead with packed scapula and braced ribs.",
+    "formCues": [
+      "Press one kettlebell overhead with elbow locked and bicep near ear",
+      "Lock ribs down over pelvis so lower back cannot arch",
+      "Walk or march slowly for 30 seconds per arm"
+    ],
+    "targetedMuscles": [
+      "Rotator Cuff",
+      "Serratus Anterior",
+      "Quadratus Lumborum",
+      "Obliques"
+    ],
+    "videoReference": {
+      "youtubeId": "p5MNNosenJc",
+      "title": "Overhead Waiter Carry for Bulletproof Shoulders & Core",
+      "channelName": "Squat University",
+      "durationLabel": "3 Sets × 30s per arm",
+      "stepByStepBreakdown": [
+        "Press one kettlebell overhead with elbow locked and bicep near ear",
+        "Lock ribs down over pelvis so lower back cannot arch",
+        "Walk or march slowly for 30 seconds per arm",
+        "Rest 60s between sets to allow full ATP-PCr and neuromuscular recovery."
+      ],
+      "commonMistakes": [
+        "Bending the overhead elbow or flaring the ribcage.",
+        "Losing 360° abdominal bracing during the eccentric phase."
+      ]
+    }
+  },
+  {
+    "id": "cat-core-07",
+    "name": "Contralateral Dead Bugs (2s Exhale Hold)",
+    "category": "strength",
+    "animationType": "deadbug",
+    "equipmentType": "bodyweight",
+    "equipmentLabel": "Zero Equipment (Bodyweight)",
+    "muscleGroupTag": "core-grip-carries",
+    "whySwap": "Teaches independent limb movement around a rock-solid core cylinder.",
+    "defaultSets": 4,
+    "defaultReps": 12,
+    "repLabel": "12 slow alternating reps",
+    "defaultHoldSeconds": 40,
+    "defaultRestSeconds": 45,
+    "prepCountdownSeconds": 10,
+    "description": "Supine anti-extension core drill extending opposite arm and leg while gluing lumbar spine to the mat.",
+    "formCues": [
+      "Press lower back flat into the floor with knees at 90/90 tabletop",
+      "Slowly extend left arm overhead and right heel 2 inches above floor",
+      "Exhale fully for 2 seconds at extension, then return to center"
+    ],
+    "targetedMuscles": [
+      "Transverse Abdominis",
+      "Rectus Abdominis",
+      "Internal Obliques",
+      "Hip Flexors"
+    ],
+    "videoReference": {
+      "youtubeId": "g_BYB0R-4Ws",
+      "title": "How to Do the Dead Bug Exercise Correctly",
+      "channelName": "Squat University",
+      "durationLabel": "4 Sets × 12 slow alternating reps",
+      "stepByStepBreakdown": [
+        "Press lower back flat into the floor with knees at 90/90 tabletop",
+        "Slowly extend left arm overhead and right heel 2 inches above floor",
+        "Exhale fully for 2 seconds at extension, then return to center",
+        "Rest 45s between sets to allow full ATP-PCr and neuromuscular recovery."
+      ],
+      "commonMistakes": [
+        "Letting the lower back arch off the mat as the leg extends.",
+        "Losing 360° abdominal bracing during the eccentric phase."
+      ]
+    }
+  },
+  {
+    "id": "cat-core-08",
+    "name": "RKC High-Tension Pillar Plank",
+    "category": "strength",
+    "animationType": "plank",
+    "equipmentType": "bodyweight",
+    "equipmentLabel": "Zero Equipment (Bodyweight)",
+    "muscleGroupTag": "core-grip-carries",
+    "whySwap": "Generates 4x higher rectus abdominis and oblique EMG activation than passive planks.",
+    "defaultSets": 3,
+    "defaultReps": 1,
+    "repLabel": "30s maximal tension hold",
+    "defaultHoldSeconds": 30,
+    "defaultRestSeconds": 45,
+    "prepCountdownSeconds": 10,
+    "description": "Maximal full-body isometric contraction plank pulling elbows toward toes and toes toward elbows.",
+    "formCues": [
+      "Clench fists, lock quads, and squeeze glutes hard",
+      "Isometrically pull elbows down toward toes without moving",
+      "Hold maximal tension for 30 seconds with shallow breathing"
+    ],
+    "targetedMuscles": [
+      "Rectus Abdominis",
+      "Latissimus Dorsi",
+      "Gluteus Maximus",
+      "Quadriceps"
+    ],
+    "videoReference": {
+      "youtubeId": "6TKktamzq4o",
+      "title": "The RKC Plank vs Regular Plank",
+      "channelName": "StrongFirst",
+      "durationLabel": "3 Sets × 30s maximal tension hold",
+      "stepByStepBreakdown": [
+        "Clench fists, lock quads, and squeeze glutes hard",
+        "Isometrically pull elbows down toward toes without moving",
+        "Hold maximal tension for 30 seconds with shallow breathing",
+        "Rest 45s between sets to allow full ATP-PCr and neuromuscular recovery."
+      ],
+      "commonMistakes": [
+        "Hanging passively on lower-back ligaments.",
+        "Losing 360° abdominal bracing during the eccentric phase."
+      ]
+    }
+  },
+  {
+    "id": "cat-core-09",
+    "name": "Bodyweight Bear-Plank Hover & Taps",
+    "category": "strength",
+    "animationType": "shoulder-tap",
+    "equipmentType": "bodyweight",
+    "equipmentLabel": "Zero Equipment (Bodyweight)",
+    "muscleGroupTag": "core-grip-carries",
+    "whySwap": "Fires anterior core, quads, and serratus in a compact footprint.",
+    "defaultSets": 3,
+    "defaultReps": 16,
+    "repLabel": "30s hover + 16 taps",
+    "defaultHoldSeconds": 30,
+    "defaultRestSeconds": 50,
+    "prepCountdownSeconds": 10,
+    "description": "Quadruped knee-hover 1 inch off the floor with slow anti-rotational shoulder taps.",
+    "formCues": [
+      "Set hands under shoulders and knees under hips at 90°",
+      "Hover knees just 1 inch off the floor with flat tabletop spine",
+      "Tap opposite shoulder slowly without letting hips shift"
+    ],
+    "targetedMuscles": [
+      "Transverse Abdominis",
+      "Serratus Anterior",
+      "Quadriceps",
+      "Obliques"
+    ],
+    "videoReference": {
+      "youtubeId": "nGSFAjjf9oI",
+      "title": "How To Do A Bear Plank Correctly",
+      "channelName": "Strong And Fit",
+      "durationLabel": "3 Sets × 30s hover + 16 taps",
+      "stepByStepBreakdown": [
+        "Set hands under shoulders and knees under hips at 90°",
+        "Hover knees just 1 inch off the floor with flat tabletop spine",
+        "Tap opposite shoulder slowly without letting hips shift",
+        "Rest 50s between sets to allow full ATP-PCr and neuromuscular recovery."
+      ],
+      "commonMistakes": [
+        "Lifting knees 6 inches high into a pike.",
+        "Losing 360° abdominal bracing during the eccentric phase."
+      ]
+    }
+  },
+  {
+    "id": "cat-core-10",
+    "name": "Gymnastic Hollow-Body Core Hold",
+    "category": "strength",
+    "animationType": "deadbug",
+    "equipmentType": "bodyweight",
+    "equipmentLabel": "Zero Equipment (Bodyweight)",
+    "muscleGroupTag": "core-grip-carries",
+    "whySwap": "Foundational body tension for pull-ups, push-ups, and overhead pressing.",
+    "defaultSets": 3,
+    "defaultReps": 1,
+    "repLabel": "30s hollow hold",
+    "defaultHoldSeconds": 30,
+    "defaultRestSeconds": 45,
+    "prepCountdownSeconds": 10,
+    "description": "Gymnastic anterior core hold locking ribs to pelvis with lower back pressed firmly into the floor.",
+    "formCues": [
+      "Posteriorly tilt pelvis so lower back is 100% glued to the mat",
+      "Lift shoulder blades slightly off floor and extend legs to a controllable angle",
+      "Hold 30 seconds without losing lumbar contact"
+    ],
+    "targetedMuscles": [
+      "Rectus Abdominis",
+      "Transverse Abdominis",
+      "Hip Flexors"
+    ],
+    "videoReference": {
+      "youtubeId": "uZqTUwq96iU",
+      "title": "Hollow-Body Hold Progressions & Form",
+      "channelName": "FitnessFAQs",
+      "durationLabel": "3 Sets × 30s hollow hold",
+      "stepByStepBreakdown": [
+        "Posteriorly tilt pelvis so lower back is 100% glued to the mat",
+        "Lift shoulder blades slightly off floor and extend legs to a controllable angle",
+        "Hold 30 seconds without losing lumbar contact",
+        "Rest 45s between sets to allow full ATP-PCr and neuromuscular recovery."
+      ],
+      "commonMistakes": [
+        "Lowering legs too far and letting the lower back arch.",
+        "Losing 360° abdominal bracing during the eccentric phase."
+      ]
+    }
+  },
+  {
+    "id": "cat-core-11",
+    "name": "Supine Straight-Leg Lowering & Pelvic Curl (No Bar)",
+    "category": "strength",
+    "animationType": "deadbug",
+    "equipmentType": "bodyweight",
+    "equipmentLabel": "Zero Equipment (Bodyweight)",
+    "muscleGroupTag": "core-grip-carries",
+    "whySwap": "Targets lower rectus abdominis with zero pull-up bar required.",
+    "defaultSets": 4,
+    "defaultReps": 10,
+    "repLabel": "10 controlled leg lowers",
+    "defaultHoldSeconds": 35,
+    "defaultRestSeconds": 60,
+    "prepCountdownSeconds": 10,
+    "description": "Lying flat on the floor, curling the pelvis upward off the mat and lowering straight legs under 3-second eccentric control with lumbar glued to the floor.",
+    "formCues": [
+      "Lie flat on the floor with palms pressing down beside your hips and lower back glued to the mat",
+      "Raise legs vertical, curl tailbone 2 inches off the mat, and lower over 3 slow seconds",
+      "Stop lowering the instant before your lower back begins to arch off the floor"
+    ],
+    "targetedMuscles": [
+      "Lower Rectus Abdominis",
+      "Transverse Abdominis",
+      "Internal Obliques"
+    ],
+    "videoReference": {
+      "youtubeId": "Pr1ieGZ5atk",
+      "title": "Supine Leg Raise & Pelvic Curl Without a Bar",
+      "channelName": "ATHLEAN-X",
+      "durationLabel": "4 Sets × 10 controlled leg lowers",
+      "stepByStepBreakdown": [
+        "Lie flat on the floor with palms pressing down beside your hips and lower back glued to the mat",
+        "Raise legs vertical, curl tailbone 2 inches off the mat, and lower over 3 slow seconds",
+        "Stop lowering the instant before your lower back begins to arch off the floor",
+        "Rest 60s between sets to allow full ATP-PCr and neuromuscular recovery."
+      ],
+      "commonMistakes": [
+        "Letting the lumbar spine arch off the mat at the bottom of the leg lower.",
+        "Losing 360° abdominal bracing during the eccentric phase."
+      ]
+    }
+  },
+  {
+    "id": "cat-core-12",
+    "name": "Copenhagen Adductor Side Plank",
+    "category": "strength",
+    "animationType": "mcgill-sidebridge",
+    "equipmentType": "bodyweight",
+    "equipmentLabel": "Zero Equipment (Bodyweight)",
+    "muscleGroupTag": "core-grip-carries",
+    "whySwap": "Sports medicine gold standard for groin resilience and pelvic stability.",
+    "defaultSets": 3,
+    "defaultReps": 1,
+    "repLabel": "25s hold per side",
+    "defaultHoldSeconds": 25,
+    "defaultRestSeconds": 45,
+    "prepCountdownSeconds": 10,
+    "description": "Side plank with the top inner knee or ankle resting on a bench while hovering the bottom leg.",
+    "formCues": [
+      "Prop on forearm with top inner knee/shin resting on a low bench",
+      "Drive top leg down into bench to lift hips and bottom leg off floor",
+      "Hold a straight line for 25 seconds per side"
+    ],
+    "targetedMuscles": [
+      "Adductor Longus & Magnus",
+      "Internal & External Obliques",
+      "Quadratus Lumborum"
+    ],
+    "videoReference": {
+      "youtubeId": "2_e4I-brfqs",
+      "title": "Copenhagen Plank for Groin & Lateral Core Strength",
+      "channelName": "Squat University",
+      "durationLabel": "3 Sets × 25s hold per side",
+      "stepByStepBreakdown": [
+        "Prop on forearm with top inner knee/shin resting on a low bench",
+        "Drive top leg down into bench to lift hips and bottom leg off floor",
+        "Hold a straight line for 25 seconds per side",
+        "Rest 45s between sets to allow full ATP-PCr and neuromuscular recovery."
+      ],
+      "commonMistakes": [
+        "Letting hips sag or rotating torso toward the floor.",
+        "Losing 360° abdominal bracing during the eccentric phase."
+      ]
+    }
+  },
+  {
+    "id": "cat-core-13",
+    "name": "Plank-to-Pike / Ab-Wheel Rollout Walkout",
+    "category": "strength",
+    "animationType": "plank",
+    "equipmentType": "bodyweight",
+    "equipmentLabel": "Zero Equipment (Bodyweight)",
+    "muscleGroupTag": "core-grip-carries",
+    "whySwap": "Replicates ab-wheel rollout anti-extension force with zero equipment.",
+    "defaultSets": 3,
+    "defaultReps": 10,
+    "repLabel": "10 walkouts",
+    "defaultHoldSeconds": 40,
+    "defaultRestSeconds": 60,
+    "prepCountdownSeconds": 10,
+    "description": "Walking hands forward past the forehead into a long-lever extended plank and returning under control.",
+    "formCues": [
+      "Start in a high plank with glutes squeezed and pelvis tucked slightly",
+      "Walk hands 6–10 inches forward past shoulders into a long-lever plank",
+      "Pause 2 seconds without letting lower back sag, then walk hands back"
+    ],
+    "targetedMuscles": [
+      "Rectus Abdominis",
+      "Latissimus Dorsi",
+      "Serratus Anterior"
+    ],
+    "videoReference": {
+      "youtubeId": "6TKktamzq4o",
+      "title": "Long-Lever Plank & Inchworm Walkouts for Extreme Core",
+      "channelName": "Calisthenicmovement",
+      "durationLabel": "3 Sets × 10 walkouts",
+      "stepByStepBreakdown": [
+        "Start in a high plank with glutes squeezed and pelvis tucked slightly",
+        "Walk hands 6–10 inches forward past shoulders into a long-lever plank",
+        "Pause 2 seconds without letting lower back sag, then walk hands back",
+        "Rest 60s between sets to allow full ATP-PCr and neuromuscular recovery."
+      ],
+      "commonMistakes": [
+        "Extending further than your abs can support and arching the lumbar spine.",
+        "Losing 360° abdominal bracing during the eccentric phase."
+      ]
+    }
+  },
+  {
+    "id": "cat-core-14",
+    "name": "Kettlebell Plank Pull-Throughs",
+    "category": "strength",
+    "animationType": "shoulder-tap",
+    "equipmentType": "kettlebell",
+    "equipmentLabel": "Kettlebell (1–2 KBs)",
+    "muscleGroupTag": "core-grip-carries",
+    "whySwap": "Teaches the obliques to resist torsional shear while transferring load across the midline.",
+    "defaultSets": 3,
+    "defaultReps": 12,
+    "repLabel": "12 alternating pull-throughs",
+    "defaultHoldSeconds": 40,
+    "defaultRestSeconds": 60,
+    "prepCountdownSeconds": 10,
+    "description": "High-plank anti-rotational reach under the torso to drag a kettlebell from side to side.",
+    "formCues": [
+      "Set a wide foot stance in a high plank with a kettlebell outside your left hand",
+      "Reach under your torso with your right hand and drag the bell to the right side",
+      "Keep hips frozen level throughout every drag"
+    ],
+    "targetedMuscles": [
+      "Internal & External Obliques",
+      "Transverse Abdominis",
+      "Serratus Anterior"
+    ],
+    "videoReference": {
+      "youtubeId": "wTqlJ0g3M0A",
+      "title": "Kettlebell Plank Drag / Pull-Through Anti-Rotation",
+      "channelName": "Kettlebell Kings",
+      "durationLabel": "3 Sets × 12 alternating pull-throughs",
+      "stepByStepBreakdown": [
+        "Set a wide foot stance in a high plank with a kettlebell outside your left hand",
+        "Reach under your torso with your right hand and drag the bell to the right side",
+        "Keep hips frozen level throughout every drag",
+        "Rest 60s between sets to allow full ATP-PCr and neuromuscular recovery."
+      ],
+      "commonMistakes": [
+        "Piking or twisting the hips to slide the bell.",
+        "Losing 360° abdominal bracing during the eccentric phase."
+      ]
+    }
+  },
+  {
+    "id": "cat-core-15",
+    "name": "Kettlebell Turkish Get-Up (Half or Full)",
+    "category": "strength",
+    "animationType": "mcgill-sidebridge",
+    "equipmentType": "kettlebell",
+    "equipmentLabel": "Kettlebell (1–2 KBs)",
+    "muscleGroupTag": "core-grip-carries",
+    "whySwap": "Combines shoulder stability, hip mobility, and 3D core control in one sequence.",
+    "defaultSets": 3,
+    "defaultReps": 4,
+    "repLabel": "2 slow reps per side",
+    "defaultHoldSeconds": 45,
+    "defaultRestSeconds": 60,
+    "prepCountdownSeconds": 10,
+    "description": "Multi-planar floor-to-standing movement keeping a kettlebell locked vertically overhead.",
+    "formCues": [
+      "Lie supine with right knee bent and right arm locking kettlebell overhead",
+      "Drive through right heel to roll onto left elbow, then post to left hand and bridge",
+      "Sweep left knee under hip into half-kneeling, stand tall, and reverse step-by-step"
+    ],
+    "targetedMuscles": [
+      "Rotator Cuff",
+      "Obliques",
+      "Gluteus Maximus",
+      "Full-Body Stabilizers"
+    ],
+    "videoReference": {
+      "youtubeId": "0bWRPC49-KI",
+      "title": "How to Do the Kettlebell Turkish Get-Up Step by Step",
+      "channelName": "StrongFirst",
+      "durationLabel": "3 Sets × 2 slow reps per side",
+      "stepByStepBreakdown": [
+        "Lie supine with right knee bent and right arm locking kettlebell overhead",
+        "Drive through right heel to roll onto left elbow, then post to left hand and bridge",
+        "Sweep left knee under hip into half-kneeling, stand tall, and reverse step-by-step",
+        "Rest 60s between sets to allow full ATP-PCr and neuromuscular recovery."
+      ],
+      "commonMistakes": [
+        "Crunching straight up instead of rolling to the supporting elbow.",
+        "Losing 360° abdominal bracing during the eccentric phase."
+      ]
+    }
+  },
+  {
+    "id": "cat-core-16",
+    "name": "Kettlebell Windmill (Obliques & Hip Hinge)",
+    "category": "strength",
+    "animationType": "rdl",
+    "equipmentType": "kettlebell",
+    "equipmentLabel": "Kettlebell (1–2 KBs)",
+    "muscleGroupTag": "core-grip-carries",
+    "whySwap": "Builds extraordinary lateral core strength and thoracic mobility.",
+    "defaultSets": 3,
+    "defaultReps": 6,
+    "repLabel": "6 windmills per side",
+    "defaultHoldSeconds": 40,
+    "defaultRestSeconds": 60,
+    "prepCountdownSeconds": 10,
+    "description": "Angled hip hinge sliding the free hand down the inside of the front shin while locking a kettlebell overhead.",
+    "formCues": [
+      "Lock kettlebell overhead with right arm and turn both feet 45° to the left",
+      "Push right hip out and back while sliding left hand down inside of left shin",
+      "Keep eyes on the overhead kettlebell and drive hip forward to stand"
+    ],
+    "targetedMuscles": [
+      "Obliques",
+      "Quadratus Lumborum",
+      "Gluteus Medius",
+      "Shoulder Stabilizers"
+    ],
+    "videoReference": {
+      "youtubeId": "0bWRPC49-KI",
+      "title": "Kettlebell Windmill Technique & Hip Hinge",
+      "channelName": "Kettlebell Kings",
+      "durationLabel": "3 Sets × 6 windmills per side",
+      "stepByStepBreakdown": [
+        "Lock kettlebell overhead with right arm and turn both feet 45° to the left",
+        "Push right hip out and back while sliding left hand down inside of left shin",
+        "Keep eyes on the overhead kettlebell and drive hip forward to stand",
+        "Rest 60s between sets to allow full ATP-PCr and neuromuscular recovery."
+      ],
+      "commonMistakes": [
+        "Bending sideways at the waist instead of hinging into the back hip.",
+        "Losing 360° abdominal bracing during the eccentric phase."
+      ]
+    }
+  },
+  {
+    "id": "cat-core-17",
+    "name": "Kettlebell Russian Twists (Rib-Locked Rotation)",
+    "category": "strength",
+    "animationType": "mcgill-curlup",
+    "equipmentType": "kettlebell",
+    "equipmentLabel": "Kettlebell (1–2 KBs)",
+    "muscleGroupTag": "core-grip-carries",
+    "whySwap": "Rotates through the thoracic spine rather than grinding the lumbar discs.",
+    "defaultSets": 3,
+    "defaultReps": 16,
+    "repLabel": "16 controlled rotations",
+    "defaultHoldSeconds": 35,
+    "defaultRestSeconds": 45,
+    "prepCountdownSeconds": 10,
+    "description": "Heels-planted V-sit thoracic rotation moving the entire shoulder girdle side to side.",
+    "formCues": [
+      "Sit with heels planted on the floor and torso leaned back at 45° with neutral spine",
+      "Hold kettlebell by horns at chest and rotate shoulders 45° left and right",
+      "Move hands and sternum together as one unit"
+    ],
+    "targetedMuscles": [
+      "Internal & External Obliques",
+      "Rectus Abdominis"
+    ],
+    "videoReference": {
+      "youtubeId": "wkD8rjkodUI",
+      "title": "How to Do Russian Twists Safely (Rotate the Shoulders!)",
+      "channelName": "ATHLEAN-X",
+      "durationLabel": "3 Sets × 16 controlled rotations",
+      "stepByStepBreakdown": [
+        "Sit with heels planted on the floor and torso leaned back at 45° with neutral spine",
+        "Hold kettlebell by horns at chest and rotate shoulders 45° left and right",
+        "Move hands and sternum together as one unit",
+        "Rest 45s between sets to allow full ATP-PCr and neuromuscular recovery."
+      ],
+      "commonMistakes": [
+        "Keeping chest forward and only swinging arms side to side.",
+        "Losing 360° abdominal bracing during the eccentric phase."
+      ]
+    }
+  },
+  {
+    "id": "cat-core-18",
+    "name": "Stir-the-Pot Forearm Plank Circles",
+    "category": "strength",
+    "animationType": "plank",
+    "equipmentType": "bodyweight",
+    "equipmentLabel": "Zero Equipment (Bodyweight)",
+    "muscleGroupTag": "core-grip-carries",
+    "whySwap": "Trains dynamic anti-extension and anti-rotation simultaneously.",
+    "defaultSets": 3,
+    "defaultReps": 12,
+    "repLabel": "6 circles each direction",
+    "defaultHoldSeconds": 35,
+    "defaultRestSeconds": 60,
+    "prepCountdownSeconds": 10,
+    "description": "Dr. Stuart McGill advanced progression tracing small forearm circles while keeping the spine motionless.",
+    "formCues": [
+      "Assume a wide-foot forearm plank on a stability ball or cushioned mat",
+      "Trace slow 6-inch circles with your forearms while keeping pelvis frozen",
+      "Complete 6 clockwise and 6 counter-clockwise circles"
+    ],
+    "targetedMuscles": [
+      "Rectus Abdominis",
+      "Obliques",
+      "Serratus Anterior",
+      "Latissimus Dorsi"
+    ],
+    "videoReference": {
+      "youtubeId": "C89EKtI8a3o",
+      "title": "Dr. Stuart McGill Stir-the-Pot Advanced Core Exercise",
+      "channelName": "Squat University",
+      "durationLabel": "3 Sets × 6 circles each direction",
+      "stepByStepBreakdown": [
+        "Assume a wide-foot forearm plank on a stability ball or cushioned mat",
+        "Trace slow 6-inch circles with your forearms while keeping pelvis frozen",
+        "Complete 6 clockwise and 6 counter-clockwise circles",
+        "Rest 60s between sets to allow full ATP-PCr and neuromuscular recovery."
+      ],
+      "commonMistakes": [
+        "Letting lower back sag as forearms reach forward.",
+        "Losing 360° abdominal bracing during the eccentric phase."
+      ]
+    }
+  },
+  {
+    "id": "cat-core-19",
+    "name": "Reverse Crunch (Posterior Pelvic Tilt)",
+    "category": "strength",
+    "animationType": "deadbug",
+    "equipmentType": "bodyweight",
+    "equipmentLabel": "Zero Equipment (Bodyweight)",
+    "muscleGroupTag": "core-grip-carries",
+    "whySwap": "Directly trains the external obliques and rectus abdominis in posterior pelvic tilt.",
+    "defaultSets": 3,
+    "defaultReps": 12,
+    "repLabel": "12 controlled pelvic curls",
+    "defaultHoldSeconds": 35,
+    "defaultRestSeconds": 45,
+    "prepCountdownSeconds": 10,
+    "description": "Supine lower-ab curl lifting the tailbone off the mat toward the ribcage with controlled 3-second lowering.",
+    "formCues": [
+      "Lie on back holding a stable anchor or pressing palms into mat",
+      "Curl tailbone and knees toward chest so lower back rolls slightly off mat",
+      "Lower vertebrae by vertebrae over 3 slow seconds"
+    ],
+    "targetedMuscles": [
+      "Lower Rectus Abdominis",
+      "External Obliques"
+    ],
+    "videoReference": {
+      "youtubeId": "hyv14e2QDq0",
+      "title": "How to Do the Reverse Crunch for Lower Abs",
+      "channelName": "Jeff Nippard",
+      "durationLabel": "3 Sets × 12 controlled pelvic curls",
+      "stepByStepBreakdown": [
+        "Lie on back holding a stable anchor or pressing palms into mat",
+        "Curl tailbone and knees toward chest so lower back rolls slightly off mat",
+        "Lower vertebrae by vertebrae over 3 slow seconds",
+        "Rest 45s between sets to allow full ATP-PCr and neuromuscular recovery."
+      ],
+      "commonMistakes": [
+        "Using momentum to swing legs overhead.",
+        "Losing 360° abdominal bracing during the eccentric phase."
+      ]
+    }
+  },
+  {
+    "id": "cat-core-20",
+    "name": "L-Sit Isometric Core Support Hold",
+    "category": "strength",
+    "animationType": "deadbug",
+    "equipmentType": "bodyweight",
+    "equipmentLabel": "Zero Equipment (Bodyweight)",
+    "muscleGroupTag": "core-grip-carries",
+    "whySwap": "Builds extreme abdominal compression, scapular depression, and triceps lockout.",
+    "defaultSets": 4,
+    "defaultReps": 1,
+    "repLabel": "20s tucked or straight L-sit",
+    "defaultHoldSeconds": 20,
+    "defaultRestSeconds": 60,
+    "prepCountdownSeconds": 10,
+    "description": "Depressing shoulders on the floor or kettlebell handles to lift hips and legs off the ground.",
+    "formCues": [
+      "Place hands on floor or kettlebell handles beside hips and push shoulders down",
+      "Lift hips and tucked knees (or straight legs) off the floor",
+      "Hold 20 seconds while breathing steadily"
+    ],
+    "targetedMuscles": [
+      "Rectus Abdominis",
+      "Hip Flexors",
+      "Lower Trapezius",
+      "Triceps"
+    ],
+    "videoReference": {
+      "youtubeId": "IUZJoSP66HI",
+      "title": "How to L-Sit (Step-by-Step Progression)",
+      "channelName": "FitnessFAQs",
+      "durationLabel": "4 Sets × 20s tucked or straight L-sit",
+      "stepByStepBreakdown": [
+        "Place hands on floor or kettlebell handles beside hips and push shoulders down",
+        "Lift hips and tucked knees (or straight legs) off the floor",
+        "Hold 20 seconds while breathing steadily",
+        "Rest 60s between sets to allow full ATP-PCr and neuromuscular recovery."
+      ],
+      "commonMistakes": [
+        "Shrugging shoulders into ears and collapsing the chest.",
+        "Losing 360° abdominal bracing during the eccentric phase."
+      ]
+    }
+  }
+]

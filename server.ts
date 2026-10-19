@@ -5,9 +5,13 @@ import crypto from 'crypto';
 import dotenv from 'dotenv';
 import { createServer as createViteServer } from 'vite';
 import { GoogleGenAI, ThinkingLevel } from '@google/genai';
-import { FULL_EXERCISE_CATALOG } from './src/data/exerciseAlternatives';
 
 dotenv.config();
+
+const exerciseCatalogPath = path.join(process.cwd(), 'src', 'data', 'exerciseCatalog.json');
+const FULL_EXERCISE_CATALOG: any[] = fs.existsSync(exerciseCatalogPath)
+  ? JSON.parse(fs.readFileSync(exerciseCatalogPath, 'utf-8'))
+  : [];
 
 interface FitbitTokenData {
   accessToken: string;
@@ -105,16 +109,9 @@ Formatting rules:
 
 async function startServer() {
   const app = express();
-  const PORT = 3000;
+  const PORT = Number(process.env.PORT) || 3000;
 
   app.use(express.json());
-
-  // Serve network-first auto-rebuilding SW for Android PWA installation & cache recovery
-  app.get(['/sw.js', '/dev-sw.js', '/pwa-sw.js'], (req, res) => {
-    res.setHeader('Content-Type', 'application/javascript');
-    res.setHeader('Cache-Control', 'no-store, no-cache, must-revalidate, max-age=0');
-    res.sendFile(path.join(process.cwd(), 'public', 'pwa-sw.js'));
-  });
 
   // --- KEYLESS YOUTUBE MUSIC SEARCH & PLAYLIST EXTRACTOR (NO YOUTUBE DATA API V3 KEY NEEDED) ---
   // Extracts real song videoIds, titles, artists, and thumbnails directly from YouTube / YouTube Music
@@ -1460,11 +1457,36 @@ IMPORTANT INTERACTIVE COACHING & RESEARCH RULES:
       server: { middlewareMode: true },
       appType: 'spa',
     });
+    app.use((req, res, next) => {
+      if (
+        req.method === 'GET' &&
+        (req.path === '/' ||
+          req.path === '/index.html' ||
+          (!req.path.startsWith('/api/') &&
+            !req.path.startsWith('/src/') &&
+            !req.path.startsWith('/@') &&
+            !req.path.startsWith('/node_modules/') &&
+            !path.extname(req.path)))
+      ) {
+        res.setHeader('Cache-Control', 'no-cache');
+      }
+      next();
+    });
     app.use(vite.middlewares);
   } else {
     const distPath = path.join(process.cwd(), 'dist');
-    app.use(express.static(distPath));
+    app.use(
+      express.static(distPath, {
+        index: false,
+        setHeaders: (res, filePath) => {
+          if (filePath.endsWith('index.html')) {
+            res.setHeader('Cache-Control', 'no-cache');
+          }
+        },
+      })
+    );
     app.get('*', (req, res) => {
+      res.setHeader('Cache-Control', 'no-cache');
       res.sendFile(path.join(distPath, 'index.html'));
     });
   }

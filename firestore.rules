@@ -137,6 +137,96 @@ service cloud.firestore {
       data.createdAt is timestamp;
     }
 
+    // Blueprint Validator: WorkoutLog
+    function isValidWorkoutLog(data, userId, logId) {
+      return data.keys().hasAll([
+        'uid',
+        'id',
+        'date',
+        'routineId',
+        'routineTitle',
+        'category',
+        'durationSeconds',
+        'completedExercisesCount',
+        'cardioMode',
+        'notes',
+        'timestamp',
+        'source',
+        'fitbitLogId',
+        'caloriesBurned',
+        'averageHeartRate',
+        'steps',
+        'createdAt',
+        'updatedAt'
+      ]) &&
+      data.keys().hasOnly([
+        'uid',
+        'id',
+        'date',
+        'routineId',
+        'routineTitle',
+        'category',
+        'durationSeconds',
+        'completedExercisesCount',
+        'cardioMode',
+        'notes',
+        'timestamp',
+        'source',
+        'fitbitLogId',
+        'caloriesBurned',
+        'averageHeartRate',
+        'steps',
+        'createdAt',
+        'updatedAt'
+      ]) &&
+      data.uid is string && data.uid.size() >= 1 && data.uid.size() <= 128 &&
+      data.uid == userId && data.uid == request.auth.uid &&
+      data.id is string && data.id.size() >= 1 && data.id.size() <= 128 &&
+      data.id == logId &&
+      data.date is string && data.date.size() == 10 &&
+      data.routineId is string && data.routineId.size() >= 1 && data.routineId.size() <= 120 &&
+      data.routineTitle is string && data.routineTitle.size() >= 1 && data.routineTitle.size() <= 160 &&
+      data.category is string && data.category in ['mcgill', 'strength', 'cardio', 'mobility'] &&
+      data.durationSeconds is number && data.durationSeconds >= 0 && data.durationSeconds <= 86400 &&
+      data.completedExercisesCount is number && data.completedExercisesCount >= 0 && data.completedExercisesCount <= 200 &&
+      data.cardioMode is string && data.cardioMode.size() <= 32 &&
+      data.notes is string && data.notes.size() <= 500 &&
+      data.timestamp is number && data.timestamp >= 0 &&
+      data.source is string && data.source in ['manual', 'fitbit'] &&
+      data.fitbitLogId is string && data.fitbitLogId.size() <= 128 &&
+      data.caloriesBurned is number && data.caloriesBurned >= 0 && data.caloriesBurned <= 20000 &&
+      data.averageHeartRate is number && data.averageHeartRate >= 0 && data.averageHeartRate <= 300 &&
+      data.steps is number && data.steps >= 0 && data.steps <= 250000 &&
+      data.createdAt is timestamp &&
+      data.updatedAt is timestamp;
+    }
+
+    // Blueprint Validator: UserRoutinesState
+    function isValidUserRoutinesState(data, userId) {
+      return data.keys().hasAll([
+        'uid',
+        'routines',
+        'customRoutines',
+        'createdAt',
+        'updatedAt'
+      ]) &&
+      data.keys().hasOnly([
+        'uid',
+        'routines',
+        'customRoutines',
+        'createdAt',
+        'updatedAt'
+      ]) &&
+      data.uid is string && data.uid.size() >= 1 && data.uid.size() <= 128 &&
+      data.uid == userId && data.uid == request.auth.uid &&
+      data.routines is list && data.routines.size() <= 20 &&
+      (data.routines.size() == 0 || data.routines[0] is map) &&
+      data.customRoutines is list && data.customRoutines.size() <= 50 &&
+      (data.customRoutines.size() == 0 || data.customRoutines[0] is map) &&
+      data.createdAt is timestamp &&
+      data.updatedAt is timestamp;
+    }
+
     // 1. User Profile Collection
     match /users/{userId} {
       allow get: if isOwner(userId) && isValidId(userId);
@@ -149,7 +239,7 @@ service cloud.firestore {
         isValidId(userId) &&
         isValidUserProfile(incoming(), userId) &&
         incoming().uid == existing().uid &&
-        incoming().createdAt == existing().createdAt &&
+        (incoming().createdAt == existing().createdAt || incoming().createdAt == request.time) &&
         incoming().updatedAt == request.time &&
         incoming().diff(existing()).affectedKeys().hasOnly([
           'displayName',
@@ -165,6 +255,7 @@ service cloud.firestore {
           'targetMaxPushUps',
           'dailyStepGoal',
           'weeklyWorkoutGoal',
+          'createdAt',
           'updatedAt'
         ]);
       allow delete: if isOwner(userId) && isValidId(userId);
@@ -188,9 +279,9 @@ service cloud.firestore {
           docId == 'info' &&
           isValidUserPrivateInfo(incoming(), userId) &&
           incoming().uid == existing().uid &&
-          incoming().createdAt == existing().createdAt &&
+          (incoming().createdAt == existing().createdAt || incoming().createdAt == request.time) &&
           incoming().updatedAt == request.time &&
-          incoming().diff(existing()).affectedKeys().hasOnly(['email', 'updatedAt']) &&
+          incoming().diff(existing()).affectedKeys().hasOnly(['email', 'createdAt', 'updatedAt']) &&
           exists(/databases/$(database)/documents/users/$(userId));
         allow delete: if isOwner(userId) && isValidId(userId) && isValidId(docId);
       }
@@ -207,6 +298,82 @@ service cloud.firestore {
           incoming().createdAt == request.time &&
           exists(/databases/$(database)/documents/users/$(userId));
         allow delete: if isOwner(userId) && isValidId(userId) && isValidId(snapshotId) &&
+          exists(/databases/$(database)/documents/users/$(userId));
+      }
+
+      // 4. Workout Logs Subcollection
+      match /workoutLogs/{logId} {
+        allow get: if isOwner(userId) && isValidId(userId) && isValidId(logId) &&
+          exists(/databases/$(database)/documents/users/$(userId));
+        allow list: if isOwner(userId) && resource.data.uid == request.auth.uid;
+        allow create: if isOwner(userId) &&
+          isValidId(userId) &&
+          isValidId(logId) &&
+          isValidWorkoutLog(incoming(), userId, logId) &&
+          incoming().createdAt == request.time &&
+          incoming().updatedAt == request.time &&
+          (exists(/databases/$(database)/documents/users/$(userId)) ||
+           existsAfter(/databases/$(database)/documents/users/$(userId)));
+        allow update: if isOwner(userId) &&
+          isValidId(userId) &&
+          isValidId(logId) &&
+          isValidWorkoutLog(incoming(), userId, logId) &&
+          incoming().uid == existing().uid &&
+          incoming().id == existing().id &&
+          (incoming().createdAt == existing().createdAt || incoming().createdAt == request.time) &&
+          incoming().updatedAt == request.time &&
+          incoming().diff(existing()).affectedKeys().hasOnly([
+            'date',
+            'routineId',
+            'routineTitle',
+            'category',
+            'durationSeconds',
+            'completedExercisesCount',
+            'cardioMode',
+            'notes',
+            'timestamp',
+            'source',
+            'fitbitLogId',
+            'caloriesBurned',
+            'averageHeartRate',
+            'steps',
+            'createdAt',
+            'updatedAt'
+          ]) &&
+          exists(/databases/$(database)/documents/users/$(userId));
+        allow delete: if isOwner(userId) && isValidId(userId) && isValidId(logId) &&
+          exists(/databases/$(database)/documents/users/$(userId));
+      }
+
+      // 5. User Routines & Custom Routines State Subcollection
+      match /appData/{docId} {
+        allow get: if isOwner(userId) && isValidId(userId) && isValidId(docId) &&
+          exists(/databases/$(database)/documents/users/$(userId));
+        allow create: if isOwner(userId) &&
+          isValidId(userId) &&
+          isValidId(docId) &&
+          docId == 'routinesState' &&
+          isValidUserRoutinesState(incoming(), userId) &&
+          incoming().createdAt == request.time &&
+          incoming().updatedAt == request.time &&
+          (exists(/databases/$(database)/documents/users/$(userId)) ||
+           existsAfter(/databases/$(database)/documents/users/$(userId)));
+        allow update: if isOwner(userId) &&
+          isValidId(userId) &&
+          isValidId(docId) &&
+          docId == 'routinesState' &&
+          isValidUserRoutinesState(incoming(), userId) &&
+          incoming().uid == existing().uid &&
+          (incoming().createdAt == existing().createdAt || incoming().createdAt == request.time) &&
+          incoming().updatedAt == request.time &&
+          incoming().diff(existing()).affectedKeys().hasOnly([
+            'routines',
+            'customRoutines',
+            'createdAt',
+            'updatedAt'
+          ]) &&
+          exists(/databases/$(database)/documents/users/$(userId));
+        allow delete: if isOwner(userId) && isValidId(userId) && isValidId(docId) &&
           exists(/databases/$(database)/documents/users/$(userId));
       }
     }

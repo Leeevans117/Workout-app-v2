@@ -51,24 +51,7 @@ export function usePWAInstall() {
     const ua = window.navigator.userAgent.toLowerCase();
     setIsAndroid(/android/.test(ua));
     setIsIOS(/iphone|ipad|ipod/.test(ua));
-
-    // Ensure network-first auto-rebuilding Service Worker is active
-    if ('serviceWorker' in navigator) {
-      navigator.serviceWorker
-        .register('/pwa-sw.js', { updateViaCache: 'none' })
-        .then((reg) => {
-          setSwRegistered(true);
-          reg.update().catch(() => {});
-          if (reg.active) {
-            reg.active.postMessage({ type: 'REBUILD_CACHE' });
-          }
-        })
-        .catch(() => {
-          setSwRegistered(true);
-        });
-    } else {
-      setSwRegistered(true);
-    }
+    setSwRegistered(false);
 
     const listener = (prompt: BeforeInstallPromptEvent | null) => {
       setDeferredPrompt(prompt);

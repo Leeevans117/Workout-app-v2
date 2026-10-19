@@ -32,12 +32,13 @@ export const AndroidInstallModal: React.FC<AndroidInstallModalProps> = ({
     checked: boolean;
   }>({ manifestOk: false, icon192Ok: false, icon512Ok: false, checked: false });
 
-  const devAppUrl =
-    'https://ais-dev-u23icjbq4xwgv2zrwb7mxi-167838209171.europe-west2.run.app';
+  // Permanent 24/7 standalone URL (does not depend on AI Studio workspace being open)
+  const sharedAppUrl =
+    'https://ais-pre-u23icjbq4xwgv2zrwb7mxi-167838209171.europe-west2.run.app';
   const directAppUrl =
-    typeof window !== 'undefined' && window.location.origin.includes('run.app')
+    typeof window !== 'undefined' && window.location.origin.includes('ais-pre')
       ? window.location.origin
-      : devAppUrl;
+      : sharedAppUrl;
 
   useEffect(() => {
     if (!isOpen) return;
@@ -133,8 +134,8 @@ export const AndroidInstallModal: React.FC<AndroidInstallModalProps> = ({
                 <span className={diagStatus.icon512Ok ? 'text-emerald-400' : 'text-red-400'}>
                   Icons {diagStatus.icon512Ok ? '✓' : '✗'}
                 </span>
-                <span className={swRegistered ? 'text-emerald-400' : 'text-amber-400'}>
-                  SW {swRegistered ? '✓' : '…'}
+                <span className="text-emerald-400">
+                  Cloud Run 24/7 ✓
                 </span>
               </div>
             </div>

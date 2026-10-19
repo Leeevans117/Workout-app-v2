@@ -1,4 +1,24 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
+import { onAuthStateChanged, signInWithPopup, User } from 'firebase/auth';
+import {
+  doc,
+  setDoc,
+  deleteDoc,
+  onSnapshot,
+  collection,
+  query,
+  where,
+  writeBatch,
+  serverTimestamp,
+  getDocFromServer,
+} from 'firebase/firestore';
+import {
+  auth,
+  db,
+  googleProvider,
+  handleFirestoreError,
+  OperationType,
+} from './utils/firebaseClient';
 import { WorkoutRoutine, WorkoutLogEntry, CardioMode, Exercise } from './types/workout';
 import { WORKOUT_ROUTINES } from './data/workoutPlan';
 import { ALTERNATIVE_EXERCISE_ARSENAL } from './data/exerciseAlternatives';
@@ -14,7 +34,12 @@ import { DailyNotificationModal } from './components/DailyNotificationModal';
 import { GeminiCoachWidget } from './components/GeminiCoachWidget';
 import { WorkoutAnatomyModal } from './components/WorkoutAnatomyModal';
 import { UserProfileView } from './components/UserProfileView';
-import { UserFitnessProfile, DEFAULT_USER_PROFILE } from './types/profile';
+import {
+  UserFitnessProfile,
+  PrimaryFitnessObjective,
+  StrengthTier,
+  DEFAULT_USER_PROFILE,
+} from './types/profile';
 import { soundEngine } from './utils/audioNotification';
 import { notificationService, InAppNotificationPayload } from './utils/notificationService';
 import { usePWAInstall } from './hooks/usePWAInstall';
@@ -36,12 +61,136 @@ import {
   ChevronRight,
   CheckCircle2,
   User as UserIcon,
+  LogIn,
 } from 'lucide-react';
 
 const STORAGE_KEY = 'apex_pulse_workout_logs';
 const ROUTINES_STORAGE_KEY = 'apex_routines_v6';
 const CUSTOM_ROUTINES_STORAGE_KEY = 'apex_custom_routines_v1';
 const USER_PROFILE_STORAGE_KEY = 'apex_user_fitness_profile_v1';
+
+// Validate connection to Firestore on boot
+async function testFirestoreConnection() {
+  try {
+    await getDocFromServer(doc(db, 'test', 'connection'));
+  } catch (error) {
+    if (error instanceof Error && error.message.includes('the client is offline')) {
+      console.error('Please check your Firebase configuration.');
+    }
+  }
+}
+testFirestoreConnection();
+
+function mergeStoredRoutinesWithDefaults(parsed: unknown): WorkoutRoutine[] {
+  if (!Array.isArray(parsed) || parsed.length === 0) return WORKOUT_ROUTINES;
+  return WORKOUT_ROUTINES.map((defaultRoutine) => {
+    if (defaultRoutine.isMcGillSpecial) {
+      return defaultRoutine;
+    }
+    const custom = parsed.find((r: any) => r && r.id === defaultRoutine.id);
+    if (!custom || !Array.isArray(custom.exercises)) return defaultRoutine;
+    return {
+      ...defaultRoutine,
+      ...custom,
+      accentColor: defaultRoutine.accentColor,
+      exercises: custom.exercises
+        .filter((ex: any) => ex && ex.name && !/suitcase\s*carr/i.test(ex.name))
+        .map((ex: any) => {
+          const defaultEx =
+            defaultRoutine.exercises.find((de) => de.id === ex.id) ||
+            ALTERNATIVE_EXERCISE_ARSENAL.find((ae) => ae.id === ex.id);
+          return {
+            ...(defaultEx || {}),
+            ...ex,
+            targetedMuscles: Array.isArray(ex.targetedMuscles)
+              ? ex.targetedMuscles
+              : defaultEx?.targetedMuscles || ['Core'],
+            formCues: Array.isArray(ex.formCues) ? ex.formCues : defaultEx?.formCues || [],
+            videoReference: defaultEx?.videoReference || ex.videoReference,
+          };
+        }),
+    };
+  });
+}
+
+function sanitizeIdForFirestore(rawId: string): string {
+  const cleaned = String(rawId || `log-${Date.now()}`)
+    .replace(/[^a-zA-Z0-9_-]/g, '_')
+    .slice(0, 128);
+  return cleaned || `log-${Date.now()}`;
+}
+
+function clampNum(val: number, min: number, max: number): number {
+  return Math.max(min, Math.min(max, Math.round(val * 10) / 10));
+}
+
+function buildFirestoreLogPayload(uid: string, entry: WorkoutLogEntry) {
+  const safeId = sanitizeIdForFirestore(entry.id);
+  const validCategories = ['mcgill', 'strength', 'cardio', 'mobility'];
+  const category = validCategories.includes(entry.category) ? entry.category : 'strength';
+  return {
+    uid,
+    id: safeId,
+    date: String(entry.date || '').slice(0, 10).padEnd(10, '0'),
+    routineId: String(entry.routineId || 'strength').slice(0, 120) || 'strength',
+    routineTitle: String(entry.routineTitle || 'Workout Session').slice(0, 160) || 'Workout Session',
+    category,
+    durationSeconds: Math.max(0, Math.min(86400, Math.round(Number(entry.durationSeconds) || 0))),
+    completedExercisesCount: Math.max(
+      0,
+      Math.min(200, Math.round(Number(entry.completedExercisesCount) || 0))
+    ),
+    cardioMode: entry.cardioMode ? String(entry.cardioMode).slice(0, 32) : '',
+    notes: entry.notes ? String(entry.notes).slice(0, 500) : '',
+    timestamp: Math.max(0, Math.round(Number(entry.timestamp) || Date.now())),
+    source: entry.source === 'fitbit' ? 'fitbit' : 'manual',
+    fitbitLogId: entry.fitbitLogId ? String(entry.fitbitLogId).slice(0, 128) : '',
+    caloriesBurned: Math.max(0, Math.min(20000, Math.round(Number(entry.caloriesBurned) || 0))),
+    averageHeartRate: Math.max(0, Math.min(300, Math.round(Number(entry.averageHeartRate) || 0))),
+    steps: Math.max(0, Math.min(250000, Math.round(Number(entry.steps) || 0))),
+    createdAt: serverTimestamp(),
+    updatedAt: serverTimestamp(),
+  };
+}
+
+function buildFirestoreProfilePayload(uid: string, profile: UserFitnessProfile) {
+  const validObjectives: PrimaryFitnessObjective[] = [
+    'strength',
+    'weight_loss',
+    'spine_hygiene',
+    'endurance',
+    'athletic_hybrid',
+  ];
+  const validTiers: StrengthTier[] = ['beginner', 'intermediate', 'advanced', 'elite'];
+  return {
+    uid,
+    displayName: (profile.displayName || 'Apex Athlete').trim().slice(0, 80) || 'Apex Athlete',
+    primaryObjective: validObjectives.includes(profile.primaryObjective)
+      ? profile.primaryObjective
+      : 'athletic_hybrid',
+    currentWeightKg: clampNum(Number(profile.currentWeightKg) || 80, 20, 400),
+    startWeightKg: clampNum(Number(profile.startWeightKg) || 82, 20, 400),
+    targetWeightKg: clampNum(Number(profile.targetWeightKg) || 76, 20, 400),
+    currentStrengthLevel: validTiers.includes(profile.currentStrengthLevel)
+      ? profile.currentStrengthLevel
+      : 'intermediate',
+    targetStrengthLevel: validTiers.includes(profile.targetStrengthLevel)
+      ? profile.targetStrengthLevel
+      : 'advanced',
+    currentMaxPullUps: Math.round(clampNum(Number(profile.currentMaxPullUps) || 0, 0, 200)),
+    targetMaxPullUps: Math.round(clampNum(Number(profile.targetMaxPullUps) || 15, 0, 200)),
+    currentMaxPushUps: Math.round(clampNum(Number(profile.currentMaxPushUps) || 0, 0, 500)),
+    targetMaxPushUps: Math.round(clampNum(Number(profile.targetMaxPushUps) || 30, 0, 500)),
+    dailyStepGoal: Math.round(clampNum(Number(profile.dailyStepGoal) || 8000, 1000, 100000)),
+    weeklyWorkoutGoal: Math.round(clampNum(Number(profile.weeklyWorkoutGoal) || 5, 1, 14)),
+    createdAt: serverTimestamp(),
+    updatedAt: serverTimestamp(),
+  };
+}
+
+function sanitizeRoutinesForFirestore(list: WorkoutRoutine[], maxItems: number): any[] {
+  return JSON.parse(JSON.stringify(list.slice(0, maxItems)));
+}
 
 export default function App() {
   const [activeTab, setActiveTab] = useState<
@@ -53,6 +202,9 @@ export default function App() {
     }
     return 'dashboard';
   });
+
+  const [firebaseUser, setFirebaseUser] = useState<User | null>(() => auth.currentUser);
+  const [authReady, setAuthReady] = useState(false);
 
   const [userProfile, setUserProfile] = useState<UserFitnessProfile>(() => {
     try {
@@ -117,7 +269,7 @@ export default function App() {
     };
   }, []);
 
-  // Custom Routines created in "Build Your Own" Studio
+  // Custom Routines created in "Build Your Own" Studio (localStorage write-through cache)
   const [customRoutines, setCustomRoutines] = useState<WorkoutRoutine[]>(() => {
     try {
       const saved = localStorage.getItem(CUSTOM_ROUTINES_STORAGE_KEY);
@@ -135,92 +287,18 @@ export default function App() {
     } catch {}
   }, [customRoutines]);
 
-  const handleSaveCustomRoutine = (routine: WorkoutRoutine) => {
-    setCustomRoutines((prev) => {
-      const exists = prev.some((r) => r.id === routine.id);
-      if (exists) {
-        return prev.map((r) => (r.id === routine.id ? routine : r));
-      }
-      return [routine, ...prev];
-    });
-  };
-
-  const handleDeleteCustomRoutine = (id: string) => {
-    setCustomRoutines((prev) => prev.filter((r) => r.id !== id));
-  };
-
-  // Dynamic Routines State (ensuring videoReference from WORKOUT_ROUTINES is always present)
+  // Dynamic Routines State (localStorage write-through cache)
   const [routines, setRoutines] = useState<WorkoutRoutine[]>(() => {
     try {
       const saved = localStorage.getItem(ROUTINES_STORAGE_KEY);
       if (saved) {
-        const parsed = JSON.parse(saved);
-        if (Array.isArray(parsed) && parsed.length > 0) {
-          return WORKOUT_ROUTINES.map((defaultRoutine) => {
-            if (defaultRoutine.isMcGillSpecial) {
-              return defaultRoutine;
-            }
-            const custom = parsed.find((r: any) => r && r.id === defaultRoutine.id);
-            if (!custom || !Array.isArray(custom.exercises)) return defaultRoutine;
-            return {
-              ...defaultRoutine,
-              ...custom,
-              accentColor: defaultRoutine.accentColor,
-              exercises: custom.exercises
-                .filter((ex: any) => ex && ex.name && !/suitcase\s*carr/i.test(ex.name))
-                .map((ex: any) => {
-                  const defaultEx =
-                    defaultRoutine.exercises.find((de) => de.id === ex.id) ||
-                    ALTERNATIVE_EXERCISE_ARSENAL.find((ae) => ae.id === ex.id);
-                  return {
-                    ...(defaultEx || {}),
-                    ...ex,
-                    targetedMuscles: Array.isArray(ex.targetedMuscles)
-                      ? ex.targetedMuscles
-                      : defaultEx?.targetedMuscles || ['Core'],
-                    formCues: Array.isArray(ex.formCues)
-                      ? ex.formCues
-                      : defaultEx?.formCues || [],
-                    videoReference: defaultEx?.videoReference || ex.videoReference,
-                  };
-                }),
-            };
-          });
-        }
+        return mergeStoredRoutinesWithDefaults(JSON.parse(saved));
       }
     } catch {}
     return WORKOUT_ROUTINES;
   });
 
-  const handleUpdateRoutine = (updated: WorkoutRoutine) => {
-    const cleaned: WorkoutRoutine = {
-      ...updated,
-      exercises: updated.exercises.filter((ex) => !/suitcase\s*carr/i.test(ex.name)),
-    };
-    if (cleaned.id.startsWith('custom-routine-')) {
-      handleSaveCustomRoutine(cleaned);
-      return;
-    }
-    setRoutines((prev) => {
-      const next = prev.map((r) => (r.id === cleaned.id ? cleaned : r));
-      try {
-        localStorage.setItem(ROUTINES_STORAGE_KEY, JSON.stringify(next));
-      } catch {}
-      return next;
-    });
-  };
-
-  const handleResetRoutines = () => {
-    setRoutines(WORKOUT_ROUTINES);
-    try {
-      localStorage.removeItem(ROUTINES_STORAGE_KEY);
-      localStorage.removeItem('apex_routines_v3');
-      localStorage.removeItem('apex_routines_v2');
-      localStorage.removeItem('apex_routines');
-    } catch {}
-  };
-
-  // Workout Logs State
+  // Workout Logs State (localStorage write-through cache)
   const [logs, setLogs] = useState<WorkoutLogEntry[]>(() => {
     try {
       const saved = localStorage.getItem(STORAGE_KEY);
@@ -264,70 +342,402 @@ export default function App() {
     } catch {}
   }, [logs]);
 
-  // Automatically ensure localStorage & Service Worker cache are rebuilt every time the app is opened
-  // (especially right after the user purges browser cache/data)
   useEffect(() => {
-    const ensureCacheRebuiltOnOpen = () => {
-      try {
-        if (!localStorage.getItem(ROUTINES_STORAGE_KEY)) {
-          localStorage.setItem(ROUTINES_STORAGE_KEY, JSON.stringify(routines));
-        }
-        if (!localStorage.getItem(STORAGE_KEY)) {
-          localStorage.setItem(STORAGE_KEY, JSON.stringify(logs));
-        }
-        if (!localStorage.getItem(USER_PROFILE_STORAGE_KEY)) {
-          localStorage.setItem(USER_PROFILE_STORAGE_KEY, JSON.stringify(userProfile));
-        }
-        if ('serviceWorker' in navigator) {
-          navigator.serviceWorker
-            .register('/pwa-sw.js', { updateViaCache: 'none' })
-            .then((reg) => {
-              if (reg.active) {
-                reg.active.postMessage({ type: 'REBUILD_CACHE' });
-              }
-            })
-            .catch(() => {});
-        }
-      } catch {}
-    };
-
-    const handleVis = () => {
-      if (document.visibilityState === 'visible') {
-        ensureCacheRebuiltOnOpen();
-      }
-    };
-
-    ensureCacheRebuiltOnOpen();
-    window.addEventListener('focus', ensureCacheRebuiltOnOpen);
-    document.addEventListener('visibilitychange', handleVis);
-    return () => {
-      window.removeEventListener('focus', ensureCacheRebuiltOnOpen);
-      document.removeEventListener('visibilitychange', handleVis);
-    };
-  }, [routines, logs, userProfile]);
-
-  const handlePurgeAndRebuildCache = async () => {
     try {
-      // Re-persist current state so workout logs, custom routines, and profile are preserved
-      localStorage.setItem(ROUTINES_STORAGE_KEY, JSON.stringify(routines));
-      localStorage.setItem(CUSTOM_ROUTINES_STORAGE_KEY, JSON.stringify(customRoutines));
-      localStorage.setItem(STORAGE_KEY, JSON.stringify(logs));
       localStorage.setItem(USER_PROFILE_STORAGE_KEY, JSON.stringify(userProfile));
-
-      if ('caches' in window) {
-        const names = await caches.keys();
-        await Promise.all(names.map((name) => caches.delete(name)));
-      }
-      if ('serviceWorker' in navigator) {
-        const reg = await navigator.serviceWorker.register('/pwa-sw.js', {
-          updateViaCache: 'none',
-        });
-        if (reg.active) {
-          reg.active.postMessage({ type: 'PURGE_AND_REBUILD_CACHE' });
-        }
-      }
     } catch {}
-    window.location.reload();
+  }, [userProfile]);
+
+  // Keep refs of current state so sign-in migration can inspect local data without re-subscribing
+  const logsRef = useRef(logs);
+  logsRef.current = logs;
+  const routinesRef = useRef(routines);
+  routinesRef.current = routines;
+  const customRoutinesRef = useRef(customRoutines);
+  customRoutinesRef.current = customRoutines;
+  const userProfileRef = useRef(userProfile);
+  userProfileRef.current = userProfile;
+
+  // Listen to Firebase Auth state
+  useEffect(() => {
+    const unsub = onAuthStateChanged(auth, (user) => {
+      setFirebaseUser(user);
+      setAuthReady(true);
+    });
+    return () => unsub();
+  }, []);
+
+  // Helper to persist routines + customRoutines to Firestore under users/{uid}/appData/routinesState
+  const persistRoutinesStateToFirestore = async (
+    nextRoutines: WorkoutRoutine[],
+    nextCustomRoutines: WorkoutRoutine[],
+    uidOverride?: string
+  ) => {
+    const uid = uidOverride || firebaseUser?.uid;
+    if (!uid) return;
+    const docRef = doc(db, 'users', uid, 'appData', 'routinesState');
+    try {
+      await setDoc(
+        docRef,
+        {
+          uid,
+          routines: sanitizeRoutinesForFirestore(nextRoutines, 20),
+          customRoutines: sanitizeRoutinesForFirestore(nextCustomRoutines, 50),
+          createdAt: serverTimestamp(),
+          updatedAt: serverTimestamp(),
+        },
+        { merge: true }
+      );
+    } catch (err) {
+      try {
+        handleFirestoreError(err, OperationType.WRITE, `users/${uid}/appData/routinesState`);
+      } catch {}
+    }
+  };
+
+  // Helper to persist a single workout log to Firestore under users/{uid}/workoutLogs/{logId}
+  const persistSingleLogToFirestore = async (entry: WorkoutLogEntry, uidOverride?: string) => {
+    const uid = uidOverride || firebaseUser?.uid;
+    if (!uid) return;
+    const safeId = sanitizeIdForFirestore(entry.id);
+    const logRef = doc(db, 'users', uid, 'workoutLogs', safeId);
+    try {
+      await setDoc(logRef, buildFirestoreLogPayload(uid, { ...entry, id: safeId }), {
+        merge: true,
+      });
+    } catch (err) {
+      try {
+        handleFirestoreError(err, OperationType.WRITE, `users/${uid}/workoutLogs/${safeId}`);
+      } catch {}
+    }
+  };
+
+  // Helper to delete a single workout log from Firestore
+  const deleteLogFromFirestore = async (rawId: string, uidOverride?: string) => {
+    const uid = uidOverride || firebaseUser?.uid;
+    if (!uid) return;
+    const safeId = sanitizeIdForFirestore(rawId);
+    const logRef = doc(db, 'users', uid, 'workoutLogs', safeId);
+    try {
+      await deleteDoc(logRef);
+    } catch (err) {
+      try {
+        handleFirestoreError(err, OperationType.DELETE, `users/${uid}/workoutLogs/${safeId}`);
+      } catch {}
+    }
+  };
+
+  // Make Firestore the source of truth for signed-in users & migrate localStorage data up if Firestore is empty
+  useEffect(() => {
+    if (!authReady || !firebaseUser) return;
+    const uid = firebaseUser.uid;
+
+    let profileChecked = false;
+    let routinesChecked = false;
+    let logsChecked = false;
+
+    // 1. User Profile listener & localStorage -> Firestore migration
+    const userDocRef = doc(db, 'users', uid);
+    const unsubProfile = onSnapshot(
+      userDocRef,
+      async (snap) => {
+        if (snap.exists()) {
+          profileChecked = true;
+          const data = snap.data();
+          const loaded: UserFitnessProfile = {
+            uid,
+            displayName: String(data.displayName || firebaseUser.displayName || 'Apex Athlete'),
+            email: firebaseUser.email || undefined,
+            primaryObjective:
+              (data.primaryObjective as PrimaryFitnessObjective) || 'athletic_hybrid',
+            currentWeightKg: Number(data.currentWeightKg) || 80,
+            startWeightKg: Number(data.startWeightKg) || 85,
+            targetWeightKg: Number(data.targetWeightKg) || 75,
+            currentStrengthLevel: (data.currentStrengthLevel as StrengthTier) || 'intermediate',
+            targetStrengthLevel: (data.targetStrengthLevel as StrengthTier) || 'advanced',
+            currentMaxPullUps: Number(data.currentMaxPullUps) ?? 15,
+            targetMaxPullUps: Number(data.targetMaxPullUps) ?? 25,
+            currentMaxPushUps: Number(data.currentMaxPushUps) ?? 35,
+            targetMaxPushUps: Number(data.targetMaxPushUps) ?? 50,
+            dailyStepGoal: Number(data.dailyStepGoal) || 8000,
+            weeklyWorkoutGoal: Number(data.weeklyWorkoutGoal) || 5,
+          };
+          setUserProfile(loaded);
+          try {
+            localStorage.setItem(USER_PROFILE_STORAGE_KEY, JSON.stringify(loaded));
+          } catch {}
+        } else if (!profileChecked) {
+          profileChecked = true;
+          // Firestore has no profile document yet: copy from localStorage (apex_user_fitness_profile_v1) or current state
+          let localProfile = userProfileRef.current;
+          try {
+            const rawLocal = localStorage.getItem(USER_PROFILE_STORAGE_KEY);
+            if (rawLocal) {
+              const parsed = JSON.parse(rawLocal);
+              if (parsed && typeof parsed === 'object') {
+                localProfile = { ...DEFAULT_USER_PROFILE, ...parsed };
+              }
+            }
+          } catch {}
+
+          const mergedProfile: UserFitnessProfile = {
+            ...localProfile,
+            uid,
+            displayName:
+              localProfile.displayName === DEFAULT_USER_PROFILE.displayName &&
+              firebaseUser.displayName
+                ? firebaseUser.displayName
+                : localProfile.displayName,
+            email: firebaseUser.email || undefined,
+          };
+          setUserProfile(mergedProfile);
+          try {
+            localStorage.setItem(USER_PROFILE_STORAGE_KEY, JSON.stringify(mergedProfile));
+          } catch {}
+
+          try {
+            const batch = writeBatch(db);
+            batch.set(userDocRef, buildFirestoreProfilePayload(uid, mergedProfile), {
+              merge: true,
+            });
+            if (firebaseUser.email) {
+              const privRef = doc(db, 'users', uid, 'private', 'info');
+              batch.set(
+                privRef,
+                {
+                  uid,
+                  email: firebaseUser.email.slice(0, 254),
+                  createdAt: serverTimestamp(),
+                  updatedAt: serverTimestamp(),
+                },
+                { merge: true }
+              );
+            }
+            await batch.commit();
+          } catch (err) {
+            try {
+              handleFirestoreError(err, OperationType.WRITE, `users/${uid}`);
+            } catch {}
+          }
+        }
+      },
+      (err) => {
+        try {
+          handleFirestoreError(err, OperationType.GET, `users/${uid}`);
+        } catch {}
+      }
+    );
+
+    // 2. Routines & Custom Routines listener & localStorage -> Firestore migration
+    const routinesDocRef = doc(db, 'users', uid, 'appData', 'routinesState');
+    const unsubRoutines = onSnapshot(
+      routinesDocRef,
+      async (snap) => {
+        if (snap.exists()) {
+          routinesChecked = true;
+          const data = snap.data();
+          if (Array.isArray(data.routines) && data.routines.length > 0) {
+            const merged = mergeStoredRoutinesWithDefaults(data.routines);
+            setRoutines(merged);
+            try {
+              localStorage.setItem(ROUTINES_STORAGE_KEY, JSON.stringify(merged));
+            } catch {}
+          }
+          if (Array.isArray(data.customRoutines)) {
+            setCustomRoutines(data.customRoutines);
+            try {
+              localStorage.setItem(
+                CUSTOM_ROUTINES_STORAGE_KEY,
+                JSON.stringify(data.customRoutines)
+              );
+            } catch {}
+          }
+        } else if (!routinesChecked) {
+          routinesChecked = true;
+          // Firestore has no routinesState doc yet: check localStorage (apex_routines_v6 & apex_custom_routines_v1)
+          let localRoutines = routinesRef.current;
+          let localCustom = customRoutinesRef.current;
+          try {
+            const rawRoutines = localStorage.getItem(ROUTINES_STORAGE_KEY);
+            if (rawRoutines) {
+              localRoutines = mergeStoredRoutinesWithDefaults(JSON.parse(rawRoutines));
+            }
+            const rawCustom = localStorage.getItem(CUSTOM_ROUTINES_STORAGE_KEY);
+            if (rawCustom) {
+              const parsedCustom = JSON.parse(rawCustom);
+              if (Array.isArray(parsedCustom)) localCustom = parsedCustom;
+            }
+          } catch {}
+
+          // Ensure parent user doc exists before writing subcollection
+          try {
+            const batch = writeBatch(db);
+            batch.set(userDocRef, buildFirestoreProfilePayload(uid, userProfileRef.current), {
+              merge: true,
+            });
+            batch.set(
+              routinesDocRef,
+              {
+                uid,
+                routines: sanitizeRoutinesForFirestore(localRoutines, 20),
+                customRoutines: sanitizeRoutinesForFirestore(localCustom, 50),
+                createdAt: serverTimestamp(),
+                updatedAt: serverTimestamp(),
+              },
+              { merge: true }
+            );
+            await batch.commit();
+          } catch (err) {
+            try {
+              handleFirestoreError(err, OperationType.WRITE, `users/${uid}/appData/routinesState`);
+            } catch {}
+          }
+        }
+      },
+      (err) => {
+        try {
+          handleFirestoreError(err, OperationType.GET, `users/${uid}/appData/routinesState`);
+        } catch {}
+      }
+    );
+
+    // 3. Workout Logs listener & localStorage -> Firestore migration
+    const logsQuery = query(collection(db, 'users', uid, 'workoutLogs'), where('uid', '==', uid));
+    const unsubLogs = onSnapshot(
+      logsQuery,
+      async (qSnap) => {
+        if (!qSnap.empty) {
+          logsChecked = true;
+          const remoteLogs: WorkoutLogEntry[] = [];
+          qSnap.forEach((docSnap) => {
+            const d = docSnap.data();
+            remoteLogs.push({
+              id: String(d.id || docSnap.id),
+              date: String(d.date || ''),
+              routineId: String(d.routineId || 'strength'),
+              routineTitle: String(d.routineTitle || 'Workout Session'),
+              category: (d.category as WorkoutLogEntry['category']) || 'strength',
+              durationSeconds: Number(d.durationSeconds) || 0,
+              completedExercisesCount: Number(d.completedExercisesCount) || 0,
+              cardioMode: d.cardioMode ? (d.cardioMode as CardioMode) : undefined,
+              notes: d.notes ? String(d.notes) : undefined,
+              timestamp: Number(d.timestamp) || Date.now(),
+              source: d.source === 'fitbit' ? 'fitbit' : 'manual',
+              fitbitLogId: d.fitbitLogId ? String(d.fitbitLogId) : undefined,
+              caloriesBurned: Number(d.caloriesBurned) > 0 ? Number(d.caloriesBurned) : undefined,
+              averageHeartRate:
+                Number(d.averageHeartRate) > 0 ? Number(d.averageHeartRate) : undefined,
+              steps: Number(d.steps) > 0 ? Number(d.steps) : undefined,
+            });
+          });
+          remoteLogs.sort((a, b) => b.timestamp - a.timestamp);
+          setLogs(remoteLogs);
+          try {
+            localStorage.setItem(STORAGE_KEY, JSON.stringify(remoteLogs));
+          } catch {}
+        } else if (!logsChecked) {
+          logsChecked = true;
+          // Firestore has no workout logs for this user yet: migrate localStorage (apex_pulse_workout_logs) up to Firestore
+          let localLogs = logsRef.current;
+          try {
+            const rawLogs = localStorage.getItem(STORAGE_KEY);
+            if (rawLogs) {
+              const parsed = JSON.parse(rawLogs);
+              if (Array.isArray(parsed) && parsed.length > 0) {
+                localLogs = parsed.filter((item) => item && typeof item.date === 'string');
+              }
+            }
+          } catch {}
+
+          if (localLogs.length > 0) {
+            try {
+              const batch = writeBatch(db);
+              batch.set(userDocRef, buildFirestoreProfilePayload(uid, userProfileRef.current), {
+                merge: true,
+              });
+              for (const entry of localLogs.slice(0, 400)) {
+                const safeId = sanitizeIdForFirestore(entry.id);
+                const logDocRef = doc(db, 'users', uid, 'workoutLogs', safeId);
+                batch.set(logDocRef, buildFirestoreLogPayload(uid, { ...entry, id: safeId }), {
+                  merge: true,
+                });
+              }
+              await batch.commit();
+            } catch (err) {
+              try {
+                handleFirestoreError(err, OperationType.WRITE, `users/${uid}/workoutLogs`);
+              } catch {}
+            }
+          }
+        }
+      },
+      (err) => {
+        try {
+          handleFirestoreError(err, OperationType.LIST, `users/${uid}/workoutLogs`);
+        } catch {}
+      }
+    );
+
+    return () => {
+      unsubProfile();
+      unsubRoutines();
+      unsubLogs();
+    };
+  }, [authReady, firebaseUser]);
+
+  const handleSaveCustomRoutine = (routine: WorkoutRoutine) => {
+    setCustomRoutines((prev) => {
+      const exists = prev.some((r) => r.id === routine.id);
+      const next = exists
+        ? prev.map((r) => (r.id === routine.id ? routine : r))
+        : [routine, ...prev];
+      try {
+        localStorage.setItem(CUSTOM_ROUTINES_STORAGE_KEY, JSON.stringify(next));
+      } catch {}
+      void persistRoutinesStateToFirestore(routinesRef.current, next);
+      return next;
+    });
+  };
+
+  const handleDeleteCustomRoutine = (id: string) => {
+    setCustomRoutines((prev) => {
+      const next = prev.filter((r) => r.id !== id);
+      try {
+        localStorage.setItem(CUSTOM_ROUTINES_STORAGE_KEY, JSON.stringify(next));
+      } catch {}
+      void persistRoutinesStateToFirestore(routinesRef.current, next);
+      return next;
+    });
+  };
+
+  const handleUpdateRoutine = (updated: WorkoutRoutine) => {
+    const cleaned: WorkoutRoutine = {
+      ...updated,
+      exercises: updated.exercises.filter((ex) => !/suitcase\s*carr/i.test(ex.name)),
+    };
+    if (cleaned.id.startsWith('custom-routine-')) {
+      handleSaveCustomRoutine(cleaned);
+      return;
+    }
+    setRoutines((prev) => {
+      const next = prev.map((r) => (r.id === cleaned.id ? cleaned : r));
+      try {
+        localStorage.setItem(ROUTINES_STORAGE_KEY, JSON.stringify(next));
+      } catch {}
+      void persistRoutinesStateToFirestore(next, customRoutinesRef.current);
+      return next;
+    });
+  };
+
+  const handleResetRoutines = () => {
+    setRoutines(WORKOUT_ROUTINES);
+    try {
+      localStorage.setItem(ROUTINES_STORAGE_KEY, JSON.stringify(WORKOUT_ROUTINES));
+      localStorage.removeItem('apex_routines_v3');
+      localStorage.removeItem('apex_routines_v2');
+      localStorage.removeItem('apex_routines');
+    } catch {}
+    void persistRoutinesStateToFirestore(WORKOUT_ROUTINES, customRoutinesRef.current);
   };
 
   const handleStartRoutine = (routine: WorkoutRoutine, exerciseIndex: number = 0) => {
@@ -369,6 +779,7 @@ export default function App() {
     };
 
     setLogs((prev) => [newLog, ...prev]);
+    void persistSingleLogToFirestore(newLog);
     setActiveWorkoutRoutine(null);
     setActiveTab('calendar');
   };
@@ -377,6 +788,9 @@ export default function App() {
     setLogs((prev) => {
       const existing = prev.filter((l) => l.date === dateStr);
       if (existing.length > 0) {
+        for (const item of existing) {
+          void deleteLogFromFirestore(item.id);
+        }
         return prev.filter((l) => l.date !== dateStr);
       } else {
         const manualLog: WorkoutLogEntry = {
@@ -389,6 +803,7 @@ export default function App() {
           completedExercisesCount: 5,
           timestamp: Date.now(),
         };
+        void persistSingleLogToFirestore(manualLog);
         return [manualLog, ...prev];
       }
     });
@@ -412,10 +827,12 @@ export default function App() {
       timestamp: Date.now(),
     };
     setLogs((prev) => [newLog, ...prev]);
+    void persistSingleLogToFirestore(newLog);
   };
 
   const handleDeleteLog = (id: string) => {
     setLogs((prev) => prev.filter((l) => l.id !== id));
+    void deleteLogFromFirestore(id);
   };
 
   const handleSyncFitbitLogs = (incomingFitbitLogs: WorkoutLogEntry[]): number => {
@@ -424,6 +841,8 @@ export default function App() {
     }
 
     let addedCount = 0;
+    const logsToPersist: WorkoutLogEntry[] = [];
+
     setLogs((prev) => {
       // Merge updated metrics (like newly extracted averageHeartRate) into already-synced entries
       const incomingById = new Map<string, WorkoutLogEntry>();
@@ -448,12 +867,14 @@ export default function App() {
             nextSteps !== existing.steps
           ) {
             updatedExisting = true;
-            return {
+            const updatedItem: WorkoutLogEntry = {
               ...existing,
               averageHeartRate: nextHr,
               caloriesBurned: nextCals,
               steps: nextSteps,
             };
+            logsToPersist.push(updatedItem);
+            return updatedItem;
           }
         }
         return existing;
@@ -470,12 +891,22 @@ export default function App() {
         return true;
       });
 
+      for (const entry of newEntries) {
+        logsToPersist.push(entry);
+      }
+
       addedCount = newEntries.length;
       if (newEntries.length === 0 && !updatedExisting) return prev;
 
       const combined = [...newEntries, ...mergedPrev];
       return combined.sort((a, b) => b.timestamp - a.timestamp);
     });
+
+    if (firebaseUser && logsToPersist.length > 0) {
+      for (const item of logsToPersist) {
+        void persistSingleLogToFirestore(item, firebaseUser.uid);
+      }
+    }
 
     return addedCount;
   };
@@ -825,34 +1256,6 @@ export default function App() {
                     <h3 className="text-base font-bold text-white">Reset Default Workout Splits</h3>
                     <p className="text-xs text-slate-400 mt-1">
                       Restore default exercises and cool-down timers on your built-in routines.
-                    </p>
-                  </div>
-                </div>
-                <ChevronRight className="w-5 h-5 text-slate-400 shrink-0" />
-              </button>
-
-              {/* 7. Rebuild App Cache & Reload */}
-              <button
-                onClick={handlePurgeAndRebuildCache}
-                className="text-left p-5 rounded-3xl bg-[#0F131D] hover:bg-[#141926] border border-cyan-500/40 transition-all flex items-center justify-between gap-4 shadow-lg md:col-span-2"
-              >
-                <div className="flex items-start gap-3.5">
-                  <div className="w-12 h-12 rounded-2xl bg-cyan-500/20 border border-cyan-500/40 flex items-center justify-center text-cyan-400 shrink-0">
-                    <RotateCcw className="w-6 h-6" />
-                  </div>
-                  <div>
-                    <div className="flex items-center gap-2">
-                      <h3 className="text-base font-bold text-white">
-                        Rebuild App Cache &amp; Reload
-                      </h3>
-                      <span className="px-2 py-0.5 rounded-full text-[10px] font-bold bg-cyan-500/20 text-cyan-300 border border-cyan-500/30">
-                        Auto-Rebuild Active on Open
-                      </span>
-                    </div>
-                    <p className="text-xs text-slate-400 mt-1">
-                      ApexPulse automatically rebuilds its cache every time you open the app after a
-                      cache purge. Tap here anytime to force a fresh cache rebuild and reload
-                      while keeping your workouts and profile safe.
                     </p>
                   </div>
                 </div>

@@ -4,6 +4,8 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
     <title>ApexPulse</title>
+    <meta name="robots" content="noindex, nofollow, noarchive, nosnippet" />
+    <meta name="googlebot" content="noindex, nofollow, noarchive, nosnippet" />
     <meta name="description" content="Full-body strength, McGill Big 3 spine hygiene, cardio & Fitbit daily steps tracker." />
     <meta property="og:title" content="ApexPulse" />
     <meta property="og:description" content="Full-body strength, McGill Big 3 spine hygiene, cardio & Fitbit daily steps tracker." />
@@ -22,12 +24,40 @@
     <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Outfit:wght@500;600;700;800&family=JetBrains+Mono:wght@500;700&display=swap" rel="stylesheet">
     <script>
       (function () {
-        // 1. Auto-recover if a module/chunk fails to load after a cache purge or deployment
-        function handleAssetError(event) {
+        // 1. One-time cleanup: unregister any existing service workers and delete their caches.
+        // Never register a new service worker.
+        try {
+          if ('serviceWorker' in navigator) {
+            navigator.serviceWorker.getRegistrations().then(function (registrations) {
+              if (registrations && registrations.length > 0) {
+                Promise.all(
+                  registrations.map(function (reg) {
+                    return reg.unregister();
+                  })
+                ).then(function () {
+                  if ('caches' in window) {
+                    caches.keys().then(function (names) {
+                      for (var i = 0; i < names.length; i++) {
+                        caches.delete(names[i]);
+                      }
+                    });
+                  }
+                });
+              }
+            }).catch(function () {});
+          }
+        } catch (e) {}
+
+        // 2. If a JS or CSS chunk fails to load, reload the page once (guarded with sessionStorage).
+        // Do not delete caches or localStorage when this happens.
+        function handleChunkLoadError(event) {
           var target = event && (event.target || event.srcElement);
           var isScriptOrLink =
             target && (target.tagName === 'SCRIPT' || target.tagName === 'LINK');
-          var msg = (event && event.message) || (event && event.reason && event.reason.message) || '';
+          var msg =
+            (event && event.message) ||
+            (event && event.reason && event.reason.message) ||
+            '';
           var isChunkError =
             isScriptOrLink ||
             /Failed to fetch dynamically imported module|Importing a module script failed|Loading chunk .* failed|Unable to preload CSS/i.test(
@@ -36,46 +66,17 @@
 
           if (isChunkError) {
             try {
-              var lastReload = Number(sessionStorage.getItem('apex_cache_rebuild_ts') || '0');
-              if (Date.now() - lastReload > 8000) {
-                sessionStorage.setItem('apex_cache_rebuild_ts', String(Date.now()));
-                if ('caches' in window) {
-                  caches.keys().then(function (names) {
-                    return Promise.all(names.map(function (n) { return caches.delete(n); }));
-                  }).finally(function () {
-                    window.location.reload();
-                  });
-                } else {
-                  window.location.reload();
-                }
+              var reloadedForPath = sessionStorage.getItem('apex_chunk_reload_once');
+              var currentPath = window.location.pathname + window.location.search;
+              if (reloadedForPath !== currentPath) {
+                sessionStorage.setItem('apex_chunk_reload_once', currentPath);
+                window.location.reload();
               }
             } catch (e) {}
           }
         }
-        window.addEventListener('error', handleAssetError, true);
-        window.addEventListener('unhandledrejection', handleAssetError);
-
-        // 2. Register the Network-First Auto-Rebuilding Service Worker on every open
-        if ('serviceWorker' in navigator) {
-          window.addEventListener('load', function () {
-            navigator.serviceWorker
-              .register('/pwa-sw.js', { updateViaCache: 'none' })
-              .then(function (reg) {
-                reg.update().catch(function () {});
-                if (reg.active) {
-                  reg.active.postMessage({ type: 'REBUILD_CACHE' });
-                }
-              })
-              .catch(function () {});
-          });
-
-          // Whenever the user returns to the app after purging cache, verify & rebuild cache
-          document.addEventListener('visibilitychange', function () {
-            if (document.visibilityState === 'visible' && navigator.serviceWorker.controller) {
-              navigator.serviceWorker.controller.postMessage({ type: 'REBUILD_CACHE' });
-            }
-          });
-        }
+        window.addEventListener('error', handleChunkLoadError, true);
+        window.addEventListener('unhandledrejection', handleChunkLoadError);
       })();
     </script>
   </head>
